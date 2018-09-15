@@ -1,76 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/tbTitle"
-        android:layout_width="231dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Orientation Sensors"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <TextView
-        android:id="@+id/tvRoll"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Roll: 0"
-        android:textSize="18sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
 
-    <TextView
-        android:id="@+id/tvPitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:text="Pitch: 0"
-        android:textSize="18sp" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvAzimut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="159dp"
-        android:text="Azimut: 0"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvRoll"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Roll: 0"
+            android:textSize="18sp" />
 
-    <ToggleButton
-        android:id="@+id/tbFreeze"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="127dp"
-        android:text="ToggleButton"
-        android:textOff="Freeze"
-        android:textOn="Freeze" />
+        <TextView
+            android:id="@+id/tvPitch"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Pitch: 0"
+            android:textSize="18sp" />
 
-    <SeekBar
-        android:id="@+id/sbSpeed"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="313dp"
-        android:layout_height="31dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
-        android:max="4"
-        android:progress="5" />
+        <TextView
+            android:id="@+id/tvAzimut"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Azimut: 0"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tvSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sbSpeed"
-        android:layout_centerHorizontal="true"
-        android:text="Speed" />
+    </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ToggleButton
+            android:id="@+id/tbFreeze"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="Freeze"
+            android:textOn="Run" />
+
+        <TextView
+            android:id="@+id/tvSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Speed" />
+
+        <SeekBar
+            android:id="@+id/sbSpeed"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="4"
+            android:padding="5dp"
+            android:progress="2" />
+    </LinearLayout>
+</LinearLayout>

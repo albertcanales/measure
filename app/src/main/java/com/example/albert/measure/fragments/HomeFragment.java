@@ -1,4 +1,4 @@
-package com.example.albert.measure;
+package com.example.albert.measure.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.albert.measure.R;
 
 /**
  * Created by Albert Canales on 15/07/18.
