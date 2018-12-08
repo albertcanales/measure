@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.fragments.DistanceParamentersFragment;
 import com.example.albert.measure.fragments.HomeFragment;
 import com.example.albert.measure.fragments.SensorTestFragment;
 
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_distance) {
             startActivity(new Intent(this, DistanceActivity.class));
+        } else if (id == R.id.nav_area) {
+            fragment = new DistanceParamentersFragment();
         } else if (id == R.id.nav_test_sensors) {
             fragment = new SensorTestFragment();
         }
