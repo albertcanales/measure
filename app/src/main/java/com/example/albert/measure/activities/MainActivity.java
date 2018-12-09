@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new HomeFragment();
 
         if (id == R.id.nav_distance) {
-            startActivity(new Intent(this, DistanceActivity.class));
-        } else if (id == R.id.nav_area) {
             fragment = new DistanceParamentersFragment();
         } else if (id == R.id.nav_test_sensors) {
             fragment = new SensorTestFragment();

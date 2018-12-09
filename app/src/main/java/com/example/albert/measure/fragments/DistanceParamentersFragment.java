@@ -1,6 +1,7 @@
 package com.example.albert.measure.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,27 +14,18 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.activities.DistanceActivity;
 
 public class DistanceParamentersFragment extends Fragment implements View.OnClickListener {
 
-    private View screen;
-    private Context context;
-    private Button btMeasure;
+    Context context = getActivity();
     private RadioGroup rgDirection;
     private RadioGroup rgOrientation;
     private RadioGroup rgHeightMode;
     private EditText etHeight;
 
-
-    public enum Directions { PARALLEL, PERPENDICULAR }
-    public enum Plane { VERTICAL, HORIZONTAL }
-    public enum HeightMode { MANUAL, AUTOMATIC }
-
-    private Directions direction;
-    private Plane plane;
-    private HeightMode heightMode;
+    private String direction, plane, heightMode;
     private float userHeight;
-
 
     @Nullable
     @Override
@@ -44,9 +36,9 @@ public class DistanceParamentersFragment extends Fragment implements View.OnClic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        screen = getView();
-        context = getActivity();
-        btMeasure = screen.findViewById(R.id.btMeasure);
+        View screen = getView();
+
+        Button btMeasure = screen.findViewById(R.id.btMeasure);
         rgDirection = screen.findViewById(R.id.rgDirection);
         rgOrientation = screen.findViewById(R.id.rgOrientation);
         rgHeightMode = screen.findViewById(R.id.rgHeightMode);
@@ -58,37 +50,46 @@ public class DistanceParamentersFragment extends Fragment implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        getParameters();
+        if (isEmpty(etHeight)) {
+            etHeight.setError("Cannot be empty");
+        } else {
+            setParameters();
+            startActivity(new Intent(getActivity(), DistanceActivity.class));
+        }
     }
 
-    private void getParameters() {
+    private void setParameters() {
         if (rgDirection.getCheckedRadioButtonId() == R.id.rbParallel)
-            direction = Directions.PARALLEL;
+            direction = "PARALLEL";
         else
-            direction = Directions.PERPENDICULAR;
+            direction = "PERPENDICULAR";
 
         if (rgOrientation.getCheckedRadioButtonId() == R.id.rbVertical)
-            plane = Plane.VERTICAL;
+            plane = "VERTICAL";
         else
-            plane = Plane.HORIZONTAL;
+            plane = "HORIZONTAL";
 
         if (rgHeightMode.getCheckedRadioButtonId() == R.id.rbAutomatic)
-            heightMode = HeightMode.AUTOMATIC;
+            heightMode = "AUTOMATIC";
         else
-            heightMode = HeightMode.MANUAL;
+            heightMode = "MANUAL";
 
         userHeight = Float.parseFloat(etHeight.getText().toString());
     }
 
-    public Directions getDirection() {
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() == 0;
+    }
+
+    public String getDirection() {
         return direction;
     }
 
-    public Plane getPlane() {
+    public String getPlane() {
         return plane;
     }
 
-    public HeightMode getHeightMode() {
+    public String getHeightMode() {
         return heightMode;
     }
 
