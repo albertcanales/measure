@@ -16,21 +16,22 @@ import android.widget.Toast;
 
 import com.example.albert.measure.CameraSurfaceView;
 import com.example.albert.measure.R;
-import com.example.albert.measure.TriangleUtils;
+import com.example.albert.measure.DistanceUtils;
 import com.example.albert.measure.sensors.OrientationSensor;
 
 
 public class DistanceActivity extends AppCompatActivity {
 
-    private static final String TAG = DistanceActivity.class.getSimpleName();
     SurfaceHolder mSurfaceHolder;
     CameraManager mCameraManager;
     CameraSurfaceView cameraSurfaceView;
     Context context;
 
-    private int color_id = 0;
+    private DistanceUtils distance;
     private OrientationSensor orientationSensor;
-    private double distance_s;
+
+    private int color_id = 0;
+    private double orientationAtPoints[][] = new double[3][3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class DistanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_distance);
         context = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        SurfaceView mSurfaceView = (SurfaceView) findViewById(R.id.surface_view);
+        SurfaceView mSurfaceView = findViewById(R.id.surface_view);
         cameraSurfaceView = new CameraSurfaceView(mSurfaceView, context);
         mSurfaceHolder = mSurfaceView.getHolder();
 
@@ -80,29 +81,46 @@ public class DistanceActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int altura = 175 - 35;
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_calculate:
-                double distance = getDistance(distance_s, true);
-                Toast.makeText(context, String.valueOf(altura + distance), Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.action_start:
-                distance_s = getDistance(altura, false);
-                Toast.makeText(context, String.valueOf(distance_s), Toast.LENGTH_SHORT).show();
+            case R.id.mark_point:
+                if(!item.getTitle().equals("Point C")) {
+                    if (item.getTitle().equals("Point A")) {
+                        setOrientationValues(0);
+                        item.setTitle("Point B");
+                        if (true) {       // If distance is simple, upcoming feature
+                            setOrientationValues(1);
+                            item.setTitle("Point C");
+                        }
+                    }
+                    else {      // Title equals "Point B"
+                        setOrientationValues(1);
+                        item.setTitle("Point C");
+                    }
+                }
+                else {
+                    setOrientationValues(2);
+                    distance = new DistanceUtils();
+                    double result = distance.getDistance(orientationAtPoints);
+                    if (result != -1)
+                        Toast.makeText(context, String.valueOf(result), Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(context, "Still developing this feature", Toast.LENGTH_SHORT).show();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private double getDistance(double heigth, boolean up) {
-        float pitch = orientationSensor.getPitch();
-//                Log.i(TAG, "onOptionsItemSelected: " + String.valueOf(pitch));
-        double distanceFromAngle = TriangleUtils.getDistanceFromAngle(pitch, heigth, up);
-//        Toast.makeText(context, "onOptionsItemSelected: " + String.valueOf(pitch) + "  --  " + String.valueOf(distanceFromAngle), Toast.LENGTH_SHORT).show();
-        return distanceFromAngle;
+    private void setOrientationValues(int i) {
+        double orientationValues[] = {
+                orientationSensor.getPitch(),
+                orientationSensor.getRoll(),
+                orientationSensor.getAzimut(),
+        };
+        System.arraycopy(orientationValues, 0, orientationAtPoints[i], 0, 3);
     }
 
     @Override
@@ -110,6 +128,4 @@ public class DistanceActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         cameraSurfaceView.openCamera(this);
     }
-
-
 }

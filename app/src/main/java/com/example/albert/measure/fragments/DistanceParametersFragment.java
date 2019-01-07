@@ -16,7 +16,7 @@ import android.widget.RadioGroup;
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.DistanceActivity;
 
-public class DistanceParamentersFragment extends Fragment implements View.OnClickListener {
+public class DistanceParametersFragment extends Fragment implements View.OnClickListener {
 
     Context context = getActivity();
     private RadioGroup rgDirection;
@@ -24,8 +24,8 @@ public class DistanceParamentersFragment extends Fragment implements View.OnClic
     private RadioGroup rgHeightMode;
     private EditText etHeight;
 
-    private String direction, plane, heightMode;
-    private float userHeight;
+    private static String direction, plane, heightMode;
+    private static double userHeight;
 
     @Nullable
     @Override
@@ -93,7 +93,9 @@ public class DistanceParamentersFragment extends Fragment implements View.OnClic
         return heightMode;
     }
 
-    public float getUserHeight() {
+    public double getUserHeight() {
+        if (getHeightMode().equals("AUTOMATIC"))
+            return userHeight - 40;       // Mapping for automatic mode - Provisional method
         return userHeight;
     }
 }

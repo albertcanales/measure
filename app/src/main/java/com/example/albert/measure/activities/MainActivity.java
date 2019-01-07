@@ -1,6 +1,5 @@
 package com.example.albert.measure.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.albert.measure.R;
-import com.example.albert.measure.fragments.DistanceParamentersFragment;
+import com.example.albert.measure.fragments.DistanceParametersFragment;
 import com.example.albert.measure.fragments.HomeFragment;
 import com.example.albert.measure.fragments.SensorTestFragment;
 
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new HomeFragment();
 
         if (id == R.id.nav_distance) {
-            fragment = new DistanceParamentersFragment();
+            fragment = new DistanceParametersFragment();
         } else if (id == R.id.nav_test_sensors) {
             fragment = new SensorTestFragment();
         }
