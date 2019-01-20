@@ -4,6 +4,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.albert.measure.CameraSurfaceView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.DistanceUtils;
+import com.example.albert.measure.fragments.ResultsDialog;
 import com.example.albert.measure.sensors.OrientationSensor;
 
 
@@ -29,9 +31,11 @@ public class DistanceActivity extends AppCompatActivity {
 
     private DistanceUtils distance;
     private OrientationSensor orientationSensor;
+    private ResultsDialog dialog;
 
     private int color_id = 0;
     private double orientationAtPoints[][] = new double[3][3];
+    private static double result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,6 @@ public class DistanceActivity extends AppCompatActivity {
             }
         });
         orientationSensor = new OrientationSensor(context);
-
     }
 
     @Override
@@ -103,9 +106,12 @@ public class DistanceActivity extends AppCompatActivity {
                 else {
                     setOrientationValues(2);
                     distance = new DistanceUtils();
-                    double result = distance.getDistance(orientationAtPoints);
-                    if (result != -1)
-                        Toast.makeText(context, String.valueOf(result), Toast.LENGTH_SHORT).show();
+                    result = distance.getDistance(orientationAtPoints);
+                    if (result != -1) {
+                        dialog = new ResultsDialog();
+                        dialog.setCancelable(false);
+                        dialog.show(getSupportFragmentManager(), "Result");
+                    }
                     else
                         Toast.makeText(context, "Still developing this feature", Toast.LENGTH_SHORT).show();
                 }
@@ -127,5 +133,9 @@ public class DistanceActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         cameraSurfaceView.openCamera(this);
+    }
+
+    public double getResult() {
+        return result;
     }
 }
