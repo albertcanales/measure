@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.albert.measure">
 
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +23,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.DistanceActivity" />
+        <activity
+            android:name=".activities.DistanceParametersActivity"
+            android:label="@string/title_activity_distance_parameters"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

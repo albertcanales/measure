@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
@@ -21,6 +22,8 @@ import com.example.albert.measure.DistanceUtils;
 import com.example.albert.measure.fragments.ResultsDialog;
 import com.example.albert.measure.sensors.OrientationSensor;
 
+import java.util.Arrays;
+
 
 public class DistanceActivity extends AppCompatActivity {
 
@@ -33,15 +36,18 @@ public class DistanceActivity extends AppCompatActivity {
     private OrientationSensor orientationSensor;
     private ResultsDialog dialog;
 
+    private String direction, plane;
+    private double height;
     private int color_id = 0;
     private double orientationAtPoints[][] = new double[3][3];
-    private static double result;
+    private double result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distance);
         context = this;
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SurfaceView mSurfaceView = findViewById(R.id.surface_view);
         cameraSurfaceView = new CameraSurfaceView(mSurfaceView, context);
@@ -59,7 +65,13 @@ public class DistanceActivity extends AppCompatActivity {
                 color_id = (color_id + 1) % 2;
             }
         });
+
         orientationSensor = new OrientationSensor(context);
+
+        Bundle parameters = getIntent().getExtras();
+        direction = parameters.getString("DIRECTION");
+        plane = parameters.getString("PLANE");
+        height = parameters.getDouble("HEIGHT");
     }
 
     @Override
@@ -106,8 +118,11 @@ public class DistanceActivity extends AppCompatActivity {
                 else {
                     setOrientationValues(2);
                     distance = new DistanceUtils();
-                    result = distance.getDistance(orientationAtPoints);
+                    result = distance.getDistance(direction, plane, height, orientationAtPoints);
+                    orientationSensor.unregister();
                     if (result != -1) {
+                        Log.d("SENSOR_VALUES", toString());
+                        Toast.makeText(context, Double.toString(result), Toast.LENGTH_SHORT).show();
                         dialog = new ResultsDialog();
                         dialog.setCancelable(false);
                         dialog.show(getSupportFragmentManager(), "Result");
@@ -122,9 +137,9 @@ public class DistanceActivity extends AppCompatActivity {
 
     private void setOrientationValues(int i) {
         double orientationValues[] = {
-                orientationSensor.getPitch(),
-                orientationSensor.getRoll(),
-                orientationSensor.getAzimut(),
+                orientationSensor.getPitch()+90,
+                orientationSensor.getRoll()+90,
+                orientationSensor.getAzimut()+90,
         };
         System.arraycopy(orientationValues, 0, orientationAtPoints[i], 0, 3);
     }
@@ -137,5 +152,18 @@ public class DistanceActivity extends AppCompatActivity {
 
     public double getResult() {
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "DistanceActivity{" +
+                "direction='" + direction + '\'' +
+                ", plane='" + plane + '\'' +
+                ", height=" + height +
+                ", A=" + Double.toString(orientationAtPoints[0][0]) +
+                ", B=" + Double.toString(orientationAtPoints[1][0]) +
+                ", C=" + Double.toString(orientationAtPoints[2][0]) +
+                ", result=" + result +
+                '}';
     }
 }

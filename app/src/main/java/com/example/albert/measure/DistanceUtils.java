@@ -1,20 +1,13 @@
 package com.example.albert.measure;
 
-import com.example.albert.measure.fragments.DistanceParametersFragment;
-
 public class DistanceUtils {
 
-    private DistanceParametersFragment parameters = new DistanceParametersFragment();
-
-    public double height;
-
-    public double getDistance(double[][] angles) {
-        height = parameters.getUserHeight();
-        if (parameters.getDirection().equals("PARALLEL")) {
-            if (parameters.getPlane().equals("HORIZONTAL"))
-                return parallelHorizontal(height, angles[0][0]+90, angles[1][0]+90, angles[2][0]+90);
+    public double getDistance(String direction, String plane, double height, double[][] angles) {
+        if (direction.equals("PARALLEL")) {
+            if (plane.equals("HORIZONTAL"))
+                return parallelHorizontal(height, angles[0][0], angles[1][0], angles[2][0]);
             else
-                return parallelVertical(height, angles[0][0]+90, angles[1][0]+90, angles[2][0]+90);
+                return parallelVertical(height, angles[0][0], angles[1][0], angles[2][0]);
         }
         return -1;
     }
