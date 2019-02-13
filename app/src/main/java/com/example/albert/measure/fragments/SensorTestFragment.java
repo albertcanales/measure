@@ -22,19 +22,20 @@ public class SensorTestFragment extends Fragment
     final Handler myHandler = new Handler();
     View myView;
     OrientationSensor sensors;
-    private TextView tvAzimut;
+    private TextView tvAzimuth;
     private TextView tvPitch;
     private TextView tvRoll;
-    private TextView tvSpeed;
+    private TextView tvPeriod;
 
-    private int speed;
+    private int period;
+
     private Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
-            tvAzimut.setText(String.format("Azimut: %s", sensors.getAzimut()));
+            tvAzimuth.setText(String.format("Azimuth: %s", sensors.getAzimuth()));
             tvPitch.setText(String.format("Pitch: %s", sensors.getPitch()));
             tvRoll.setText(String.format("Roll: %s", sensors.getRoll()));
-            myHandler.postDelayed(this, speed);
+            myHandler.postDelayed(this, period);
         }
     };
 
@@ -49,16 +50,16 @@ public class SensorTestFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         myView = getView();
         sensors = new OrientationSensor(getContext());
-        tvAzimut = myView.findViewById(R.id.tvAzimut);
+        tvAzimuth = myView.findViewById(R.id.tvAzimut);
         tvRoll = myView.findViewById(R.id.tvRoll);
         tvPitch = myView.findViewById(R.id.tvPitch);
-        tvSpeed = myView.findViewById(R.id.tvSpeed);
+        tvPeriod = myView.findViewById(R.id.tvPeriod);
 
         ((ToggleButton) myView.findViewById(R.id.tbFreeze)).setOnCheckedChangeListener(this);
 
-        SeekBar sbSpeed = myView.findViewById(R.id.sbSpeed);
-        sbSpeed.setOnSeekBarChangeListener(this);
-        setSpeed(sbSpeed.getProgress());
+        SeekBar sbPeriod = myView.findViewById(R.id.sbPeriod);
+        sbPeriod.setOnSeekBarChangeListener(this);
+        setPeriod(sbPeriod.getProgress());
 
         startSensor();
     }
@@ -82,7 +83,7 @@ public class SensorTestFragment extends Fragment
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        setSpeed(i);
+        setPeriod(i);
     }
 
     @Override
@@ -95,8 +96,8 @@ public class SensorTestFragment extends Fragment
 
     }
 
-    private void setSpeed(int x) {
-        speed = x != 0 ? x * 250 : 10;
-        tvSpeed.setText(String.format("Speed: %d ms", speed));
+    private void setPeriod(int x) {
+        period = x != 0 ? x * 250 : 10;
+        tvPeriod.setText(String.format("Period: %d ms", period));
     }
 }

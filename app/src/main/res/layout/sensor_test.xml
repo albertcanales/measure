@@ -63,14 +63,14 @@
             android:textOn="Run" />
 
         <TextView
-            android:id="@+id/tvSpeed"
+            android:id="@+id/tvPeriod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Speed" />
 
         <SeekBar
-            android:id="@+id/sbSpeed"
+            android:id="@+id/sbPeriod"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

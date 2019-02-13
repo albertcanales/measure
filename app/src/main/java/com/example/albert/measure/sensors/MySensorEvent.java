@@ -7,11 +7,11 @@ import android.hardware.SensorManager;
 
 public abstract class MySensorEvent implements SensorEventListener {
 
-    public Context context;
-    public SensorManager mSensorManager;
-    public Sensor mySensor;
+    private Context context;
+    private SensorManager mSensorManager;
+    private Sensor mySensor;
 
-    public MySensorEvent(Context context, int sensorType) {
+    MySensorEvent(Context context, int sensorType) {
         this.context = context;
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         mySensor = mSensorManager.getDefaultSensor(sensorType);

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,8 +21,6 @@ import com.example.albert.measure.DistanceUtils;
 import com.example.albert.measure.fragments.ResultsDialog;
 import com.example.albert.measure.sensors.OrientationSensor;
 
-import java.util.Arrays;
-
 
 public class DistanceActivity extends AppCompatActivity {
 
@@ -32,15 +29,13 @@ public class DistanceActivity extends AppCompatActivity {
     CameraSurfaceView cameraSurfaceView;
     Context context;
 
-    private DistanceUtils distance;
     private OrientationSensor orientationSensor;
-    private ResultsDialog dialog;
 
     private String direction, plane;
     private double height;
     private int color_id = 0;
     private double orientationAtPoints[][] = new double[3][3];
-    private double result;
+    private static double result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,13 +112,12 @@ public class DistanceActivity extends AppCompatActivity {
                 }
                 else {
                     setOrientationValues(2);
-                    distance = new DistanceUtils();
+                    DistanceUtils distance = new DistanceUtils();
                     result = distance.getDistance(direction, plane, height, orientationAtPoints);
                     orientationSensor.unregister();
                     if (result != -1) {
                         Log.d("SENSOR_VALUES", toString());
-                        Toast.makeText(context, Double.toString(result), Toast.LENGTH_SHORT).show();
-                        dialog = new ResultsDialog();
+                        ResultsDialog dialog = new ResultsDialog();
                         dialog.setCancelable(false);
                         dialog.show(getSupportFragmentManager(), "Result");
                     }
@@ -139,7 +133,7 @@ public class DistanceActivity extends AppCompatActivity {
         double orientationValues[] = {
                 orientationSensor.getPitch()+90,
                 orientationSensor.getRoll()+90,
-                orientationSensor.getAzimut()+90,
+                orientationSensor.getAzimuth()+90,
         };
         System.arraycopy(orientationValues, 0, orientationAtPoints[i], 0, 3);
     }

@@ -8,7 +8,7 @@ import android.hardware.SensorManager;
 
 public class OrientationSensor extends MySensorEvent implements SensorEventListener {
 
-    private float azimut, pitch, roll;
+    private float azimuth, pitch, roll;
 
     public OrientationSensor(Context context) {
         super(context, Sensor.TYPE_ROTATION_VECTOR);
@@ -43,13 +43,13 @@ public class OrientationSensor extends MySensorEvent implements SensorEventListe
         SensorManager.getOrientation(adjustedRotationMatrix, orientation);
 
         int fromRadsToDegs = -57;
-        azimut = orientation[0] * fromRadsToDegs;
+        azimuth = orientation[0] * fromRadsToDegs;
         pitch = orientation[1] * fromRadsToDegs;
         roll = orientation[2] * fromRadsToDegs;
     }
 
-    public float getAzimut() {
-        return azimut;
+    public float getAzimuth() {
+        return azimuth;
     }
 
     public float getPitch() {
@@ -63,7 +63,7 @@ public class OrientationSensor extends MySensorEvent implements SensorEventListe
     @Override
     public String toString() {
         return "OrientationSensor{" +
-                "azimut=" + azimut +
+                "azimuth=" + azimuth +
                 ", pitch=" + pitch +
                 ", roll=" + roll +
                 '}';
