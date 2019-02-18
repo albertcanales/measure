@@ -1,6 +1,8 @@
 package com.example.albert.measure.activities;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.albert.measure.CameraSurfaceView;
@@ -22,11 +25,12 @@ import com.example.albert.measure.fragments.ResultsDialog;
 import com.example.albert.measure.sensors.OrientationSensor;
 
 
-public class DistanceActivity extends AppCompatActivity {
+public class DistanceActivity extends AppCompatActivity implements View.OnClickListener {
 
     SurfaceHolder mSurfaceHolder;
     CameraManager mCameraManager;
     CameraSurfaceView cameraSurfaceView;
+    TextView markPointButton;
     Context context;
 
     private OrientationSensor orientationSensor;
@@ -36,6 +40,7 @@ public class DistanceActivity extends AppCompatActivity {
     private int color_id = 0;
     private double orientationAtPoints[][] = new double[3][3];
     private static double result;
+    private int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +56,19 @@ public class DistanceActivity extends AppCompatActivity {
         mSurfaceHolder.addCallback(cameraSurfaceView);
         mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
 
+        markPointButton= findViewById(R.id.mark_point);
+        markPointButton.setOnClickListener(this);
+
+        final Drawable markPointCircle = getResources().getDrawable(R.drawable.circle_background);
         final ImageButton ib = findViewById(R.id.iv_camera_focus);
+
         ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int color = color_id == 0 ? R.color.colorPrimary : R.color.colorAccent;
                 ib.setColorFilter(ContextCompat.getColor(context, color));
+                markPointCircle.mutate().setColorFilter(ContextCompat.getColor(markPointButton.getContext(), color), PorterDuff.Mode.SRC_IN);
+                markPointButton.setBackground(markPointCircle);
                 color_id = (color_id + 1) % 2;
             }
         });
@@ -91,42 +103,28 @@ public class DistanceActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.mark_point:
-                if(!item.getTitle().equals("Point C")) {
-                    if (item.getTitle().equals("Point A")) {
-                        setOrientationValues(0);
-                        item.setTitle("Point B");
-                        if (true) {       // If distance is simple, upcoming feature
-                            setOrientationValues(1);
-                            item.setTitle("Point C");
-                        }
-                    }
-                    else {      // Title equals "Point B"
-                        setOrientationValues(1);
-                        item.setTitle("Point C");
-                    }
-                }
-                else {
-                    setOrientationValues(2);
-                    DistanceUtils distance = new DistanceUtils();
-                    result = distance.getDistance(direction, plane, height, orientationAtPoints);
-                    orientationSensor.unregister();
-                    if (result != -1) {
-                        Log.d("SENSOR_VALUES", toString());
-                        ResultsDialog dialog = new ResultsDialog();
-                        dialog.setCancelable(false);
-                        dialog.show(getSupportFragmentManager(), "Result");
-                    }
-                    else
-                        Toast.makeText(context, "Still developing this feature", Toast.LENGTH_SHORT).show();
-                }
-                return true;
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        String[] points = {"A", "B", "C"};
+        setOrientationValues(i);
+        if(i == 2) {
+            DistanceUtils distance = new DistanceUtils();
+            result = distance.getDistance(direction, plane, height, orientationAtPoints);
+            orientationSensor.unregister();
+            showResult(result);
         }
-        return super.onOptionsItemSelected(item);
+        else {
+            i++;
+            markPointButton.setText(points[i]);
+            if(i == 1 && isDistanceSimple()) {
+                setOrientationValues(i);
+                i++;
+            }
+        }
     }
 
     private void setOrientationValues(int i) {
@@ -159,5 +157,18 @@ public class DistanceActivity extends AppCompatActivity {
                 ", C=" + Double.toString(orientationAtPoints[2][0]) +
                 ", result=" + result +
                 '}';
+    }
+
+    boolean isDistanceSimple() { return true; } // Upcoming feature
+
+    void showResult(double result) {
+        if (result != -1) {
+            Log.d("SENSOR_VALUES", toString());
+            ResultsDialog dialog = new ResultsDialog();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "Result");
+        }
+        else
+            Toast.makeText(context, "Still developing this feature", Toast.LENGTH_SHORT).show();
     }
 }
