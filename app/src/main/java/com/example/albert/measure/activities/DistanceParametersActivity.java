@@ -1,22 +1,30 @@
 package com.example.albert.measure.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
+import android.util.Log;
 
+import com.example.albert.measure.ParameterTypes.Direction;
+import com.example.albert.measure.ParameterTypes.HeightMode;
+import com.example.albert.measure.ParameterTypes.Offset;
+import com.example.albert.measure.ParameterTypes.Plane;
 import com.example.albert.measure.R;
+import com.example.albert.measure.fragments.HeightDialog;
+import com.example.albert.measure.fragments.TwoOptionParameterFragment;
 
-public class DistanceParametersActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
 
-    private RadioGroup rgDirection;
-    private RadioGroup rgOrientation;
-    private RadioGroup rgHeightMode;
-    private EditText etHeight;
+public class DistanceParametersActivity extends AppCompatActivity implements TwoOptionParameterFragment.OnDataPass {
+
+    TwoOptionParameterFragment.OnDataPass dataPasser;
+    Bundle bundle = new Bundle();
+
+    private int i = 0;
+    Fragment parametersList[] = {new Plane(), new Direction(), new Offset(), new HeightMode()};
+    String parametersNames[] = {"PLANE", "DIRECTION", "OFFSET", "HEIGHT_MODE"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +35,9 @@ public class DistanceParametersActivity extends AppCompatActivity implements Vie
         getSupportActionBar().setTitle("Measure");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button btMeasure = findViewById(R.id.btMeasure);
-        rgDirection = findViewById(R.id.rgDirection);
-        rgOrientation = findViewById(R.id.rgOrientation);
-        rgHeightMode = findViewById(R.id.rgHeightMode);
-        etHeight = findViewById(R.id.etHeight);
-
-        btMeasure.setOnClickListener(this);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.content_frame, parametersList[0]);
+        transaction.commit();
     }
 
     @Override
@@ -43,42 +47,20 @@ public class DistanceParametersActivity extends AppCompatActivity implements Vie
     }
 
     @Override
-    public void onClick(View view) {
-        if (isEmpty(etHeight)) {
-            etHeight.setError("Cannot be empty");
-        } else {
-            Intent intent = new Intent(this, DistanceActivity.class);
-            intent.putExtras(setParameters());
-            startActivity(intent);
-            finish();
+    public void onDataPass(String data) {
+        Log.d("PARAMETER_VALUE", data);
+        bundle.putString(parametersNames[i], data);
+        i++;
+        if (i < parametersList.length) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_frame, parametersList[i]);
+            transaction.commit();
         }
-    }
-
-    private Bundle setParameters() {
-        Bundle parameters = new Bundle();
-        if (rgDirection.getCheckedRadioButtonId() == R.id.rbParallel)
-            parameters.putString("DIRECTION", "PARALLEL");
-        else
-            parameters.putString("DIRECTION", "PERPENDICULAR");
-
-        if (rgOrientation.getCheckedRadioButtonId() == R.id.rbVertical)
-            parameters.putString("PLANE", "VERTICAL");
-        else
-            parameters.putString("PLANE", "HORIZONTAL");
-
-        if (rgHeightMode.getCheckedRadioButtonId() == R.id.rbAutomatic)
-            parameters.putDouble("HEIGHT", getUserHeight() - 40);
-        else
-            parameters.putDouble("HEIGHT", getUserHeight());
-
-        return parameters;
-    }
-
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() == 0;
-    }
-
-    public double getUserHeight() {
-        return Double.parseDouble(etHeight.getText().toString());
+        else {
+                HeightDialog dialog = new HeightDialog();
+                dialog.setCancelable(false);
+                dialog.show(getSupportFragmentManager(), "Height");
+                dialog.passParameters(bundle);
+        }
     }
 }
