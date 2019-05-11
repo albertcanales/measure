@@ -115,6 +115,7 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
             DistanceUtils distance = new DistanceUtils();
             result = distance.getDistance(direction, plane, height, orientationAtPoints);
             orientationSensor.unregister();
+            Log.d("RESULT_INPUT", toString());
             showResult(result);
         }
         else {
@@ -129,9 +130,9 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
 
     private void setOrientationValues(int i) {
         double orientationValues[] = {
-                orientationSensor.getPitch()+90,
-                orientationSensor.getRoll()+90,
-                orientationSensor.getAzimuth()+90,
+                Math.PI/2 - orientationSensor.getPitch(),
+                Math.PI/2 - orientationSensor.getRoll(),
+                Math.PI/2 - orientationSensor.getAzimuth(),
         };
         System.arraycopy(orientationValues, 0, orientationAtPoints[i], 0, 3);
     }

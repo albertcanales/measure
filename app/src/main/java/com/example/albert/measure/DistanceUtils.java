@@ -13,7 +13,7 @@ public class DistanceUtils {
     }
 
     private double PHS(double h, double A, double B) {
-        return h * (Math.tan(Math.toRadians(B)) - Math.tan(Math.toRadians(A)));
+        return h * (Math.tan(B) - Math.tan(A));
     }
 
     private double parallelHorizontal(double h, double A, double B, double C) {
@@ -21,9 +21,9 @@ public class DistanceUtils {
     }
 
     private double PVS(double h, double A, double B) {
-        if (Math.toDegrees(B) < 90)
-            return h * (1 - Math.tan(Math.toRadians(A))/Math.tan(Math.toRadians(B)));
-        return h * (Math.tan(Math.toRadians(B - 90)) * Math.tan(Math.toRadians(A)) + 1);
+        if (B < Math.PI/2)
+            return h * (1 - Math.tan(A)/Math.tan(B));
+        return h * (Math.tan(B - Math.PI/2) * Math.tan(A) + 1);
     }
 
     private double parallelVertical(double h, double A, double B, double C) {

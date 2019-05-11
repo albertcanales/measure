@@ -41,11 +41,10 @@ public class OrientationSensor extends MySensorEvent implements SensorEventListe
 
         float[] orientation = new float[3];
         SensorManager.getOrientation(adjustedRotationMatrix, orientation);
-
-        int fromRadsToDegs = -57;
-        azimuth = orientation[0] * fromRadsToDegs;
-        pitch = orientation[1] * fromRadsToDegs;
-        roll = orientation[2] * fromRadsToDegs;
+        
+        azimuth = orientation[0];
+        pitch = orientation[1];
+        roll = orientation[2];
     }
 
     public float getAzimuth() {
