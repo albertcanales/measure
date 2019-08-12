@@ -72,9 +72,9 @@ public class HeightDialog extends DialogFragment {
     }
 
     public double getFinalHeight(double height) {
-        if (bundle.get("HEIGHT_MODE").equals("MANUAL"))
-            return height;
-        return -1;       // TODO Add automatic algorithm
+        if (bundle.get("HEIGHT_MODE").equals("AUTOMATIC"))
+            return height * 0.75;
+        return height;
     }
 
     public void passParameters(Bundle bundle) {
