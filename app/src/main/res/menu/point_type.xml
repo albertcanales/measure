@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/based"
+        android:title="Based point"/>
+    <item
+        android:id="@+id/nonbased"
+        android:title="Non-based point"/>
+</menu>

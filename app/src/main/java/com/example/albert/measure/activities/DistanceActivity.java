@@ -38,7 +38,7 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
     private String direction, plane;
     private double height;
     private int color_id = 0;
-    private double orientationAtPoints[][] = new double[3][3];
+    private double[][] orientationAtPoints = new double[3][3];
     private static double result;
     private int i = 0;
 
@@ -97,7 +97,7 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.distance_main, menu);
         return true;
     }
 
@@ -129,10 +129,10 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setOrientationValues(int i) {
-        double orientationValues[] = {
-                Math.PI/2 - orientationSensor.getPitch(),
-                Math.PI/2 - orientationSensor.getRoll(),
-                Math.PI/2 - orientationSensor.getAzimuth(),
+        double[] orientationValues = {
+                Math.PI / 2 - orientationSensor.getPitch(),
+                Math.PI / 2 - orientationSensor.getRoll(),
+                Math.PI / 2 - orientationSensor.getAzimuth(),
         };
         System.arraycopy(orientationValues, 0, orientationAtPoints[i], 0, 3);
     }
@@ -153,9 +153,9 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
                 "direction='" + direction + '\'' +
                 ", plane='" + plane + '\'' +
                 ", height=" + height +
-                ", A=" + Double.toString(orientationAtPoints[0][0]) +
-                ", B=" + Double.toString(orientationAtPoints[1][0]) +
-                ", C=" + Double.toString(orientationAtPoints[2][0]) +
+                ", A=" + orientationAtPoints[0][0] +
+                ", B=" + orientationAtPoints[1][0] +
+                ", C=" + orientationAtPoints[2][0] +
                 ", result=" + result +
                 '}';
     }

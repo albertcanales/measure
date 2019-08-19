@@ -20,7 +20,7 @@ public class ResultsDialog extends DialogFragment {
         double result = Math.round(distance.getResult()*100.0)/100.0;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Result: " + Double.toString(result) + " cm")
+        builder.setMessage("Result: " + result + " cm")
                 .setPositiveButton("Home", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         getActivity().finish();

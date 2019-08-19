@@ -23,8 +23,8 @@ public class DistanceParametersActivity extends AppCompatActivity implements Two
     Bundle bundle = new Bundle();
 
     private int i = 0;
-    Fragment parametersList[] = {new Plane(), new Direction(), new Offset(), new HeightMode()};
-    String parametersNames[] = {"PLANE", "DIRECTION", "OFFSET", "HEIGHT_MODE"};
+    Fragment[] parametersList = {new Plane(), new Direction(), new Offset(), new HeightMode()};
+    String[] parametersNames = {"PLANE", "DIRECTION", "OFFSET", "HEIGHT_MODE"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
