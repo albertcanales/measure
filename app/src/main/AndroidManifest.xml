@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.DistanceActivity" />
+        <activity android:name=".activities.PointMethodActivity" />
         <activity
             android:name=".activities.DistanceParametersActivity"
             android:label="@string/title_activity_distance_parameters"

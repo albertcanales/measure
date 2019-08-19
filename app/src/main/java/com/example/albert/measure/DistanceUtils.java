@@ -20,7 +20,8 @@ public class DistanceUtils {
         return PHS(h - PVS(h, A, B), B, C);
     }
 
-    private double PVS(double h, double A, double B) {
+    // Public for points method
+    public double PVS(double h, double A, double B) {
         if (B < Math.PI/2)
             return h * (1 - Math.tan(A)/Math.tan(B));
         return h * (Math.tan(B - Math.PI/2) * Math.tan(A) + 1);

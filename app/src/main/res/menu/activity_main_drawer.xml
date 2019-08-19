@@ -13,13 +13,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Distance" />
         <item
-            android:id="@+id/nav_area"
+            android:id="@+id/nav_points"
             android:icon="@drawable/ic_menu_share"
-            android:title="Area" />
-        <item
-            android:id="@+id/nav_volume"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Volume" />
+            android:title="Points" />
         <item
             android:id="@+id/nav_test_sensors"
             android:icon="@drawable/ic_menu_manage"
