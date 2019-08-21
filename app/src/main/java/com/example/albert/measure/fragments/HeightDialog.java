@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
@@ -13,12 +14,14 @@ import android.widget.EditText;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.DistanceActivity;
-import com.example.albert.measure.activities.DistanceParametersActivity;
+
+import java.util.Objects;
 
 public class HeightDialog extends DialogFragment {
 
     private Bundle bundle;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -26,7 +29,7 @@ public class HeightDialog extends DialogFragment {
         builder.setView(R.layout.dialog_height)
                 .setNegativeButton("Home", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        getActivity().finish();
+                        Objects.requireNonNull(getActivity()).finish();
                     }
                 })
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
@@ -71,8 +74,8 @@ public class HeightDialog extends DialogFragment {
         }
     }
 
-    public double getFinalHeight(double height) {
-        if (bundle.get("HEIGHT_MODE").equals("AUTOMATIC"))
+    private double getFinalHeight(double height) {
+        if (Objects.requireNonNull(bundle.get("HEIGHT_MODE")).equals("AUTOMATIC"))
             return height * 0.75;
         return height;
     }

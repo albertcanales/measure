@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.annotation.NonNull;
 
 public class OrientationSensor extends MySensorEvent implements SensorEventListener {
 
@@ -30,8 +31,7 @@ public class OrientationSensor extends MySensorEvent implements SensorEventListe
         }
     }
 
-    @Override
-    public void update(float[] vectors) {
+    private void update(float[] vectors) {
         float[] rotationMatrix = new float[9];
         SensorManager.getRotationMatrixFromVector(rotationMatrix, vectors);
 
@@ -59,6 +59,7 @@ public class OrientationSensor extends MySensorEvent implements SensorEventListe
         return roll;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "OrientationSensor{" +

@@ -14,11 +14,11 @@ import com.example.albert.measure.R;
 
 public abstract class TwoOptionParameterFragment extends Fragment implements View.OnClickListener {
 
-    public Button first, second;
-    String textFirst, textSecond;
-    public OnDataPass dataPasser;
+    private final String textFirst;
+    private final String textSecond;
+    protected OnDataPass dataPasser;
 
-    public TwoOptionParameterFragment(String textFirst, String textSecond) {
+    protected TwoOptionParameterFragment(String textFirst, String textSecond) {
         this.textFirst = textFirst;
         this.textSecond = textSecond;
     }
@@ -33,8 +33,8 @@ public abstract class TwoOptionParameterFragment extends Fragment implements Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        first = view.findViewById(R.id.first);
-        second = view.findViewById(R.id.second);
+        Button first = view.findViewById(R.id.first);
+        Button second = view.findViewById(R.id.second);
 
         first.setText(textFirst);
         second.setText(textSecond);
@@ -55,8 +55,6 @@ public abstract class TwoOptionParameterFragment extends Fragment implements Vie
         super.onAttach(context);
         dataPasser = (OnDataPass) context;
     }
-
-    public abstract void passData(String data);
 
 
 }

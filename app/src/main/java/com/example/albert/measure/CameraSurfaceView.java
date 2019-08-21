@@ -11,6 +11,7 @@ import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.example.albert.measure.activities.DistanceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callback {
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1242;
@@ -30,9 +32,9 @@ public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callba
     private static final int MSG_SURFACE_READY = 2;
     private static final int CAMERA_ID = 0; // 0 -> Back camera -------- 1 -> Front camera
     private final Handler mHandler = new Handler(this);
-    private CameraManager mCameraManager;
+    private final CameraManager mCameraManager;
     private String[] mCameraIDsList;
-    private CameraDevice.StateCallback mCameraStateCB;
+    private final CameraDevice.StateCallback mCameraStateCB;
     private CameraDevice mCameraDevice;
     private boolean mSurfaceCreated = true;
     private boolean mIsCameraConfigured = false;
@@ -45,7 +47,7 @@ public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callba
         mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
 
         try {
-            mCameraIDsList = mCameraManager.getCameraIdList();
+            mCameraIDsList = Objects.requireNonNull(mCameraManager).getCameraIdList();
             for (String id : mCameraIDsList) {
                 Log.v(TAG, "CameraID: " + id);
             }
@@ -55,17 +57,17 @@ public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callba
 
         mCameraStateCB = new CameraDevice.StateCallback() {
             @Override
-            public void onOpened(CameraDevice camera) {
+            public void onOpened(@NonNull CameraDevice camera) {
                 mCameraDevice = camera;
                 mHandler.sendEmptyMessage(MSG_CAMERA_OPENED);
             }
 
             @Override
-            public void onDisconnected(CameraDevice camera) {
+            public void onDisconnected(@NonNull CameraDevice camera) {
             }
 
             @Override
-            public void onError(CameraDevice camera, int error) {
+            public void onError(@NonNull CameraDevice camera, int error) {
             }
         };
     }
@@ -89,7 +91,7 @@ public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callba
 
     private void configureCamera() {
         // prepare list of surfaces to be used in capture requests
-        List<Surface> sfl = new ArrayList<Surface>();
+        List<Surface> sfl = new ArrayList<>();
 
         sfl.add(mCameraSurface); // surface for viewfinder preview
 
@@ -148,7 +150,7 @@ public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callba
 
             mIsCameraConfigured = false;
         } catch (final CameraAccessException | IllegalStateException e) {
-            // Doesn't matter, cloising device anyway
+            // Doesn't matter, closing device anyway
             e.printStackTrace();
         } finally {
             if (mCameraDevice != null) {
@@ -162,12 +164,12 @@ public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callba
     private class CaptureSessionListener extends
             CameraCaptureSession.StateCallback {
         @Override
-        public void onConfigureFailed(final CameraCaptureSession session) {
+        public void onConfigureFailed(@NonNull final CameraCaptureSession session) {
             Log.d(TAG, "CaptureSessionConfigure failed");
         }
 
         @Override
-        public void onConfigured(final CameraCaptureSession session) {
+        public void onConfigured(@NonNull final CameraCaptureSession session) {
             Log.d(TAG, "CaptureSessionConfigure onConfigured");
             mCaptureSession = session;
             try {

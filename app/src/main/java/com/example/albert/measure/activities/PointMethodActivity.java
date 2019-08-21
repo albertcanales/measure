@@ -2,7 +2,6 @@ package com.example.albert.measure.activities;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -31,22 +30,18 @@ import java.util.Objects;
 
 public class PointMethodActivity extends AppCompatActivity implements View.OnClickListener {
 
-    SurfaceHolder mSurfaceHolder;
-    CameraManager mCameraManager;
-    CameraSurfaceView cameraSurfaceView;
-    Context context;
-    FloatingActionButton markPointFAB;
-    FloatingActionButton cancelPointFAB;
+    private CameraSurfaceView cameraSurfaceView;
+    private Context context;
+    private FloatingActionButton markPointFAB;
+    private FloatingActionButton cancelPointFAB;
 
     private OrientationSensor orientationSensor;
 
-    List<Point> pointList = new ArrayList<>();
-    Point tempBasePoint = new Point();
-    int pointType = -1;     // -1 = None, 0 = Base, 1 = NonBase
+    private List<Point> pointList = new ArrayList<>();
+    private Point tempBasePoint = new Point();
+    private int pointType = -1;     // -1 = None, 0 = Base, 1 = NonBase
 
     private int color_id = 0;
-
-    private double h = 120;    // TODO Measure it. Could be even treated it as a distance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +49,13 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_points);
         context = this;
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         SurfaceView mSurfaceView = findViewById(R.id.surface_view);
         cameraSurfaceView = new CameraSurfaceView(mSurfaceView, context);
-        mSurfaceHolder = mSurfaceView.getHolder();
+        SurfaceHolder mSurfaceHolder = mSurfaceView.getHolder();
 
         mSurfaceHolder.addCallback(cameraSurfaceView);
-        mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
+        //CameraManager mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
 
         markPointFAB = findViewById(R.id.mark_point);
         markPointFAB.setOnClickListener(this);
@@ -147,12 +142,13 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             tempBasePoint = new Point();
             setPointType(-1);
         }
-        else if(view == findViewById(R.id.mark_point)) {
+        else //noinspection StatementWithEmptyBody
+            if(view == findViewById(R.id.mark_point)) {
             measurePoint();
             Log.d("POINTS", pointList.toString());
         }
-        else {
-
+        else {  // DoneFAB pressed
+            // TODO Finish measurement
         }
     }
 
@@ -171,6 +167,8 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
     private void measurePoint() {
         Pair<Double, Double> angles = new Pair<>(Math.PI /  2 - orientationSensor.getPitch(),
                 Math.PI / 2 - orientationSensor.getAzimuth());
+        // TODO Measure it. Could be even treated it as a distance
+        double h = 120;
         if(pointType == 0) {
             pointList.add(new Point(h, angles));
             setPointType(-1);

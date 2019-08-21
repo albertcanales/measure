@@ -3,7 +3,6 @@ package com.example.albert.measure.activities;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -24,14 +23,14 @@ import com.example.albert.measure.DistanceUtils;
 import com.example.albert.measure.fragments.ResultsDialog;
 import com.example.albert.measure.sensors.OrientationSensor;
 
+import java.util.Objects;
+
 
 public class DistanceActivity extends AppCompatActivity implements View.OnClickListener {
 
-    SurfaceHolder mSurfaceHolder;
-    CameraManager mCameraManager;
-    CameraSurfaceView cameraSurfaceView;
-    TextView markPointButton;
-    Context context;
+    private CameraSurfaceView cameraSurfaceView;
+    private Context context;
+    private TextView markPointButton;
 
     private OrientationSensor orientationSensor;
 
@@ -48,13 +47,13 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_distance);
         context = this;
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         SurfaceView mSurfaceView = findViewById(R.id.surface_view);
         cameraSurfaceView = new CameraSurfaceView(mSurfaceView, context);
-        mSurfaceHolder = mSurfaceView.getHolder();
+        SurfaceHolder mSurfaceHolder = mSurfaceView.getHolder();
 
         mSurfaceHolder.addCallback(cameraSurfaceView);
-        mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
+        //CameraManager mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
 
         markPointButton= findViewById(R.id.mark_point);
         markPointButton.setOnClickListener(this);
@@ -76,7 +75,7 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
         orientationSensor = new OrientationSensor(context);
 
         Bundle parameters = getIntent().getExtras();
-        direction = parameters.getString("DIRECTION");
+        direction = Objects.requireNonNull(parameters).getString("DIRECTION");
         plane = parameters.getString("PLANE");
         height = parameters.getDouble("HEIGHT");
     }
@@ -147,6 +146,7 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "DistanceActivity{" +
@@ -160,9 +160,10 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
                 '}';
     }
 
-    boolean isDistanceSimple() { return true; } // Upcoming feature
+    @SuppressWarnings("SameReturnValue")
+    private boolean isDistanceSimple() { return true; } // Upcoming feature
 
-    void showResult(double result) {
+    private void showResult(double result) {
         if (result != -1) {
             Log.d("SENSOR_VALUES", toString());
             ResultsDialog dialog = new ResultsDialog();

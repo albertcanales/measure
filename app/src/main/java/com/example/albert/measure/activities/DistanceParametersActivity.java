@@ -7,24 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import com.example.albert.measure.ParameterTypes.Direction;
-import com.example.albert.measure.ParameterTypes.HeightMode;
-import com.example.albert.measure.ParameterTypes.Offset;
-import com.example.albert.measure.ParameterTypes.Plane;
+import com.example.albert.measure.parameterTypes.Direction;
+import com.example.albert.measure.parameterTypes.HeightMode;
+import com.example.albert.measure.parameterTypes.Offset;
+import com.example.albert.measure.parameterTypes.Plane;
 import com.example.albert.measure.R;
 import com.example.albert.measure.fragments.HeightDialog;
 import com.example.albert.measure.fragments.TwoOptionParameterFragment;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class DistanceParametersActivity extends AppCompatActivity implements TwoOptionParameterFragment.OnDataPass {
 
-    TwoOptionParameterFragment.OnDataPass dataPasser;
-    Bundle bundle = new Bundle();
+    private final Bundle bundle = new Bundle();
 
     private int i = 0;
-    Fragment[] parametersList = {new Plane(), new Direction(), new Offset(), new HeightMode()};
-    String[] parametersNames = {"PLANE", "DIRECTION", "OFFSET", "HEIGHT_MODE"};
+    private final Fragment[] parametersList = {new Plane(), new Direction(), new Offset(), new HeightMode()};
+    private final String[] parametersNames = {"PLANE", "DIRECTION", "OFFSET", "HEIGHT_MODE"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class DistanceParametersActivity extends AppCompatActivity implements Two
         setContentView(R.layout.activity_distance_parameters);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Measure");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Measure");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

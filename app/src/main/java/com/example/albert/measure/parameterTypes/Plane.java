@@ -1,4 +1,4 @@
-package com.example.albert.measure.ParameterTypes;
+package com.example.albert.measure.parameterTypes;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,21 +9,21 @@ import android.view.ViewGroup;
 
 import com.example.albert.measure.fragments.TwoOptionParameterFragment;
 
-public class Direction extends TwoOptionParameterFragment {
+public class Plane extends TwoOptionParameterFragment {
 
-    public Direction() {
-        super("PARALLEL", "PERPENDICULAR");
+    public Plane() {
+        super("HORIZONTAL", "VERTICAL");
     }
 
     @Override
     public void onClick(View view) {
         if (view == first)
-            passData("PARALLEL");
+            passData("HORIZONTAL");
         else
-            passData("PERPENDICULAR");
+            passData("VERTICAL");
     }
 
-    public void passData(String data) {
+    private void passData(String data) {
         dataPasser.onDataPass(data);
     }
 

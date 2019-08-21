@@ -16,12 +16,13 @@ import android.widget.ToggleButton;
 import com.example.albert.measure.R;
 import com.example.albert.measure.sensors.OrientationSensor;
 
+import java.util.Objects;
+
 public class SensorTestFragment extends Fragment
         implements CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
 
-    final Handler myHandler = new Handler();
-    View myView;
-    OrientationSensor sensors;
+    private final Handler myHandler = new Handler();
+    private OrientationSensor sensors;
     private TextView tvAzimuth;
     private TextView tvPitch;
     private TextView tvRoll;
@@ -29,7 +30,7 @@ public class SensorTestFragment extends Fragment
 
     private int period;
 
-    private Runnable myRunnable = new Runnable() {
+    private final Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
             tvAzimuth.setText(String.format("Azimuth: %s", sensors.getAzimuth()));
@@ -48,9 +49,9 @@ public class SensorTestFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        myView = getView();
+        View myView = getView();
         sensors = new OrientationSensor(getContext());
-        tvAzimuth = myView.findViewById(R.id.tvAzimut);
+        tvAzimuth = Objects.requireNonNull(myView).findViewById(R.id.tvAzimuth);
         tvRoll = myView.findViewById(R.id.tvRoll);
         tvPitch = myView.findViewById(R.id.tvPitch);
         tvPeriod = myView.findViewById(R.id.tvPeriod);

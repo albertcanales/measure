@@ -5,19 +5,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import java.util.Objects;
+
 public abstract class MySensorEvent implements SensorEventListener {
 
-    private Context context;
-    private SensorManager mSensorManager;
-    private Sensor mySensor;
+    private final SensorManager mSensorManager;
+    private final Sensor mySensor;
 
-    MySensorEvent(Context context, int sensorType) {
-        this.context = context;
+    MySensorEvent(Context context, @SuppressWarnings("SameParameterValue") int sensorType) {
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        mySensor = mSensorManager.getDefaultSensor(sensorType);
+        mySensor = Objects.requireNonNull(mSensorManager).getDefaultSensor(sensorType);
     }
-
-    public abstract void update(float[] vectors);
 
     public void register() {
         mSensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_FASTEST);

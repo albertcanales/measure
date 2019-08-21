@@ -1,9 +1,11 @@
 package com.example.albert.measure;
 
+import android.support.annotation.NonNull;
 import android.util.Pair;
 
+@SuppressWarnings("unused")
 public class Point {
-    private double x, y, z;
+    private final double x, y, z;
     private double pitch, azimuth;
 
     // Zero Constructor
@@ -50,7 +52,7 @@ public class Point {
         this.x = p.getX();
     }
 
-    // TODO Controlar punts impossibles ja que els azimuths han de ser iguals
+    // TODO Control possible points as both azimuths must be equal or similar
     // Constructor for non-base points given its base point
     public Point(Point p, double h, Pair<Double, Double> angles) {
         this.pitch = angles.first;
@@ -64,15 +66,15 @@ public class Point {
         return Math.sqrt(Math.pow(this.getX()-q.getX(),2) + Math.pow(this.getY()-q.getY(),2) + Math.pow(this.getZ()-q.getZ(),2));
     }
 
-    public double getX() {
+    private double getX() {
         return x;
     }
 
-    public double getY() {
+    private double getY() {
         return y;
     }
 
-    public double getZ() {
+    private double getZ() {
         return z;
     }
 
@@ -94,6 +96,7 @@ public class Point {
         return getX()==0 && getY() == 0 && getZ() == 0;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Point{" +

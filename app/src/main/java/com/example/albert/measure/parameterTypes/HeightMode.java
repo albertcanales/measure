@@ -1,4 +1,4 @@
-package com.example.albert.measure.ParameterTypes;
+package com.example.albert.measure.parameterTypes;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,21 +9,21 @@ import android.view.ViewGroup;
 
 import com.example.albert.measure.fragments.TwoOptionParameterFragment;
 
-public class Offset extends TwoOptionParameterFragment{
+public class HeightMode extends TwoOptionParameterFragment {
 
-    public Offset() {
-        super("YES", "NO");
+    public HeightMode() {
+        super("AUTOMATIC", "MANUAL");
     }
 
     @Override
     public void onClick(View view) {
         if (view == first)
-            passData("YES");
+            passData("AUTOMATIC");
         else
-            passData("NO");
+            passData("MANUAL");
     }
 
-    public void passData(String data) {
+    private void passData(String data) {
         dataPasser.onDataPass(data);
     }
 
