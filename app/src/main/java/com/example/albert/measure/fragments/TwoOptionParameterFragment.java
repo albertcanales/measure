@@ -18,6 +18,8 @@ public abstract class TwoOptionParameterFragment extends Fragment implements Vie
     private final String textSecond;
     protected OnDataPass dataPasser;
 
+    protected Button first, second;
+
     protected TwoOptionParameterFragment(String textFirst, String textSecond) {
         this.textFirst = textFirst;
         this.textSecond = textSecond;
@@ -33,8 +35,8 @@ public abstract class TwoOptionParameterFragment extends Fragment implements Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button first = view.findViewById(R.id.first);
-        Button second = view.findViewById(R.id.second);
+        first = view.findViewById(R.id.first);
+        second = view.findViewById(R.id.second);
 
         first.setText(textFirst);
         second.setText(textSecond);
