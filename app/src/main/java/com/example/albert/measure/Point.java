@@ -1,5 +1,7 @@
 package com.example.albert.measure;
 
+import android.util.Pair;
+
 public class Point {
     private double x, y, z;
     private double pitch, azimuth;
@@ -33,26 +35,26 @@ public class Point {
     }
 
     // Constructor for base points
-    public Point(double h, double[] angles) {
+    public Point(double h, Pair<Double, Double> angles) {
         z = 0;
-        this.pitch = angles[0];
-        this.azimuth = angles[2];
+        this.pitch = angles.first;
+        this.azimuth = angles.second;
         this.y = Math.tan(pitch) * h;
         this.x = this.y * Math.tan(azimuth);
     }
 
-    // TODO Controlar punts impossibles ja que els azimuths han de ser iguals
-    // Constructor for non-base points given its base point
+    // Manual constructor for non-base points given its base point
     public Point(Point p, double h) {
         z = h;
         this.y = p.getY();
         this.x = p.getX();
     }
 
+    // TODO Controlar punts impossibles ja que els azimuths han de ser iguals
     // Constructor for non-base points given its base point
-    public Point(Point p, double h, double[] angles) {
-        this.pitch = angles[0];
-        this.azimuth = angles[2];
+    public Point(Point p, double h, Pair<Double, Double> angles) {
+        this.pitch = angles.first;
+        this.azimuth = angles.second;
         this.y = p.getY();
         this.x = p.getX();
         this.z = (new DistanceUtils()).PVS(h, p.pitch, this.pitch);
@@ -86,6 +88,10 @@ public class Point {
 
     public boolean isBased() {
         return z == 0;
+    }
+
+    public boolean isDefault() {
+        return getX()==0 && getY() == 0 && getZ() == 0;
     }
 
     @Override

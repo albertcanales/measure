@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,12 +18,15 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.albert.measure.CameraSurfaceView;
 import com.example.albert.measure.Point;
 import com.example.albert.measure.R;
 import com.example.albert.measure.sensors.OrientationSensor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 public class PointMethodActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,15 +35,18 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
     CameraManager mCameraManager;
     CameraSurfaceView cameraSurfaceView;
     Context context;
+    FloatingActionButton markPointFAB;
+    FloatingActionButton cancelPointFAB;
 
     private OrientationSensor orientationSensor;
 
+    List<Point> pointList = new ArrayList<>();
+    Point tempBasePoint = new Point();
+    int pointType = -1;     // -1 = None, 0 = Base, 1 = NonBase
+
     private int color_id = 0;
 
-    private int i = 0;
-    double h = 140; // cm
-    //Point o = new Point(h);
-    Point p, q;
+    private double h = 120;    // TODO Measure it. Could be even treated it as a distance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +62,11 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         mSurfaceHolder.addCallback(cameraSurfaceView);
         mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
 
-        final FloatingActionButton markPointFAB = findViewById(R.id.mark_point);
+        markPointFAB = findViewById(R.id.mark_point);
         markPointFAB.setOnClickListener(this);
+        cancelPointFAB = findViewById(R.id.cancel_point);
+        cancelPointFAB.setOnClickListener(this);
+        cancelPointFAB.setSize(FloatingActionButton.SIZE_MINI);
         final FloatingActionButton doneFAB = findViewById(R.id.done);
         doneFAB.setOnClickListener(this);
         doneFAB.setSize(FloatingActionButton.SIZE_MINI);
@@ -69,13 +79,14 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
                 ib.setColorFilter(ContextCompat.getColor(context, color));
                 markPointFAB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(color)));
                 doneFAB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(color)));
+                cancelPointFAB.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(color)));
                 color_id = (color_id + 1) % 2;
             }
         });
 
         orientationSensor = new OrientationSensor(context);
 
-        p = q = new Point();
+        setPointType(pointType);
     }
 
     @Override
@@ -107,39 +118,9 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item == findViewById(R.id.add_point))
+        if(findViewById(item.getItemId()) != findViewById(R.id.help))
             onBackPressed();
         return true;
-    }
-
-    @Override
-    public void onClick(View view) {
-        Log.d("POINTS", "Button pressed");
-
-        double[] orientationValues = {
-                Math.PI / 2 - orientationSensor.getPitch(),
-                Math.PI / 2 - orientationSensor.getRoll(),
-                Math.PI / 2 - orientationSensor.getAzimuth(),
-        };
-        switch (i) {
-            case 0:
-                p = new Point(h, orientationValues);
-                Log.d("POINTS", p.toString());
-                break;
-            case 1:
-                q = new Point(h, orientationValues);
-                Log.d("POINTS", q.toString());
-                break;
-            case 2:
-                q = new Point(p, h, orientationValues);
-            default:
-                Toast.makeText(context, Double.toString(p.DistanceTo(q)), Toast.LENGTH_SHORT).show();
-                Log.d("POINTS", p.toString());
-                Log.d("POINTS", q.toString());
-                Log.d("POINTS", Double.toString(p.DistanceTo(q)));
-                break;
-        }
-        i++;
     }
 
     public void showPopup(MenuItem item) {
@@ -148,9 +129,60 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         inflater.inflate(R.menu.point_type, popup.getMenu());
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.based) {
+                    setPointType(0);    // Base point
+                } else {
+                    setPointType(1);    // Non-base point
+                }
                 return true;
             }
         });
         popup.show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Log.d("POINTS", "Button pressed");
+        if(view == findViewById(R.id.cancel_point)) {
+            tempBasePoint = new Point();
+            setPointType(-1);
+        }
+        else if(view == findViewById(R.id.mark_point)) {
+            measurePoint();
+            Log.d("POINTS", pointList.toString());
+        }
+        else {
+
+        }
+    }
+
+    private void setPointType(int pointType) {
+        this.pointType = pointType;
+        if(pointType == -1) {
+            markPointFAB.hide();
+            cancelPointFAB.hide();
+        }
+        else {
+            markPointFAB.show();
+            cancelPointFAB.show();
+        }
+    }
+
+    private void measurePoint() {
+        Pair<Double, Double> angles = new Pair<>(Math.PI /  2 - orientationSensor.getPitch(),
+                Math.PI / 2 - orientationSensor.getAzimuth());
+        if(pointType == 0) {
+            pointList.add(new Point(h, angles));
+            setPointType(-1);
+        }
+        else {
+            if (tempBasePoint.isDefault())
+                tempBasePoint = new Point(h, angles);
+            else {
+                pointList.add(new Point(tempBasePoint, h, angles));
+                tempBasePoint = new Point();
+                setPointType(-1);
+            }
+        }
     }
 }
