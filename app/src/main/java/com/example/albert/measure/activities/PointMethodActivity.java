@@ -133,10 +133,10 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             case 2:
                 q = new Point(p, h, orientationValues);
             default:
-                Toast.makeText(context, Double.toString(p.distanceTo(q)), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, Double.toString(p.DistanceTo(q)), Toast.LENGTH_SHORT).show();
                 Log.d("POINTS", p.toString());
                 Log.d("POINTS", q.toString());
-                Log.d("POINTS", Double.toString(p.distanceTo(q)));
+                Log.d("POINTS", Double.toString(p.DistanceTo(q)));
                 break;
         }
         i++;

@@ -58,7 +58,7 @@ public class Point {
         this.z = (new DistanceUtils()).PVS(h, p.pitch, this.pitch);
     }
 
-    public double distanceTo(Point q) {
+    public double DistanceTo(Point q) {
         return Math.sqrt(Math.pow(this.getX()-q.getX(),2) + Math.pow(this.getY()-q.getY(),2) + Math.pow(this.getZ()-q.getZ(),2));
     }
 
@@ -82,6 +82,10 @@ public class Point {
 
     public double getAzimuth() {
         return azimuth;
+    }
+
+    public boolean isBased() {
+        return z == 0;
     }
 
     @Override
