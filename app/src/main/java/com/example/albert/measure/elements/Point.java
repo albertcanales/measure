@@ -1,21 +1,23 @@
-package com.example.albert.measure;
+package com.example.albert.measure.elements;
 
 import android.support.annotation.NonNull;
 import android.util.Pair;
+
+import com.example.albert.measure.DistanceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
 public class Point {
-
+    
     public static final double DEFAULT_PROXIMITY_DISTANCE = 20; // TODO Implement a more flexible method
 
     private final double x, y, z;
     private String name;
     private double pitch, azimuth;
 
-    // Zero Constructor
+    // Origin Constructor
     public Point() {
         this.name = "Origin";
         this.x = 0;
@@ -23,7 +25,7 @@ public class Point {
         this.z = 0;
     }
 
-    // Origin Constructor
+    // Device Constructor
     public Point(double h) {
         this.name = "Device";
         this.x = 0;
@@ -65,7 +67,7 @@ public class Point {
         this.x = p.getX();
     }
 
-    // TODO Control possible points as both azimuths must be equal or similar
+    // TODO Control possible points as both azimuths must be equal or at least similar
     // Constructor for non-base points given its base point
     public Point(String name, Point p, double h, Pair<Double, Double> angles) {
         this.name = name;
@@ -76,14 +78,10 @@ public class Point {
         this.z = (new DistanceUtils()).PVS(h, p.pitch, this.pitch);
     }
 
-    public double DistanceTo(Point q) {
-        return Math.sqrt(Math.pow(this.getX() - q.getX(), 2) + Math.pow(this.getY() - q.getY(), 2) + Math.pow(this.getZ() - q.getZ(), 2));
-    }
-
     public List<Point> CloseBasePoints(List<Point> points, double distance) {
         List<Point> closePoints = new ArrayList<>();
         for (Point q : points) {
-            if (this.DistanceTo(q) <= distance && q.isBased())
+            if ((new Vector(this, q)).getDistance() <= distance && q.isBased())
                 closePoints.add(q);
         }
         return closePoints;
@@ -93,20 +91,20 @@ public class Point {
         return name;
     }
 
-    private double getX() {
+    public double getX() {
         return x;
     }
 
-    private double getY() {
+    public double getY() {
         return y;
     }
 
-    private double getZ() {
+    public double getZ() {
         return z;
     }
 
     // TODO Calculate it if not given
-    // Angle (0,0,0) -- o -- this
+    // Angle Origin -- Device -- this
     public double getPitch() {
         return pitch;
     }

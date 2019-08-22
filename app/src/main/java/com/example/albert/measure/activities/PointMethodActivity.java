@@ -22,7 +22,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.albert.measure.CameraSurfaceView;
-import com.example.albert.measure.Point;
+import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.R;
 import com.example.albert.measure.sensors.OrientationSensor;
 
