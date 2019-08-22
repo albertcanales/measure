@@ -44,6 +44,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
     private List<Point> pointList = new ArrayList<>();
     private Point tempBasePoint = new Point();
     private int pointType = -1;     // -1 = None, 0 = Base, 1 = NonBase
+    private int numPoints = 0;
 
     private int color_id = 0;
     private boolean popupActive = false;
@@ -177,14 +178,13 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             markPointFAB.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_vertical_align_bottom_white));
             markPointFAB.show();
             cancelPointFAB.show();
-            pointNumberTV.setText(String.format("%d", pointList.size() + 1));
+            pointNumberTV.setText(String.valueOf(numPoints+1));
             pointNumberTV.animate().alpha(1.0f).setDuration(50);
         }
     }
 
     private void measurePoint() {
-        int pointNumber = pointList.size() + 1;
-        String name = "Point ".concat(Integer.toString(pointNumber));
+        String name = "Point ".concat(Integer.toString(numPoints+1));
         Pair<Double, Double> angles = new Pair<>(Math.PI / 2 - orientationSensor.getPitch(),
                 Math.PI / 2 - orientationSensor.getAzimuth());
         // TODO Measure it. Could be even treated it as a distance
@@ -192,15 +192,17 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         if (pointType == 0) {
             pointList.add(new Point(name, h, angles));
             setPointType(-1);
+            numPoints++;
         } else {
             if (tempBasePoint.isDefault()) {
-                tempBasePoint = new Point(name, h, angles);
+                tempBasePoint = new Point(name.concat(" (Base)"), h, angles);
                 Log.d("TEMP_POINTS", tempBasePoint.toString());
                 List<Point> closePoints = tempBasePoint.CloseBasePoints(pointList, Point.DEFAULT_PROXIMITY_DISTANCE);
                 Log.d("CLOSE_POINTS", closePoints.toString());
                 if (!closePoints.isEmpty()) {
-                    chooseClosePoint();
+                    chooseClosePoint(closePoints);
                 }
+                else pointList.add(tempBasePoint);
                 markPointFAB.hide();
                 markPointFAB.setImageResource(R.drawable.ic_vertical_align_top_white);
                 markPointFAB.show();
@@ -208,20 +210,24 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
                 pointList.add(new Point(name, tempBasePoint, h, angles));
                 tempBasePoint = new Point();
                 setPointType(-1);
+                numPoints++;
             }
         }
     }
 
-    private void chooseClosePoint() {   // TODO Could get parameters, more portable
+    private void chooseClosePoint(final List<Point> points) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Same point as...");
         List<String> pointNames = new ArrayList<>();
         pointNames.add("None");
-        for (Point p : pointList) pointNames.add(p.getName());
+        for (Point p : points) pointNames.add(p.getName());
         builder.setItems(pointNames.toArray(new String[0]), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (which != 0) tempBasePoint = pointList.get(which);
+                if (which == 0)
+                    pointList.add(tempBasePoint);
+                else
+                    tempBasePoint = points.get(which-1);
             }
         });
         AlertDialog dialog = builder.create();

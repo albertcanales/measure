@@ -9,7 +9,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Point {
 
-    public static final double DEFAULT_PROXIMITY_DISTANCE = 10; // TODO Implement a more flexible method
+    public static final double DEFAULT_PROXIMITY_DISTANCE = 20; // TODO Implement a more flexible method
+
     private final double x, y, z;
     private String name;
     private double pitch, azimuth;
