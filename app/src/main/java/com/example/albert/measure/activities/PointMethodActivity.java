@@ -22,6 +22,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.albert.measure.CameraSurfaceView;
 import com.example.albert.measure.elements.Point;
@@ -45,6 +46,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
 
     private List<Point> pointList = new ArrayList<>();
     private Point tempBasePoint = new Point();
+    private boolean addTempBasePoint = false;
     private int pointType = -1;     // -1 = None, 0 = Base, 1 = NonBase
     private int numPoints = 0;
 
@@ -136,11 +138,11 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             inflater.inflate(R.menu.point_type, popup.getMenu());
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
-                    if (item.getItemId() == R.id.based) {
-                        setPointType(0);    // Base point
-                    } else {
-                        setPointType(1);    // Non-base point
+                    if(pointType == -1) {
+                        if (item.getItemId() == R.id.based) setPointType(0);    // Base point
+                        else setPointType(1);    // Non-base point
                     }
+                    else mustFinishMeasurement();
                     popupActive = false;
                     return true;
                 }
@@ -161,15 +163,18 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         if (view == findViewById(R.id.cancel_point)) {
             tempBasePoint = new Point();
             setPointType(-1);
-        } else //noinspection StatementWithEmptyBody
-            if (view == findViewById(R.id.mark_point)) {
+        } else if (view == findViewById(R.id.mark_point)) {
                 measurePoint();
                 Log.d("POINTS", pointList.toString());
             } else {  // DoneFAB pressed
-                Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
-                ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(pointList);
-                intent.putParcelableArrayListExtra("points", parcelables);
-                startActivity(intent);
+                if(pointType == -1) {
+                    Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+                    ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(pointList);
+                    intent.putParcelableArrayListExtra("points", parcelables);
+                    startActivity(intent);
+                } else {
+                    mustFinishMeasurement();
+                }
             }
     }
 
@@ -200,6 +205,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             numPoints++;
         } else {
             if (tempBasePoint.isDefault()) {
+                addTempBasePoint = false;
                 tempBasePoint = new Point(name.concat(" (Base)"), h, angles);
                 Log.d("TEMP_POINTS", tempBasePoint.toString());
                 List<Point> closePoints = tempBasePoint.CloseBasePoints(pointList, Point.DEFAULT_PROXIMITY_DISTANCE);
@@ -207,14 +213,16 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
                 if (!closePoints.isEmpty()) {
                     chooseClosePoint(closePoints);
                 }
-                else pointList.add(tempBasePoint);
+                else addTempBasePoint = true;
                 markPointFAB.hide();
                 markPointFAB.setImageResource(R.drawable.ic_vertical_align_top_white);
                 markPointFAB.show();
             } else {
+                if(addTempBasePoint) pointList.add(tempBasePoint);
                 pointList.add(new Point(name, tempBasePoint, h, angles));
                 tempBasePoint = new Point();
                 setPointType(-1);
+                addTempBasePoint = false;
                 numPoints++;
             }
         }
@@ -230,7 +238,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0)
-                    pointList.add(tempBasePoint);
+                    addTempBasePoint = true;
                 else
                     tempBasePoint = points.get(which-1);
             }
@@ -238,5 +246,8 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         dialog.show();
+    }
+    public void mustFinishMeasurement() {
+        Toast.makeText(context, "Finish the actual point first!", Toast.LENGTH_LONG).show();
     }
 }
