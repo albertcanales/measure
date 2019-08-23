@@ -6,14 +6,19 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.ui.main.SectionsPagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class ResultsActivity extends AppCompatActivity {
+
+    private List<Point> pointList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +30,27 @@ public class ResultsActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+        viewPager.setOffscreenPageLimit(1);
+
         FloatingActionButton fab = findViewById(R.id.fab);
 
+        // TODO AddElements activity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Not developed yet", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+
+        pointList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("points");
+    }
+
+    public List<Point> getPointList() {
+        return pointList;
+    }
+
+    public void setPointList(List<Point> pointList) {
+        this.pointList = pointList;
     }
 }
