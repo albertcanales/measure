@@ -1,5 +1,7 @@
 package com.example.albert.measure.elements;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.util.Pair;
 
@@ -9,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Point {
-    
+public class Point implements Parcelable {
+
     public static final double DEFAULT_PROXIMITY_DISTANCE = 20; // TODO Implement a more flexible method
 
-    private final double x, y, z;
     private String name;
+    private final double x, y, z;
     private double pitch, azimuth;
 
     // Origin Constructor
@@ -78,6 +80,16 @@ public class Point {
         this.z = (new DistanceUtils()).PVS(h, p.pitch, this.pitch);
     }
 
+    // Parcelable constructor
+    public Point(Parcel in) {
+        name = in.readString();
+        x = in.readDouble();
+        y = in.readDouble();
+        z = in.readDouble();
+        pitch = in.readDouble();
+        azimuth = in.readDouble();
+    }
+
     public List<Point> CloseBasePoints(List<Point> points, double distance) {
         List<Point> closePoints = new ArrayList<>();
         for (Point q : points) {
@@ -131,4 +143,31 @@ public class Point {
                 ", z=" + z +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeDouble(x);
+        parcel.writeDouble(y);
+        parcel.writeDouble(z);
+        parcel.writeDouble(pitch);
+        parcel.writeDouble(azimuth);
+    }
+
+    public static final Creator<Point> CREATOR = new Creator<Point>() {
+        @Override
+        public Point createFromParcel(Parcel in) {
+            return new Point(in);
+        }
+
+        @Override
+        public Point[] newArray(int size) {
+            return new Point[size];
+        }
+    };
 }

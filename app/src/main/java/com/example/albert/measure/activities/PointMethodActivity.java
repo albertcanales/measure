@@ -2,8 +2,10 @@ package com.example.albert.measure.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -164,7 +166,10 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
                 measurePoint();
                 Log.d("POINTS", pointList.toString());
             } else {  // DoneFAB pressed
-                // TODO Finish measurement
+                Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+                ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(pointList);
+                intent.putParcelableArrayListExtra("points", parcelables);
+                startActivity(intent);
             }
     }
 
