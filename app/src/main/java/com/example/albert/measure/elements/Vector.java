@@ -1,25 +1,24 @@
 package com.example.albert.measure.elements;
 
-public class Vector {
+public class Vector extends Element {
 
-    private String name;
     private Point first;
     private Point second;
 
     public Vector() {
-        name = "";
+        super("");
         first = new Point();
         second = new Point();
     }
 
     public Vector(Point first, Point second) {
-        name = "";
+        super("");
         this.first = first;
         this.second = second;
     }
 
     public Vector(String name, Point first, Point second) {
-        this.name = name;
+        super(name);
         this.first = first;
         this.second = second;
     }
@@ -72,14 +71,6 @@ public class Vector {
     public double getDistance() {
         return Math.sqrt(Math.pow(getDistanceX(), 2) +
                 Math.pow(getDistanceY(), 2) + Math.pow(getDistanceZ(), 2));
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Point getFirst() {

@@ -1,38 +1,37 @@
 package com.example.albert.measure.elements;
 
-public class Angle {
+public class Angle extends Element {
 
     // Point-based definition included though vectors to avoid data repetition
-    private String name;
     private Vector v;
     private Vector u;
 
     public Angle() {
-        name = "";
+        super("");
         v = new Vector();
         u = new Vector();
     }
 
     public Angle(Vector v, Vector u) {
-        name = "";
+        super("");
         this.v = v;
         this.u = u;
     }
 
     public Angle(String name, Vector v, Vector u) {
-        this.name = name;
+        super(name);
         this.v = v;
         this.u = u;
     }
 
     public Angle(Point first, Point second, Point vertex) {
-        name = "";
+        super("");
         v = new Vector(vertex, first);
         u = new Vector(vertex, second);
     }
 
     public Angle(String name, Point first, Point second, Point vertex) {
-        this.name = name;
+        super(name);
         v = new Vector(vertex, first);
         u = new Vector(vertex, second);
     }
@@ -53,14 +52,6 @@ public class Angle {
 
     public double getAngleZ() {
         return new Angle(v.projectionZ(), u.projectionZ()).getAngle();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Point getFirst() {

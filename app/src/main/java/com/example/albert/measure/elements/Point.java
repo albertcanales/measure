@@ -11,17 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Point implements Parcelable {
+public class Point extends Element implements Parcelable {
 
     public static final double DEFAULT_PROXIMITY_DISTANCE = 20; // TODO Implement a more flexible method
 
-    private String name;
     private final double x, y, z;
     private double pitch, azimuth;
 
     // Origin Constructor
     public Point() {
-        this.name = "Origin";
+        super("Origin");
         this.x = 0;
         this.y = 0;
         this.z = 0;
@@ -29,7 +28,7 @@ public class Point implements Parcelable {
 
     // Device Constructor
     public Point(double h) {
-        this.name = "Device";
+        super("Device");
         this.x = 0;
         this.y = 0;
         this.z = h;
@@ -37,7 +36,7 @@ public class Point implements Parcelable {
 
     // Manual Constructor
     public Point(String name, double x, double y, double z) {
-        this.name = name;
+        super(name);
         this.x = x;
         this.y = y;
         this.z = z;
@@ -45,7 +44,7 @@ public class Point implements Parcelable {
 
     // Manual constructor for base points
     public Point(String name, double x, double y) {
-        this.name = name;
+        super(name);
         this.x = x;
         this.y = y;
         this.z = 0;
@@ -53,7 +52,7 @@ public class Point implements Parcelable {
 
     // Constructor for base points
     public Point(String name, double h, Pair<Double, Double> angles) {
-        this.name = name;
+        super(name);
         z = 0;
         this.pitch = angles.first;
         this.azimuth = angles.second;
@@ -63,7 +62,7 @@ public class Point implements Parcelable {
 
     // Manual constructor for non-base points given its base point
     public Point(String name, Point p, double h) {
-        this.name = name;
+        super(name);
         z = h;
         this.y = p.getY();
         this.x = p.getX();
@@ -72,7 +71,7 @@ public class Point implements Parcelable {
     // TODO Control possible points as both azimuths must be equal or at least similar
     // Constructor for non-base points given its base point
     public Point(String name, Point p, double h, Pair<Double, Double> angles) {
-        this.name = name;
+        super(name);
         this.pitch = angles.first;
         this.azimuth = angles.second;
         this.y = p.getY();
@@ -97,14 +96,6 @@ public class Point implements Parcelable {
                 closePoints.add(q);
         }
         return closePoints;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public double getX() {
