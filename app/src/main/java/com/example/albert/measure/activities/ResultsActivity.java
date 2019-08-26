@@ -1,17 +1,15 @@
 package com.example.albert.measure.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
+import com.example.albert.measure.elements.Vector;
 import com.example.albert.measure.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
@@ -25,6 +23,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     private List<Point> pointList = new ArrayList<>();
     private List<Angle> angleList = new ArrayList<>();
+    private List<Vector> vectorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,16 @@ public class ResultsActivity extends AppCompatActivity {
         this.angleList = angleList;
     }
 
-    public void refreshAdapter() {
+    public List<Vector> getVectorList() {
+        return vectorList;
+    }
+
+    public void setVectorList(List<Vector> vectorList) {
+        this.vectorList = vectorList;
+    }
+
+    public void refreshAdapter(int tabPosition) {
         viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setCurrentItem(tabPosition, false);
     }
 }

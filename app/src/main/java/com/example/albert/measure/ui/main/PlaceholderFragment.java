@@ -15,6 +15,7 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
+import com.example.albert.measure.elements.Vector;
 
 import java.util.List;
 import java.util.Objects;
@@ -60,11 +61,19 @@ public class PlaceholderFragment extends Fragment {
             addElement.setText("Add angle");
             List<Angle> angleList = myActivity.getAngleList();
             //List<Point> pointList = myActivity.getPointList();
-            //angleList.add(new Angle("Test Angle", pointList.get(0), pointList.get(1), pointList.get(2)));
+            //angleList.add(new Angle("TestAngle", pointList.get(0), pointList.get(1), pointList.get(2)));
             //angleList.add(new Angle(new Point("First", 3.0, 4.0, 5.0),
             //        new Point("Second", 5.0, 7.0, 0.0), new Point("Vertex", 0.0, 0.0, 0.0)));
             AnglesAdapter anglesAdapter = new AnglesAdapter(angleList, myActivity);
             recyclerViewElements.setAdapter(anglesAdapter);
+        } else if(tabPosition == 2) {
+            addElement.setText("Add distance");
+            List<Vector> vectorList = myActivity.getVectorList();
+            //List<Point> pointList = myActivity.getPointList();
+            //vectorList.add(new Vector("TestDistance1", pointList.get(0), pointList.get(1)));
+            //vectorList.add(new Vector("TestDistance2", pointList.get(1), pointList.get(2)));
+            VectorsAdapter vectorsAdapter = new VectorsAdapter(vectorList, myActivity);
+            recyclerViewElements.setAdapter(vectorsAdapter);
         }
         return root;
     }

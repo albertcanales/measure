@@ -16,6 +16,7 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
+import com.example.albert.measure.elements.Vector;
 
 import java.util.List;
 
@@ -34,11 +35,16 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
         List<Angle> getAngles() { return angles; }
     }
 
+    static class ListVectorRef {
+        List<Vector> vectors;
+        ListVectorRef(List<Vector> vectors) { this.vectors = vectors; }
+        List<Vector> getVectors() { return vectors; }
+    }
+
     Context context;
     List<Point> pointList;
     List<Angle> angleList;
-
-    int type; // 0 Point, 1, Angle, 2 Distance, 3 Area, 4 Volume
+    List<Vector> vectorList;
 
     private ElementsAdapter(Context context) {
         this.context = context;
@@ -47,13 +53,16 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
     ElementsAdapter(ListPointRef points, Context context) {
         this(context);
         this.pointList = points.getPoints();
-        this.type = 0;
     }
 
     ElementsAdapter(ListAngleRef angles, Context context) {
         this(context);
         this.angleList = angles.getAngles();
-        this.type = 1;
+    }
+
+    ElementsAdapter(ListVectorRef vectors, Context context) {
+        this(context);
+        this.vectorList = vectors.getVectors();
     }
 
     @NonNull
@@ -62,12 +71,10 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.rename.setOnClickListener(new onClickListeners(position));
-        holder.remove.setOnClickListener(new onClickListeners(position));
-
-        String name = pointList.get(position).getName();
-        holder.name.setText(name);
         onBindChildrenViewHolder(holder, position);
+        holder.rename.setOnClickListener(new ModifyElement(position));
+        holder.remove.setOnClickListener(new ModifyElement(position));
+        holder.name.setText(getItemName(position));
     }
 
     abstract void onBindChildrenViewHolder(ViewHolder holder, int position);
@@ -75,11 +82,11 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
     @Override
     public abstract int getItemCount();
 
-    class onClickListeners implements View.OnClickListener {
+    class ModifyElement implements View.OnClickListener {
 
         int position;
 
-        onClickListeners(int position) {
+        ModifyElement(int position) {
             this.position = position;
         }
 
@@ -105,7 +112,7 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
                 final LayoutInflater inflater = ((ResultsActivity)context).getLayoutInflater();
                 final View myView = inflater.inflate(R.layout.dialog_rename, null);
                 final EditText nameET = myView.findViewById(R.id.rename_edit_text);
-                nameET.setText(getDefaultText());
+                nameET.setText(getItemName(position));
                 builder.setView(myView);
                 builder.setTitle("Rename to...")
                         .setPositiveButton("OK", null)
@@ -138,37 +145,19 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
             }
             dialog.show();
         }
-
-        private void removeItem(int position) {
-            if(type == 0) {
-                pointList.remove(position);
-                ((ResultsActivity) context).setPointList(pointList);
-            } else if (type == 1) {
-
-            }
-            ((ResultsActivity) context).refreshAdapter();
-        }
-
-        private void renameItem(int position, String name) {
-            if(type == 0) {
-                pointList.get(position).setName(name);
-                ((ResultsActivity) context).setPointList(pointList);
-            }
-            ((ResultsActivity) context).refreshAdapter();
-        }
-
-        private String getDefaultText() {
-            if(type == 0)
-                return pointList.get(position).getName();
-            return "";
-        }
     }
+
+    abstract void removeItem(int position);
+
+    abstract String getItemName(int position);
+
+    abstract void renameItem(int position, String name);
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, rename, remove;
         ViewHolder(View v) {
             super(v);
-            name = v.findViewById(R.id.angleName);
+            name = v.findViewById(R.id.name);
             rename = v.findViewById(R.id.rename);
             remove = v.findViewById(R.id.remove);
         }

@@ -24,4 +24,6 @@
     <string name="distances">Distances</string>
     <string name="areas">Areas</string>
     <string name="volumes">Volumes</string>
+    <string name="cm">
+        cm</string>
 </resources>

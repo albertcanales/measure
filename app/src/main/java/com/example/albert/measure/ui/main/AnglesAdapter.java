@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 
 import java.util.List;
@@ -59,6 +60,27 @@ public class AnglesAdapter extends ElementsAdapter {
     public int getItemCount() {
         return angleList.size();
     }
+
+    @Override
+    void removeItem(int position) {
+        angleList.remove(position);
+        ((ResultsActivity) context).setAngleList(angleList);
+        ((ResultsActivity) context).refreshAdapter(1);
+    }
+
+    @Override
+    String getItemName(int position) {
+        return angleList.get(position).getName();
+    }
+
+    @Override
+    void renameItem(int position, String name) {
+        angleList.get(position).setName(name);
+        ((ResultsActivity) context).setAngleList(angleList);
+        ((ResultsActivity) context).refreshAdapter(1);
+    }
+
+
     public static class ViewHolder extends ElementsAdapter.ViewHolder {
         TextView textAngle, textX, textY, textZ;
         ViewHolder(View v) {

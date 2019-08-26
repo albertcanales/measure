@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Point;
 
 import java.util.List;
@@ -32,17 +33,33 @@ public class PointsAdapter extends ElementsAdapter {
     @SuppressLint("DefaultLocale")
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
-        double x = pointList.get(position).getX();
-        double y = pointList.get(position).getY();
-        double z = pointList.get(position).getZ();
-        this.holder.textX.setText("x\n".concat(String.format("%.1f", x)));
-        this.holder.textY.setText("y\n".concat(String.format("%.1f", y)));
-        this.holder.textZ.setText("z\n".concat(String.format("%.1f", z)));
+        this.holder.textX.setText(String.format("x\n%.1f", pointList.get(position).getX()));
+        this.holder.textY.setText(String.format("y\n%.1f", pointList.get(position).getY()));
+        this.holder.textZ.setText(String.format("z\n%.1f", pointList.get(position).getZ()));
     }
 
     @Override
     public int getItemCount() {
         return pointList.size();
+    }
+
+    @Override
+    void removeItem(int position) {
+        pointList.remove(position);
+        ((ResultsActivity) context).setPointList(pointList);
+        ((ResultsActivity) context).refreshAdapter(0);
+    }
+
+    @Override
+    String getItemName(int position) {
+        return pointList.get(position).getName();
+    }
+
+    @Override
+    void renameItem(int position, String name) {
+        pointList.get(position).setName(name);
+        ((ResultsActivity) context).setPointList(pointList);
+        ((ResultsActivity) context).refreshAdapter(0);
     }
 
     static class ViewHolder extends ElementsAdapter.ViewHolder {

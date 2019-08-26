@@ -27,7 +27,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Test Angle"
+                android:text="Test Distance"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -41,8 +41,8 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/angle"
-                    android:text="65º"
+                    android:id="@+id/distance"
+                    android:text="65"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_width="0dp"
@@ -59,8 +59,8 @@
                     android:layout_weight="3">
 
                     <TextView
-                        android:id="@+id/angleX"
-                        android:text=""
+                        android:id="@+id/distanceX"
+                        android:text="4"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_width="0dp"
@@ -72,8 +72,8 @@
                         android:gravity="center"/>
 
                     <TextView
-                        android:id="@+id/angleY"
-                        android:text=""
+                        android:id="@+id/distanceY"
+                        android:text="53"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_width="0dp"
@@ -85,8 +85,8 @@
                         android:gravity="center"/>
 
                     <TextView
-                        android:id="@+id/angleZ"
-                        android:text=""
+                        android:id="@+id/distanceZ"
+                        android:text="10"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_width="0dp"
@@ -96,6 +96,16 @@
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
                         android:gravity="center"/>
+                    <!--
+                    <TextView
+                        android:text="@string/cm"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:gravity="center"/>
+                    -->
 
                 </LinearLayout>
 
