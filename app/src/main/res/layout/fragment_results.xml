@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_element_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.main.PlaceholderFragment">
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/elementsRecyclerView"
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:scrollbars="vertical"
-        android:focusable="true"
-        android:paddingBottom="48dp"
-        android:clipToPadding="false">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        tools:context=".ui.main.PlaceholderFragment">
 
-</RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/elementsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scrollbars="vertical"
+            android:focusable="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"/>
+
+    <Button
+        android:id="@+id/add_element"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add point"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+
+        android:background="@null"
+        android:drawableStart="@drawable/ic_add_accent"
+        android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+

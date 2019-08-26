@@ -194,7 +194,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void measurePoint() {
-        String name = "Point ".concat(Integer.toString(numPoints+1));
+        String name = "Point".concat(Integer.toString(numPoints+1));
         Pair<Double, Double> angles = new Pair<>(Math.PI / 2 - orientationSensor.getPitch(),
                 Math.PI / 2 - orientationSensor.getAzimuth());
         // TODO Measure it. Could be even treated it as a distance
@@ -206,7 +206,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         } else {
             if (tempBasePoint.isDefault()) {
                 addTempBasePoint = false;
-                tempBasePoint = new Point(name.concat(" (Base)"), h, angles);
+                tempBasePoint = new Point(name.concat("Base"), h, angles);
                 Log.d("TEMP_POINTS", tempBasePoint.toString());
                 List<Point> closePoints = tempBasePoint.CloseBasePoints(pointList, Point.DEFAULT_PROXIMITY_DISTANCE);
                 Log.d("CLOSE_POINTS", closePoints.toString());

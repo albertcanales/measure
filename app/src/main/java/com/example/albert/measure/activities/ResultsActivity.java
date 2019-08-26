@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.example.albert.measure.R;
@@ -19,6 +20,9 @@ import java.util.Objects;
 
 public class ResultsActivity extends AppCompatActivity {
 
+    private SectionsPagerAdapter sectionsPagerAdapter ;
+    private ViewPager viewPager;
+
     private List<Point> pointList = new ArrayList<>();
     private List<Angle> angleList = new ArrayList<>();
 
@@ -26,24 +30,13 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         viewPager.setOffscreenPageLimit(1);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        // TODO AddElements activity
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Not developed yet", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         pointList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("points");
     }
@@ -54,6 +47,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void setPointList(List<Point> pointList) {
         this.pointList = pointList;
+        Log.d("POINTS", pointList.toString());
     }
 
     public List<Angle> getAngleList() {
@@ -62,5 +56,9 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void setAngleList(List<Angle> angleList) {
         this.angleList = angleList;
+    }
+
+    public void refreshAdapter() {
+        viewPager.setAdapter(sectionsPagerAdapter);
     }
 }

@@ -14,14 +14,10 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
 
 import java.util.List;
 import java.util.Objects;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -43,7 +39,7 @@ public class PlaceholderFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        int tabPosition = getArguments().getInt(ARG_SECTION_NUMBER);
+        int tabPosition = Objects.requireNonNull(getArguments()).getInt(ARG_SECTION_NUMBER);
         Log.d("TAB", String.valueOf(tabPosition));
         View root = inflater.inflate(R.layout.fragment_results, container, false);
 
@@ -59,11 +55,11 @@ public class PlaceholderFragment extends Fragment {
         ResultsActivity myActivity = ((ResultsActivity) Objects.requireNonNull(getActivity()));
         if(tabPosition == 0) {  // POINTS
             List<Point> pointList = myActivity.getPointList();
-            PointsAdapter pointsAdapter = new PointsAdapter(pointList);
+            PointsAdapter pointsAdapter = new PointsAdapter(pointList, myActivity);
             recyclerViewElements.setAdapter(pointsAdapter);
         } else if(tabPosition == 1) {
             List<Angle> angleList = myActivity.getAngleList();
-            List<Point> pointList = myActivity.getPointList();
+            //List<Point> pointList = myActivity.getPointList();
             //angleList.add(new Angle("Test Angle", pointList.get(0), pointList.get(1), pointList.get(2)));
             //angleList.add(new Angle(new Point("First", 3.0, 4.0, 5.0),
             //        new Point("Second", 5.0, 7.0, 0.0), new Point("Vertex", 0.0, 0.0, 0.0)));

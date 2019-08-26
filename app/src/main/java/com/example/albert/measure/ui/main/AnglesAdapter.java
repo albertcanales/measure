@@ -71,5 +71,4 @@ public class AnglesAdapter extends RecyclerView.Adapter<AnglesAdapter.ViewHolder
             textZ = v.findViewById(R.id.angleZ);
         }
     }
-
 }
