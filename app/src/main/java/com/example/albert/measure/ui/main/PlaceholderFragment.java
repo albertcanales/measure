@@ -12,7 +12,9 @@ import android.support.v4.app.Fragment;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
+import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
+import com.example.albert.measure.elements.Vector;
 
 import java.util.List;
 import java.util.Objects;
@@ -59,6 +61,14 @@ public class PlaceholderFragment extends Fragment {
             List<Point> pointList = myActivity.getPointList();
             PointsAdapter pointsAdapter = new PointsAdapter(pointList);
             recyclerViewElements.setAdapter(pointsAdapter);
+        } else if(tabPosition == 1) {
+            List<Angle> angleList = myActivity.getAngleList();
+            List<Point> pointList = myActivity.getPointList();
+            //angleList.add(new Angle("Test Angle", pointList.get(0), pointList.get(1), pointList.get(2)));
+            //angleList.add(new Angle(new Point("First", 3.0, 4.0, 5.0),
+            //        new Point("Second", 5.0, 7.0, 0.0), new Point("Vertex", 0.0, 0.0, 0.0)));
+            AnglesAdapter anglesAdapter = new AnglesAdapter(angleList);
+            recyclerViewElements.setAdapter(anglesAdapter);
         }
 
         return root;

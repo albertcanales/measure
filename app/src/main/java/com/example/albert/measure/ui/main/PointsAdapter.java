@@ -29,7 +29,13 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String name = pointList.get(position).getName();
+        double x = pointList.get(position).getX();
+        double y = pointList.get(position).getY();
+        double z = pointList.get(position).getZ();
         holder.name.setText(name);
+        holder.textX.setText("x\n".concat(String.format("%.1f", x)));
+        holder.textY.setText("y\n".concat(String.format("%.1f", y)));
+        holder.textZ.setText("z\n".concat(String.format("%.1f", z)));
     }
 
     @Override
@@ -38,10 +44,13 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
+        private TextView name, textX, textY, textZ;
         public ViewHolder(View v) {
             super(v);
-            name = v.findViewById(R.id.pointName);
+            name = v.findViewById(R.id.angleName);
+            textX = v.findViewById(R.id.angleX);
+            textY = v.findViewById(R.id.angleY);
+            textZ = v.findViewById(R.id.angleZ);
         }
     }
 

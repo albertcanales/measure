@@ -5,12 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,12 +37,13 @@
                 android:orientation="horizontal"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                android:gravity="center">
 
                 <TextView
-                    android:id="@+id/angleX"
-                    android:text="x = 0"
-                    android:textSize="16sp"
+                    android:id="@+id/angle"
+                    android:text="65º"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -58,31 +53,51 @@
                     android:layout_weight="1"
                     android:gravity="center"/>
 
-                <TextView
-                    android:id="@+id/angleY"
-                    android:text="y = 0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+                    android:layout_weight="3">
 
-                <TextView
-                    android:id="@+id/angleZ"
-                    android:text="z = 0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/angleX"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/angleY"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/angleZ"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -119,5 +134,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
 
 </LinearLayout>

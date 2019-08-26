@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.ui.main.SectionsPagerAdapter;
 
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class ResultsActivity extends AppCompatActivity {
 
     private List<Point> pointList = new ArrayList<>();
+    private List<Angle> angleList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,5 +54,13 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void setPointList(List<Point> pointList) {
         this.pointList = pointList;
+    }
+
+    public List<Angle> getAngleList() {
+        return angleList;
+    }
+
+    public void setAngleList(List<Angle> angleList) {
+        this.angleList = angleList;
     }
 }
