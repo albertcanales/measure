@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.widget.Button;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
@@ -43,30 +44,28 @@ public class PlaceholderFragment extends Fragment {
         Log.d("TAB", String.valueOf(tabPosition));
         View root = inflater.inflate(R.layout.fragment_results, container, false);
 
+        Button addElement = root.findViewById(R.id.add_element);
+
         RecyclerView recyclerViewElements = root.findViewById(R.id.elementsRecyclerView);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         recyclerViewElements.setHasFixedSize(true);
-
-        // use a linear layout manager
         recyclerViewElements.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ResultsActivity myActivity = ((ResultsActivity) Objects.requireNonNull(getActivity()));
         if(tabPosition == 0) {  // POINTS
+            addElement.setText("Add point");
             List<Point> pointList = myActivity.getPointList();
             PointsAdapter pointsAdapter = new PointsAdapter(pointList, myActivity);
             recyclerViewElements.setAdapter(pointsAdapter);
-        } else if(tabPosition == 1) {
+        } else if(tabPosition == 1) {   // ANGLES
+            addElement.setText("Add angle");
             List<Angle> angleList = myActivity.getAngleList();
             //List<Point> pointList = myActivity.getPointList();
             //angleList.add(new Angle("Test Angle", pointList.get(0), pointList.get(1), pointList.get(2)));
             //angleList.add(new Angle(new Point("First", 3.0, 4.0, 5.0),
             //        new Point("Second", 5.0, 7.0, 0.0), new Point("Vertex", 0.0, 0.0, 0.0)));
-            AnglesAdapter anglesAdapter = new AnglesAdapter(angleList);
+            AnglesAdapter anglesAdapter = new AnglesAdapter(angleList, myActivity);
             recyclerViewElements.setAdapter(anglesAdapter);
         }
-
         return root;
     }
 }

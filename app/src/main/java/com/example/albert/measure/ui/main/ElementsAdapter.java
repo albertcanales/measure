@@ -2,9 +2,7 @@ package com.example.albert.measure.ui.main;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,17 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Element;
 import com.example.albert.measure.elements.Point;
 
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
-public abstract class ElementsAdapter extends RecyclerView.Adapter<PointsAdapter.ViewHolder> {
+public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHolder> {
 
     // To avoid same erasure error, could be done with Suppliers, but API increases to 24 (7.0)
     static class ListPointRef {
@@ -61,16 +58,19 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<PointsAdapter
 
     @NonNull
     @Override
-    public abstract PointsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i);
+    public abstract ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i);
 
     @Override
-    public void onBindViewHolder(@NonNull PointsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.rename.setOnClickListener(new onClickListeners(position));
         holder.remove.setOnClickListener(new onClickListeners(position));
 
         String name = pointList.get(position).getName();
         holder.name.setText(name);
+        onBindChildrenViewHolder(holder, position);
     }
+
+    abstract void onBindChildrenViewHolder(ViewHolder holder, int position);
 
     @Override
     public abstract int getItemCount();
@@ -104,7 +104,7 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<PointsAdapter
             } else {
                 final LayoutInflater inflater = ((ResultsActivity)context).getLayoutInflater();
                 final View myView = inflater.inflate(R.layout.dialog_rename, null);
-                final EditText nameET = myView.findViewById(R.id.rename_edittext);
+                final EditText nameET = myView.findViewById(R.id.rename_edit_text);
                 nameET.setText(getDefaultText());
                 builder.setView(myView);
                 builder.setTitle("Rename to...")
@@ -161,6 +161,16 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<PointsAdapter
             if(type == 0)
                 return pointList.get(position).getName();
             return "";
+        }
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView name, rename, remove;
+        ViewHolder(View v) {
+            super(v);
+            name = v.findViewById(R.id.angleName);
+            rename = v.findViewById(R.id.rename);
+            remove = v.findViewById(R.id.remove);
         }
     }
 }
