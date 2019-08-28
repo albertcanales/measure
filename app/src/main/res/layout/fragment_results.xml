@@ -2,7 +2,6 @@
 
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/add_element_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
@@ -46,16 +45,15 @@
 
     <Button
         android:id="@+id/add_element"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add element"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
         android:background="@null"
-        android:drawableStart="@drawable/ic_add_accent"
         android:layout_gravity="center"/>
 
-    </LinearLayout>
+</LinearLayout>
 
 
 

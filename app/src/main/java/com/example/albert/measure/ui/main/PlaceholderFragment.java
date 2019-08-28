@@ -1,5 +1,7 @@
 package com.example.albert.measure.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.activities.AddPointActivity;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
@@ -54,16 +57,16 @@ public class PlaceholderFragment extends Fragment {
         recyclerViewElements.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ResultsActivity myActivity = ((ResultsActivity) Objects.requireNonNull(getActivity()));
-        String elementType = "";
+        String elementTypeStr = "";
         noElementTV.setVisibility(View.GONE);
         if(tabPosition == 0) {  // POINTS
-            elementType = "point";
+            elementTypeStr = "point";
             List<Point> pointList = myActivity.getPointList();
             if(pointList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             PointsAdapter pointsAdapter = new PointsAdapter(pointList, myActivity);
             recyclerViewElements.setAdapter(pointsAdapter);
         } else if(tabPosition == 1) {   // ANGLES
-            elementType = "angle";
+            elementTypeStr = "angle";
             List<Angle> angleList = myActivity.getAngleList();
             if(angleList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             //List<Point> pointList = myActivity.getPointList();
@@ -73,7 +76,7 @@ public class PlaceholderFragment extends Fragment {
             AnglesAdapter anglesAdapter = new AnglesAdapter(angleList, myActivity);
             recyclerViewElements.setAdapter(anglesAdapter);
         } else if(tabPosition == 2) {
-            elementType = "distance";
+            elementTypeStr = "distance";
             List<Vector> vectorList = myActivity.getVectorList();
             if(vectorList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             //List<Point> pointList = myActivity.getPointList();
@@ -82,8 +85,28 @@ public class PlaceholderFragment extends Fragment {
             VectorsAdapter vectorsAdapter = new VectorsAdapter(vectorList, myActivity);
             recyclerViewElements.setAdapter(vectorsAdapter);
         }
-        addElement.setText("Add ".concat(elementType));
-        noElementTV.setText("No ".concat(elementType).concat(" calculated.\nClick below to add one!"));
+        addElement.setOnClickListener(new AddElementButtonListener(tabPosition, myActivity));
+        addElement.setText("Add ".concat(elementTypeStr));
+        noElementTV.setText(String.format("No %s calculated.\nClick below to add one!", elementTypeStr));
         return root;
+    }
+
+    private class AddElementButtonListener implements View.OnClickListener {
+
+        int elementType;
+        Context context;
+
+        AddElementButtonListener (int elementType, Context context) {
+            this.elementType = elementType;
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            if(elementType == 0)
+                intent = new Intent(context, AddPointActivity.class);
+            if(!intent.filterEquals(new Intent()))startActivity(intent);
+        }
     }
 }
