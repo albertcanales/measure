@@ -264,7 +264,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         dialog.setCancelable(false);
         dialog.show();
     }
-    public void mustFinishMeasurement() {
+    private void mustFinishMeasurement() {
         Toast.makeText(context, "Finish the actual point first!", Toast.LENGTH_LONG).show();
     }
 }

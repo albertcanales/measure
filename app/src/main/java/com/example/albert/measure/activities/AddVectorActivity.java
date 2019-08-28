@@ -15,9 +15,8 @@ import java.util.List;
 
 public class AddVectorActivity extends AddElementActivity {
 
-    Spinner spinnerA, spinnerB;
-
-    Point pointA, pointB;
+    private Spinner spinnerA;
+    private Spinner spinnerB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,8 @@ public class AddVectorActivity extends AddElementActivity {
 
     @Override
     void addElement() {
-        pointA = points.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
-        pointB = points.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
+        Point pointA = points.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
+        Point pointB = points.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
         Vector vector = new Vector(name, pointA, pointB);
         vectors.add(vector);
         Intent resultIntent = new Intent();

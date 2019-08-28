@@ -6,11 +6,12 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
+import com.example.albert.measure.elements.Angle;
+import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class VectorsAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    VectorsAdapter(List<Vector> vectors, Context context) {
-        super(new ListVectorRef(vectors), context);
+    VectorsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, Context context) {
+        super(points, angles, new ListVectorRef(vectors), context);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_vectors, parent, false);
         holder = new ViewHolder(v);
         return holder;

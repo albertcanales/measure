@@ -14,7 +14,7 @@
             android:title="Distance" />
         <item
             android:id="@+id/nav_points"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_linear_scale_black"
             android:title="Points" />
         <item
             android:id="@+id/nav_test_sensors"

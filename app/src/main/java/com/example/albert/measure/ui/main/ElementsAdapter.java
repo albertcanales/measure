@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
+import com.example.albert.measure.elements.Element;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 
@@ -50,18 +51,24 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
         this.context = context;
     }
 
-    ElementsAdapter(ListPointRef points, Context context) {
+    ElementsAdapter(ListPointRef points, List<Angle> angles, List<Vector> vectors, Context context) {
         this(context);
         this.pointList = points.getPoints();
+        this.angleList = angles;
+        this.vectorList = vectors;
     }
 
-    ElementsAdapter(ListAngleRef angles, Context context) {
+    ElementsAdapter(List<Point> points, ListAngleRef angles, List<Vector> vectors, Context context) {
         this(context);
+        this.pointList = points;
         this.angleList = angles.getAngles();
+        this.vectorList = vectors;
     }
 
-    ElementsAdapter(ListVectorRef vectors, Context context) {
+    ElementsAdapter(List<Point> points, List<Angle> angles, ListVectorRef vectors, Context context) {
         this(context);
+        this.pointList = points;
+        this.angleList = angles;
         this.vectorList = vectors.getVectors();
     }
 
@@ -129,15 +136,12 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String newName = nameET.getText().toString().trim();
-                                if (newName.isEmpty()) nameET.setError("Cannot be empty");
-                                else if(newName.matches("[A-Za-z0-9]+")) {
-                                    // TODO Check if it already exists
-                                    renameItem(position, newName);
-                                    dialog.dismiss();
-                                } else {
-                                    nameET.setError("Can only contain alphanumeric characters");
-                                }
+                            String name = nameET.getText().toString().trim();
+                            if(Element.validNameFromEditText(nameET, pointList, angleList, vectorList)
+                                    == Element.VALID_NAME) {
+                                renameItem(position, name);
+                                dialog.dismiss();
+                            }
                             }
                         });
                     }

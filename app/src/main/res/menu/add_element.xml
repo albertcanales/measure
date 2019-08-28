@@ -5,7 +5,8 @@
     <item
         android:id="@+id/add_element_ok"
         android:orderInCategory="100"
-        android:title="OK"
+        android:title=""
+        android:icon="@drawable/ic_done_white"
         app:showAsAction="ifRoom"/>
 
 </menu>

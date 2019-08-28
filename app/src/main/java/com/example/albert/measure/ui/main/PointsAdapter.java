@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
+import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
+import com.example.albert.measure.elements.Vector;
 
 import java.util.List;
 
@@ -18,13 +20,13 @@ public class PointsAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    PointsAdapter(List<Point> points, Context context) {
-        super(new ListPointRef(points), context);
+    PointsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, Context context) {
+        super(new ListPointRef(points), angles, vectors, context);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_points, parent, false);
         holder = new ViewHolder(v);
         return holder;

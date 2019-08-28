@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.AddPointActivity;
@@ -31,7 +32,7 @@ import java.util.Objects;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    ResultsActivity myActivity;
+    private ResultsActivity myActivity;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -63,31 +64,31 @@ public class PlaceholderFragment extends Fragment {
 
         myActivity = (ResultsActivity) Objects.requireNonNull(getActivity());
         String elementTypeStr = "";
+
+        List<Point> pointList = myActivity.getPointList();
+        List<Angle> angleList = myActivity.getAngleList();
+        List<Vector> vectorList = myActivity.getVectorList();
+
         noElementTV.setVisibility(View.GONE);
         if(tabPosition == 0) {  // POINTS
             elementTypeStr = "point";
-            List<Point> pointList = myActivity.getPointList();
             if(pointList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            PointsAdapter pointsAdapter = new PointsAdapter(pointList, myActivity);
+            PointsAdapter pointsAdapter = new PointsAdapter(pointList, angleList, vectorList, myActivity);
             recyclerViewElements.setAdapter(pointsAdapter);
         } else if(tabPosition == 1) {   // ANGLES
             elementTypeStr = "angle";
-            List<Angle> angleList = myActivity.getAngleList();
             if(angleList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            //List<Point> pointList = myActivity.getPointList();
             //angleList.add(new Angle("TestAngle", pointList.get(0), pointList.get(1), pointList.get(2)));
             //angleList.add(new Angle(new Point("First", 3.0, 4.0, 5.0),
             //        new Point("Second", 5.0, 7.0, 0.0), new Point("Vertex", 0.0, 0.0, 0.0)));
-            AnglesAdapter anglesAdapter = new AnglesAdapter(angleList, myActivity);
+            AnglesAdapter anglesAdapter = new AnglesAdapter(pointList, angleList, vectorList, myActivity);
             recyclerViewElements.setAdapter(anglesAdapter);
         } else if(tabPosition == 2) {
             elementTypeStr = "distance";
-            List<Vector> vectorList = myActivity.getVectorList();
             if(vectorList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            //List<Point> pointList = myActivity.getPointList();
             //vectorList.add(new Vector("TestDistance1", pointList.get(0), pointList.get(1)));
             //vectorList.add(new Vector("TestDistance2", pointList.get(1), pointList.get(2)));
-            VectorsAdapter vectorsAdapter = new VectorsAdapter(vectorList, myActivity);
+            VectorsAdapter vectorsAdapter = new VectorsAdapter(pointList, angleList, vectorList, myActivity);
             recyclerViewElements.setAdapter(vectorsAdapter);
         }
         addElement.setOnClickListener(new AddElementButtonListener(tabPosition, myActivity));
@@ -111,9 +112,12 @@ public class PlaceholderFragment extends Fragment {
             Intent intent = new Intent();
             if (elementType == 0)
                 intent = new Intent(context, AddPointActivity.class);
-            else if (elementType == 2)
-                intent = new Intent(context, AddVectorActivity.class);
-
+            else if (elementType == 2) {
+                if(myActivity.getPointList().size() < 2)
+                    Toast.makeText(myActivity, "There must be at least two points", Toast.LENGTH_SHORT).show();
+                else
+                    intent = new Intent(context, AddVectorActivity.class);
+            }
             if(!intent.filterEquals(new Intent())) {
 
                 ArrayList<Parcelable> points = new ArrayList<Parcelable>(myActivity.getPointList());

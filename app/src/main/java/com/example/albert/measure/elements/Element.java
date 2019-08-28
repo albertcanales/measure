@@ -2,7 +2,6 @@ package com.example.albert.measure.elements;
 
 import android.widget.EditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Element {
@@ -16,7 +15,7 @@ public class Element {
         this.name = name;
     }
 
-    private static final int VALID_NAME = 0;
+    public static final int VALID_NAME = 0;
     private static final int EMPTY_NAME = 1;
     private static final int NOT_ALPHANUMERICAL = 2;
     private static final int NAME_ALREADY_EXISTS = 3;

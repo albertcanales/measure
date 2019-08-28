@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
+import com.example.albert.measure.elements.Point;
+import com.example.albert.measure.elements.Vector;
 
 import java.util.List;
 
@@ -19,13 +21,13 @@ public class AnglesAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    AnglesAdapter(List<Angle> angles, Context context) {
-        super(new ListAngleRef(angles), context);
+    AnglesAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, Context context) {
+        super(points, new ListAngleRef(angles), vectors, context);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_angles, parent, false);
         holder = new ViewHolder(v);
         return holder;
@@ -53,7 +55,7 @@ public class AnglesAdapter extends ElementsAdapter {
             this.holder.textZ.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
-            this.holder.textZ.setText("z\n".concat(String.format("%.0f", z, Math.toDegrees(z))).concat("°"));
+            this.holder.textZ.setText("z\n".concat(String.format("%.0f", Math.toDegrees(z))).concat("°"));
     }
 
     @Override
