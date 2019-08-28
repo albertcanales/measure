@@ -36,6 +36,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.AddPointActivity" />
+        <activity android:name=".activities.AddAngleActivity" />
     </application>
 
 </manifest>

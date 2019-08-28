@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.activities.AddAngleActivity;
 import com.example.albert.measure.activities.AddPointActivity;
 import com.example.albert.measure.activities.AddVectorActivity;
 import com.example.albert.measure.activities.ResultsActivity;
@@ -64,12 +65,12 @@ public class PlaceholderFragment extends Fragment {
 
         myActivity = (ResultsActivity) Objects.requireNonNull(getActivity());
         String elementTypeStr = "";
+        noElementTV.setVisibility(View.GONE);
 
         List<Point> pointList = myActivity.getPointList();
         List<Angle> angleList = myActivity.getAngleList();
         List<Vector> vectorList = myActivity.getVectorList();
 
-        noElementTV.setVisibility(View.GONE);
         if(tabPosition == 0) {  // POINTS
             elementTypeStr = "point";
             if(pointList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
@@ -108,13 +109,18 @@ public class PlaceholderFragment extends Fragment {
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View view) {    // Add element
             Intent intent = new Intent();
             if (elementType == 0)
                 intent = new Intent(context, AddPointActivity.class);
-            else if (elementType == 2) {
+            else if(elementType == 1) {
+              if(myActivity.getPointList().size() < 3)
+                  Toast.makeText(context, "There must be at least three points", Toast.LENGTH_SHORT).show();
+              else
+                  intent = new Intent(context, AddAngleActivity.class);
+            } else if(elementType == 2){
                 if(myActivity.getPointList().size() < 2)
-                    Toast.makeText(myActivity, "There must be at least two points", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "There must be at least two points", Toast.LENGTH_SHORT).show();
                 else
                     intent = new Intent(context, AddVectorActivity.class);
             }
@@ -139,6 +145,9 @@ public class PlaceholderFragment extends Fragment {
             if(requestCode == 0) {
                 List<Point> points = data.getParcelableArrayListExtra("points");
                 myActivity.setPointList(points);
+            } else if(requestCode == 1) {
+                List<Angle> angles = data.getParcelableArrayListExtra("angles");
+                myActivity.setAngleList(angles);
             } else if (requestCode == 2) {  // Vector
                 List<Vector> vectors = data.getParcelableArrayListExtra("vectors");
                 myActivity.setVectorList(vectors);

@@ -11,6 +11,7 @@
         android:text=""
         android:hint="Name"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginEnd="20dp"
+        android:inputType="textShortMessage"/>
 
 </LinearLayout>
