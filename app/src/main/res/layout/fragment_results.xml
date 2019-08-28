@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_element_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,13 +9,22 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/noElementTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="No element calculated.\nClick below to add one!"/>
+
     <RelativeLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="visible"
         tools:context=".ui.main.PlaceholderFragment">
 
         <android.support.v7.widget.RecyclerView
@@ -22,8 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
+            android:focusable="true"
             android:scrollbars="vertical"
-            android:focusable="true" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 
@@ -37,10 +48,9 @@
         android:id="@+id/add_element"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add point"
+        android:text="Add element"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
-
         android:background="@null"
         android:drawableStart="@drawable/ic_add_accent"
         android:layout_gravity="center"/>

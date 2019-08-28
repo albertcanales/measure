@@ -36,6 +36,7 @@ public class ResultsActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         viewPager.setOffscreenPageLimit(1);
+        viewPager.setCurrentItem(2, false);
 
         pointList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("points");
     }

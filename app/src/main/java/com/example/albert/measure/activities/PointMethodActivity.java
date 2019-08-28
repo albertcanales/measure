@@ -44,14 +44,14 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
 
     private OrientationSensor orientationSensor;
 
-    private List<Point> pointList = new ArrayList<>();
-    private Point tempBasePoint = new Point();
-    private boolean addTempBasePoint = false;
-    private int pointType = -1;     // -1 = None, 0 = Base, 1 = NonBase
-    private int numPoints = 0;
+    private List<Point> pointList;
+    private Point tempBasePoint;
+    private boolean addTempBasePoint;
+    private int pointType;     // -1 = None, 0 = Base, 1 = NonBase
+    private int numPoints;
 
-    private int color_id = 0;
-    private boolean popupActive = false;
+    private int color_id;
+    private boolean popupActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,19 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
 
         orientationSensor = new OrientationSensor(context);
 
+        initVariables();
+
         setPointType(pointType);
+    }
+
+    private void initVariables() {
+        pointList = new ArrayList<>();
+        tempBasePoint = new Point();
+        addTempBasePoint = false;
+        pointType = -1;
+        numPoints = 0;
+        color_id = 0;
+        popupActive = false;
     }
 
     @Override
@@ -110,6 +122,11 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         orientationSensor.unregister();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        initVariables();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

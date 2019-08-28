@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
@@ -46,20 +47,25 @@ public class PlaceholderFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_results, container, false);
 
         Button addElement = root.findViewById(R.id.add_element);
+        TextView noElementTV = root.findViewById(R.id.noElementTV);
 
         RecyclerView recyclerViewElements = root.findViewById(R.id.elementsRecyclerView);
         recyclerViewElements.setHasFixedSize(true);
         recyclerViewElements.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ResultsActivity myActivity = ((ResultsActivity) Objects.requireNonNull(getActivity()));
+        String elementType = "";
+        noElementTV.setVisibility(View.GONE);
         if(tabPosition == 0) {  // POINTS
-            addElement.setText("Add point");
+            elementType = "point";
             List<Point> pointList = myActivity.getPointList();
+            if(pointList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             PointsAdapter pointsAdapter = new PointsAdapter(pointList, myActivity);
             recyclerViewElements.setAdapter(pointsAdapter);
         } else if(tabPosition == 1) {   // ANGLES
-            addElement.setText("Add angle");
+            elementType = "angle";
             List<Angle> angleList = myActivity.getAngleList();
+            if(angleList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             //List<Point> pointList = myActivity.getPointList();
             //angleList.add(new Angle("TestAngle", pointList.get(0), pointList.get(1), pointList.get(2)));
             //angleList.add(new Angle(new Point("First", 3.0, 4.0, 5.0),
@@ -67,14 +73,17 @@ public class PlaceholderFragment extends Fragment {
             AnglesAdapter anglesAdapter = new AnglesAdapter(angleList, myActivity);
             recyclerViewElements.setAdapter(anglesAdapter);
         } else if(tabPosition == 2) {
-            addElement.setText("Add distance");
+            elementType = "distance";
             List<Vector> vectorList = myActivity.getVectorList();
+            if(vectorList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             //List<Point> pointList = myActivity.getPointList();
             //vectorList.add(new Vector("TestDistance1", pointList.get(0), pointList.get(1)));
             //vectorList.add(new Vector("TestDistance2", pointList.get(1), pointList.get(2)));
             VectorsAdapter vectorsAdapter = new VectorsAdapter(vectorList, myActivity);
             recyclerViewElements.setAdapter(vectorsAdapter);
         }
+        addElement.setText("Add ".concat(elementType));
+        noElementTV.setText("No ".concat(elementType).concat(" calculated.\nClick below to add one!"));
         return root;
     }
 }
