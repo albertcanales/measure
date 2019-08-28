@@ -1,6 +1,9 @@
 package com.example.albert.measure.elements;
 
-public class Vector extends Element {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Vector extends Element implements Parcelable {
 
     private Point first;
     private Point second;
@@ -21,6 +24,13 @@ public class Vector extends Element {
         super(name);
         this.first = first;
         this.second = second;
+    }
+
+    // Parcelable constructor
+    public Vector(Parcel in) {
+        name = in.readString();
+        first = in.readParcelable(getClass().getClassLoader());
+        second = in.readParcelable(getClass().getClassLoader());
     }
 
     public Vector projectionX () {
@@ -88,4 +98,28 @@ public class Vector extends Element {
     public void setSecond(Point second) {
         this.second = second;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeParcelable(first, i);
+        parcel.writeParcelable(second, i);
+    }
+
+    public static final Creator<Vector> CREATOR = new Creator<Vector>() {
+        @Override
+        public Vector createFromParcel(Parcel in) {
+            return new Vector(in);
+        }
+
+        @Override
+        public Vector[] newArray(int size) {
+            return new Vector[size];
+        }
+    };
 }

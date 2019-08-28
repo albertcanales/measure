@@ -1,8 +1,10 @@
 package com.example.albert.measure.ui.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,17 +18,20 @@ import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.AddPointActivity;
+import com.example.albert.measure.activities.AddVectorActivity;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    ResultsActivity myActivity;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -56,7 +61,7 @@ public class PlaceholderFragment extends Fragment {
         recyclerViewElements.setHasFixedSize(true);
         recyclerViewElements.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ResultsActivity myActivity = ((ResultsActivity) Objects.requireNonNull(getActivity()));
+        myActivity = (ResultsActivity) Objects.requireNonNull(getActivity());
         String elementTypeStr = "";
         noElementTV.setVisibility(View.GONE);
         if(tabPosition == 0) {  // POINTS
@@ -104,9 +109,37 @@ public class PlaceholderFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent();
-            if(elementType == 0)
+            if (elementType == 0)
                 intent = new Intent(context, AddPointActivity.class);
-            if(!intent.filterEquals(new Intent()))startActivity(intent);
+            else if (elementType == 2)
+                intent = new Intent(context, AddVectorActivity.class);
+
+            if(!intent.filterEquals(new Intent())) {
+
+                ArrayList<Parcelable> points = new ArrayList<Parcelable>(myActivity.getPointList());
+                intent.putParcelableArrayListExtra("points", points);
+                ArrayList<Parcelable> vectors = new ArrayList<Parcelable>(myActivity.getVectorList());
+                intent.putParcelableArrayListExtra("vectors", vectors);
+                ArrayList<Parcelable> angles = new ArrayList<Parcelable>(myActivity.getAngleList());
+                intent.putParcelableArrayListExtra("angles", angles);
+
+                startActivityForResult(intent, elementType);
+            }
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK) {
+            if(requestCode == 0) {
+                List<Point> points = data.getParcelableArrayListExtra("points");
+                myActivity.setPointList(points);
+            } else if (requestCode == 2) {  // Vector
+                List<Vector> vectors = data.getParcelableArrayListExtra("vectors");
+                myActivity.setVectorList(vectors);
+            }
+        }
+        myActivity.refreshAdapter(requestCode);
     }
 }

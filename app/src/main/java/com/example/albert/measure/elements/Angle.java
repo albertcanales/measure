@@ -1,6 +1,9 @@
 package com.example.albert.measure.elements;
 
-public class Angle extends Element {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Angle extends Element implements Parcelable {
 
     // Point-based definition included though vectors to avoid data repetition
     private Vector v;
@@ -36,16 +39,22 @@ public class Angle extends Element {
         u = new Vector(vertex, second);
     }
 
+    Angle(Parcel in) {
+        name = in.readString();
+        v = in.readParcelable(Vector.class.getClassLoader());
+        u = in.readParcelable(Vector.class.getClassLoader());
+    }
+
     // TODO Finish calculations
+
     public double getAngle() {
         return Math.acos(v.dot(u) / (v.getDistance() * u.getDistance()));
     }
-
     // Considering angle of an axis the angle resulting of the projection to that axis
+
     public double getAngleX() {
         return new Angle(v.projectionX(), u.projectionX()).getAngle();
     }
-
     public double getAngleY() {
         return new Angle(v.projectionY(), u.projectionY()).getAngle();
     }
@@ -78,4 +87,28 @@ public class Angle extends Element {
         v.setFirst(vertex);
         u.setFirst(vertex);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeParcelable(v, i);
+        parcel.writeParcelable(u, i);
+    }
+
+    public static final Creator<Angle> CREATOR = new Creator<Angle>() {
+        @Override
+        public Angle createFromParcel(Parcel in) {
+            return new Angle(in);
+        }
+
+        @Override
+        public Angle[] newArray(int size) {
+            return new Angle[size];
+        }
+    };
 }
