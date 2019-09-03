@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/add_element_ok"
+        android:icon="@drawable/ic_done_white"
         android:orderInCategory="100"
         android:title=""
-        android:icon="@drawable/ic_done_white"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>

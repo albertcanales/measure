@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class Angle extends Element implements Parcelable {
 
+    public static final Creator<Angle> CREATOR = new Creator<Angle>() {
+        @Override
+        public Angle createFromParcel(Parcel in) {
+            return new Angle(in);
+        }
+
+        @Override
+        public Angle[] newArray(int size) {
+            return new Angle[size];
+        }
+    };
     // Point-based definition included though vectors to avoid data repetition
     private Vector v;
     private Vector u;
@@ -39,22 +50,23 @@ public class Angle extends Element implements Parcelable {
         u = new Vector(vertex, second);
     }
 
+    // TODO Finish calculations
+
     Angle(Parcel in) {
         name = in.readString();
         v = in.readParcelable(Vector.class.getClassLoader());
         u = in.readParcelable(Vector.class.getClassLoader());
     }
-
-    // TODO Finish calculations
+    // Considering angle of an axis the angle resulting of the projection to that axis
 
     public double getAngle() {
         return Math.acos(v.dot(u) / (v.getDistance() * u.getDistance()));
     }
-    // Considering angle of an axis the angle resulting of the projection to that axis
 
     public double getAngleX() {
         return new Angle(v.projectionX(), u.projectionX()).getAngle();
     }
+
     public double getAngleY() {
         return new Angle(v.projectionY(), u.projectionY()).getAngle();
     }
@@ -88,6 +100,14 @@ public class Angle extends Element implements Parcelable {
         u.setFirst(vertex);
     }
 
+    public Vector getV() {
+        return v;
+    }
+
+    public Vector getU() {
+        return u;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -100,15 +120,17 @@ public class Angle extends Element implements Parcelable {
         parcel.writeParcelable(u, i);
     }
 
-    public static final Creator<Angle> CREATOR = new Creator<Angle>() {
-        @Override
-        public Angle createFromParcel(Parcel in) {
-            return new Angle(in);
-        }
-
-        @Override
-        public Angle[] newArray(int size) {
-            return new Angle[size];
-        }
-    };
+    @Override
+    public String toString() {
+        return "Angle{" +
+                "name='" + name + '\'' +
+                ", v=" + v +
+                ", u=" + u +
+                ", u=" + u +
+                ", angle=" + getAngle() +
+                ", angleX=" + getAngleX() +
+                ", angleY=" + getAngleY() +
+                ", angleZ=" + getAngleZ() +
+                '}';
+    }
 }

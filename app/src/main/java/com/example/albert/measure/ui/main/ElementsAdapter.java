@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
+import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Element;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
@@ -23,53 +24,39 @@ import java.util.List;
 
 public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHolder> {
 
-    // To avoid same erasure error, could be done with Suppliers, but API increases to 24 (7.0)
-    static class ListPointRef {
-        List<Point> points;
-        ListPointRef(List<Point> points) { this.points = points; }
-        List<Point> getPoints() { return points; }
-    }
-
-    static class ListAngleRef {
-        List<Angle> angles;
-        ListAngleRef(List<Angle> angles) { this.angles = angles; }
-        List<Angle> getAngles() { return angles; }
-    }
-
-    static class ListVectorRef {
-        List<Vector> vectors;
-        ListVectorRef(List<Vector> vectors) { this.vectors = vectors; }
-        List<Vector> getVectors() { return vectors; }
-    }
-
     Context context;
     List<Point> pointList;
     List<Angle> angleList;
     List<Vector> vectorList;
-
+    List<Area> areaList;
     private ElementsAdapter(Context context) {
         this.context = context;
     }
-
-    ElementsAdapter(ListPointRef points, List<Angle> angles, List<Vector> vectors, Context context) {
+    ElementsAdapter(ListPointRef points, List<Angle> angles, List<Vector> vectors, List<Area> areas, Context context) {
         this(context);
         this.pointList = points.getPoints();
         this.angleList = angles;
         this.vectorList = vectors;
     }
-
-    ElementsAdapter(List<Point> points, ListAngleRef angles, List<Vector> vectors, Context context) {
+    ElementsAdapter(List<Point> points, ListAngleRef angles, List<Vector> vectors, List<Area> areas, Context context) {
         this(context);
         this.pointList = points;
         this.angleList = angles.getAngles();
         this.vectorList = vectors;
     }
-
-    ElementsAdapter(List<Point> points, List<Angle> angles, ListVectorRef vectors, Context context) {
+    ElementsAdapter(List<Point> points, List<Angle> angles, ListVectorRef vectors, List<Area> areas, Context context) {
         this(context);
         this.pointList = points;
         this.angleList = angles;
         this.vectorList = vectors.getVectors();
+    }
+
+    ElementsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, ListAreaRef areas, Context context) {
+        this(context);
+        this.pointList = points;
+        this.angleList = angles;
+        this.vectorList = vectors;
+        this.areaList = areas.getAreas();
     }
 
     @NonNull
@@ -89,6 +76,72 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
     @Override
     public abstract int getItemCount();
 
+    abstract void removeItem(int position);
+
+    abstract String getItemName(int position);
+
+    abstract void renameItem(int position, String name);
+
+    // To avoid same erasure error, could be done with Suppliers, but API increases to 24 (7.0)
+    static class ListPointRef {
+        List<Point> points;
+
+        ListPointRef(List<Point> points) {
+            this.points = points;
+        }
+
+        List<Point> getPoints() {
+            return points;
+        }
+    }
+
+    static class ListAngleRef {
+        List<Angle> angles;
+
+        ListAngleRef(List<Angle> angles) {
+            this.angles = angles;
+        }
+
+        List<Angle> getAngles() {
+            return angles;
+        }
+    }
+
+    static class ListVectorRef {
+        List<Vector> vectors;
+
+        ListVectorRef(List<Vector> vectors) {
+            this.vectors = vectors;
+        }
+
+        List<Vector> getVectors() {
+            return vectors;
+        }
+    }
+
+    static class ListAreaRef {
+        List<Area> areas;
+
+        ListAreaRef(List<Area> areas) {
+            this.areas = areas;
+        }
+
+        List<Area> getAreas() {
+            return areas;
+        }
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView name, rename, remove;
+
+        ViewHolder(View v) {
+            super(v);
+            name = v.findViewById(R.id.name);
+            rename = v.findViewById(R.id.rename);
+            remove = v.findViewById(R.id.remove);
+        }
+    }
+
     class ModifyElement implements View.OnClickListener {
 
         int position;
@@ -101,7 +154,7 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
         public void onClick(final View view) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
             AlertDialog dialog;
-            if(view.getId() == R.id.remove) {
+            if (view.getId() == R.id.remove) {
                 builder.setMessage("Delete it permanently?")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -116,7 +169,7 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
                         });
                 dialog = builder.create();
             } else {
-                final LayoutInflater inflater = ((ResultsActivity)context).getLayoutInflater();
+                final LayoutInflater inflater = ((ResultsActivity) context).getLayoutInflater();
                 final View myView = inflater.inflate(R.layout.dialog_rename, null);
                 final EditText nameET = myView.findViewById(R.id.rename_edit_text);
                 nameET.setText(getItemName(position));
@@ -136,34 +189,18 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                            String name = nameET.getText().toString().trim();
-                            if(Element.validNameFromEditText(nameET, pointList, angleList, vectorList)
-                                    == Element.VALID_NAME) {
-                                renameItem(position, name);
-                                dialog.dismiss();
-                            }
+                                String name = nameET.getText().toString().trim();
+                                if (Element.validNameFromEditText(nameET, pointList, angleList, vectorList)
+                                        == Element.VALID_NAME) {
+                                    renameItem(position, name);
+                                    dialog.dismiss();
+                                }
                             }
                         });
                     }
                 });
             }
             dialog.show();
-        }
-    }
-
-    abstract void removeItem(int position);
-
-    abstract String getItemName(int position);
-
-    abstract void renameItem(int position, String name);
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, rename, remove;
-        ViewHolder(View v) {
-            super(v);
-            name = v.findViewById(R.id.name);
-            rename = v.findViewById(R.id.rename);
-            remove = v.findViewById(R.id.remove);
         }
     }
 }

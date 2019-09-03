@@ -9,7 +9,6 @@ import android.widget.Spinner;
 import com.example.albert.measure.R;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +47,13 @@ public class AddAngleActivity extends AddElementActivity {
 
     @Override
     void addElement() {
-        Point pointA = points.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
-        Point pointB = points.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
-        Point pointC = points.get(getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
+        Point pointA = pointList.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
+        Point pointB = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
+        Point pointC = pointList.get(getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
         Angle angle = new Angle(name, pointA, pointC, pointB);
-        angles.add(angle);
+        angleList.add(angle);
         Intent resultIntent = new Intent();
-        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(angles);
+        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(angleList);
         resultIntent.putParcelableArrayListExtra("angles", parcelables);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();

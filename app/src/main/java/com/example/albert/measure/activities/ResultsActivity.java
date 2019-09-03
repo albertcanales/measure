@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.elements.Angle;
+import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 import com.example.albert.measure.ui.main.SectionsPagerAdapter;
@@ -18,12 +19,13 @@ import java.util.Objects;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    private SectionsPagerAdapter sectionsPagerAdapter ;
+    private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
 
     private List<Point> pointList = new ArrayList<>();
     private List<Angle> angleList = new ArrayList<>();
     private List<Vector> vectorList = new ArrayList<>();
+    private List<Area> areaList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,9 @@ public class ResultsActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         viewPager.setOffscreenPageLimit(1);
-        viewPager.setCurrentItem(2, false);
+        // viewPager.setCurrentItem(2, false);
 
-        pointList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("points");
+        pointList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("pointList");
     }
 
     public List<Point> getPointList() {
@@ -56,6 +58,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void setAngleList(List<Angle> angleList) {
         this.angleList = angleList;
+        Log.d("ANGLES", angleList.toString());
     }
 
     public List<Vector> getVectorList() {
@@ -63,7 +66,17 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     public void setVectorList(List<Vector> vectorList) {
+        Log.d("VECTORS", vectorList.toString());
         this.vectorList = vectorList;
+    }
+
+    public List<Area> getAreaList() {
+        return areaList;
+    }
+
+    public void setAreaList(List<Area> areaList) {
+        Log.d("AREAS", areaList.toString());
+        this.areaList = areaList;
     }
 
     public void refreshAdapter(int tabPosition) {

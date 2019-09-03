@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
+import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 
@@ -20,8 +21,8 @@ public class VectorsAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    VectorsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, Context context) {
-        super(points, angles, new ListVectorRef(vectors), context);
+    VectorsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, Context context) {
+        super(points, angles, new ListVectorRef(vectors), areas, context);
     }
 
     @NonNull
@@ -68,6 +69,7 @@ public class VectorsAdapter extends ElementsAdapter {
 
     public static class ViewHolder extends ElementsAdapter.ViewHolder {
         TextView textDistance, textX, textY, textZ;
+
         ViewHolder(View v) {
             super(v);
             textDistance = v.findViewById(R.id.distance);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
+import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 
@@ -21,8 +22,8 @@ public class AnglesAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    AnglesAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, Context context) {
-        super(points, new ListAngleRef(angles), vectors, context);
+    AnglesAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, Context context) {
+        super(points, new ListAngleRef(angles), vectors, areas, context);
     }
 
     @NonNull
@@ -39,19 +40,19 @@ public class AnglesAdapter extends ElementsAdapter {
         double angle = angleList.get(position).getAngle();
         this.holder.textAngle.setText(String.format("%.0f", Math.toDegrees(angle)).concat("°"));
         double x = angleList.get(position).getAngleX();
-        if(Double.isNaN(x))
+        if (Double.isNaN(x))
             this.holder.textX.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
             this.holder.textX.setText("x\n".concat(String.format("%.0f", Math.toDegrees(x))).concat("°"));
         double y = angleList.get(position).getAngleY();
-        if(Double.isNaN(y))
+        if (Double.isNaN(y))
             this.holder.textY.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
             this.holder.textY.setText("y\n".concat(String.format("%.0f", Math.toDegrees(y))).concat("°"));
         double z = angleList.get(position).getAngleZ();
-        if(Double.isNaN(z))
+        if (Double.isNaN(z))
             this.holder.textZ.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
@@ -85,6 +86,7 @@ public class AnglesAdapter extends ElementsAdapter {
 
     public static class ViewHolder extends ElementsAdapter.ViewHolder {
         TextView textAngle, textX, textY, textZ;
+
         ViewHolder(View v) {
             super(v);
             textAngle = v.findViewById(R.id.angle);

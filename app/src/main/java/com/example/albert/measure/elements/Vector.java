@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class Vector extends Element implements Parcelable {
 
+    public static final Creator<Vector> CREATOR = new Creator<Vector>() {
+        @Override
+        public Vector createFromParcel(Parcel in) {
+            return new Vector(in);
+        }
+
+        @Override
+        public Vector[] newArray(int size) {
+            return new Vector[size];
+        }
+    };
     private Point first;
     private Point second;
 
@@ -33,17 +44,17 @@ public class Vector extends Element implements Parcelable {
         second = in.readParcelable(getClass().getClassLoader());
     }
 
-    public Vector projectionX () {
+    public Vector projectionX() {
         return new Vector(name, new Point(first.getName(), 0, first.getY(), first.getZ()),
                 new Point(second.getName(), 0, second.getY(), second.getZ()));
     }
 
-    public Vector projectionY () {
+    public Vector projectionY() {
         return new Vector(name, new Point(first.getName(), first.getX(), 0, first.getZ()),
                 new Point(second.getName(), second.getX(), 0, second.getZ()));
     }
 
-    public Vector projectionZ () {
+    public Vector projectionZ() {
         return new Vector(name, new Point(first.getName(), first.getX(), first.getY(), 0),
                 new Point(second.getName(), second.getX(), second.getY(), 0));
     }
@@ -111,15 +122,16 @@ public class Vector extends Element implements Parcelable {
         parcel.writeParcelable(second, i);
     }
 
-    public static final Creator<Vector> CREATOR = new Creator<Vector>() {
-        @Override
-        public Vector createFromParcel(Parcel in) {
-            return new Vector(in);
-        }
-
-        @Override
-        public Vector[] newArray(int size) {
-            return new Vector[size];
-        }
-    };
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "name='" + name + '\'' +
+                ", first=" + first +
+                ", second=" + second +
+                ", distance=" + getDistance() +
+                ", distanceX=" + getDistanceX() +
+                ", distanceY=" + getDistanceY() +
+                ", distanceZ=" + getDistanceZ() +
+                '}';
+    }
 }

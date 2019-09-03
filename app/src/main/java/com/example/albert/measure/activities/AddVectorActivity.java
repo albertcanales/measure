@@ -43,12 +43,12 @@ public class AddVectorActivity extends AddElementActivity {
 
     @Override
     void addElement() {
-        Point pointA = points.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
-        Point pointB = points.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
+        Point pointA = pointList.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
+        Point pointB = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
         Vector vector = new Vector(name, pointA, pointB);
-        vectors.add(vector);
+        vectorList.add(vector);
         Intent resultIntent = new Intent();
-        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(vectors);
+        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(vectorList);
         resultIntent.putParcelableArrayListExtra("vectors", parcelables);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();

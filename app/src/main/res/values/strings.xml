@@ -26,4 +26,10 @@
     <string name="volumes">Volumes</string>
     <string name="cm">
         cm</string>
+
+    <string-array name="area_types_array">
+        <item>Triangle</item>
+        <item>Parallelogram</item>
+        <item>General quadrilateral</item>
+    </string-array>
 </resources>
