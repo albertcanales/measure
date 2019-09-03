@@ -48,14 +48,14 @@ public abstract class TwoOptionParameterFragment extends Fragment implements Vie
     @Override
     public abstract void onClick(View view);
 
-    public interface OnDataPass {
-        void onDataPass(String data);
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         dataPasser = (OnDataPass) context;
+    }
+
+    public interface OnDataPass {
+        void onDataPass(String data);
     }
 
 

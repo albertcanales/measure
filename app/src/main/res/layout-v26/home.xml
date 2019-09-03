@@ -10,8 +10,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
+        android:justificationMode="inter_word"
         android:lineSpacingMultiplier="1.5"
-        android:textSize="12sp"
         android:text="@string/home"
-        android:justificationMode="inter_word"/>
+        android:textSize="12sp" />
 </RelativeLayout>

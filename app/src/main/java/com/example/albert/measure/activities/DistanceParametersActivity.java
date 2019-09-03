@@ -7,23 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.example.albert.measure.R;
+import com.example.albert.measure.fragments.HeightDialog;
+import com.example.albert.measure.fragments.TwoOptionParameterFragment;
 import com.example.albert.measure.parameterTypes.Direction;
 import com.example.albert.measure.parameterTypes.HeightMode;
 import com.example.albert.measure.parameterTypes.Offset;
 import com.example.albert.measure.parameterTypes.Plane;
-import com.example.albert.measure.R;
-import com.example.albert.measure.fragments.HeightDialog;
-import com.example.albert.measure.fragments.TwoOptionParameterFragment;
 
 import java.util.Objects;
 
 public class DistanceParametersActivity extends AppCompatActivity implements TwoOptionParameterFragment.OnDataPass {
 
     private final Bundle bundle = new Bundle();
-
-    private int i = 0;
     private final Fragment[] parametersList = {new Plane(), new Direction(), new Offset(), new HeightMode()};
     private final String[] parametersNames = {"PLANE", "DIRECTION", "OFFSET", "HEIGHT_MODE"};
+    private int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +53,11 @@ public class DistanceParametersActivity extends AppCompatActivity implements Two
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content_frame, parametersList[i]);
             transaction.commit();
-        }
-        else {
-                HeightDialog dialog = new HeightDialog();
-                dialog.setCancelable(false);
-                dialog.show(getSupportFragmentManager(), "Height");
-                dialog.passParameters(bundle);
+        } else {
+            HeightDialog dialog = new HeightDialog();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "Height");
+            dialog.passParameters(bundle);
         }
     }
 }

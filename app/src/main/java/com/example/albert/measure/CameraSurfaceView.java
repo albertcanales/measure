@@ -33,8 +33,8 @@ public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callba
     private static final int CAMERA_ID = 0; // 0 -> Back camera -------- 1 -> Front camera
     private final Handler mHandler = new Handler(this);
     private final CameraManager mCameraManager;
-    private String[] mCameraIDsList;
     private final CameraDevice.StateCallback mCameraStateCB;
+    private String[] mCameraIDsList;
     private CameraDevice mCameraDevice;
     private boolean mSurfaceCreated = true;
     private boolean mIsCameraConfigured = false;

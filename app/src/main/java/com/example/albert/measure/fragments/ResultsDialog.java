@@ -19,7 +19,7 @@ public class ResultsDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         DistanceActivity distance = new DistanceActivity();
-        double result = Math.round(distance.getResult()*100.0)/100.0;
+        double result = Math.round(distance.getResult() * 100.0) / 100.0;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Result: " + result + " cm")

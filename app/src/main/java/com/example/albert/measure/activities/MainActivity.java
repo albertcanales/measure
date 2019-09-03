@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         if (id == R.id.nav_distance) {
-                startActivity(new Intent(this, DistanceParametersActivity.class));
-                drawer.closeDrawer(GravityCompat.START);
-                return false;
+            startActivity(new Intent(this, DistanceParametersActivity.class));
+            drawer.closeDrawer(GravityCompat.START);
+            return false;
 
         } else if (id == R.id.nav_points) {
             startActivity(new Intent(this, PointMethodActivity.class));

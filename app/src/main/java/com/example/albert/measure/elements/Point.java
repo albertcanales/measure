@@ -14,7 +14,17 @@ import java.util.List;
 public class Point extends Element implements Parcelable {
 
     public static final double DEFAULT_PROXIMITY_DISTANCE = 20; // TODO Implement a more flexible method
+    public static final Creator<Point> CREATOR = new Creator<Point>() {
+        @Override
+        public Point createFromParcel(Parcel in) {
+            return new Point(in);
+        }
 
+        @Override
+        public Point[] newArray(int size) {
+            return new Point[size];
+        }
+    };
     private final double x, y, z;
     private double pitch, azimuth;
 
@@ -153,16 +163,4 @@ public class Point extends Element implements Parcelable {
         parcel.writeDouble(pitch);
         parcel.writeDouble(azimuth);
     }
-
-    public static final Creator<Point> CREATOR = new Creator<Point>() {
-        @Override
-        public Point createFromParcel(Parcel in) {
-            return new Point(in);
-        }
-
-        @Override
-        public Point[] newArray(int size) {
-            return new Point[size];
-        }
-    };
 }

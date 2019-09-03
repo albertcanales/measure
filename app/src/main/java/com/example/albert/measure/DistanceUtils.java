@@ -22,9 +22,9 @@ public class DistanceUtils {
 
     // Public for points method
     public double PVS(double h, double A, double B) {
-        if (B < Math.PI/2)
-            return h * (1 - Math.tan(A)/Math.tan(B));
-        return h * (Math.tan(B - Math.PI/2) * Math.tan(A) + 1);
+        if (B < Math.PI / 2)
+            return h * (1 - Math.tan(A) / Math.tan(B));
+        return h * (Math.tan(B - Math.PI / 2) * Math.tan(A) + 1);
     }
 
     private double parallelVertical(double h, double A, double B, double C) {

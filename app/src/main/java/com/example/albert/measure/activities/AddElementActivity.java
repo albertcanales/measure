@@ -106,7 +106,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
 
     private boolean checkName() {
         name = nameET.getText().toString().trim();
-        return Element.validNameFromEditText(nameET, pointList, angleList, vectorList) == 0;
+        return Element.validNameFromEditText(nameET, pointList, angleList, vectorList, areaList) == 0;
     }
 
     // Check if have the same value, O(n^2)

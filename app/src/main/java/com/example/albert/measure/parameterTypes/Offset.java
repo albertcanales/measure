@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.albert.measure.fragments.TwoOptionParameterFragment;
 
-public class Offset extends TwoOptionParameterFragment{
+public class Offset extends TwoOptionParameterFragment {
 
     public Offset() {
         super("YES", "NO");

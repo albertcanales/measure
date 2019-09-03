@@ -40,19 +40,16 @@ public class HeightDialog extends DialogFragment {
 
         return builder.create();
     }
+
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
-        final AlertDialog d = (AlertDialog)getDialog();
-        if(d != null)
-        {
+        final AlertDialog d = (AlertDialog) getDialog();
+        if (d != null) {
             Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
-            positiveButton.setOnClickListener(new View.OnClickListener()
-            {
+            positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     EditText editText = d.findViewById(R.id.heightET);
                     String text = editText.getText().toString().trim();
                     if (text.length() == 0) editText.setError("Cannot be empty");

@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.albert.measure.CameraSurfaceView;
-import com.example.albert.measure.R;
 import com.example.albert.measure.DistanceUtils;
+import com.example.albert.measure.R;
 import com.example.albert.measure.fragments.ResultsDialog;
 import com.example.albert.measure.sensors.OrientationSensor;
 
@@ -28,17 +28,15 @@ import java.util.Objects;
 
 public class DistanceActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static double result;
     private CameraSurfaceView cameraSurfaceView;
     private Context context;
     private TextView markPointButton;
-
     private OrientationSensor orientationSensor;
-
     private String direction, plane;
     private double height;
     private int color_id = 0;
     private double[][] orientationAtPoints = new double[3][3];
-    private static double result;
     private int i = 0;
 
     @Override
@@ -55,7 +53,7 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
         mSurfaceHolder.addCallback(cameraSurfaceView);
         //CameraManager mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
 
-        markPointButton= findViewById(R.id.mark_point);
+        markPointButton = findViewById(R.id.mark_point);
         markPointButton.setOnClickListener(this);
 
         final Drawable markPointCircle = getResources().getDrawable(R.drawable.circle_background);
@@ -110,17 +108,16 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         String[] points = {"A", "B", "C"};
         setOrientationValues(i);
-        if(i == 2) {
+        if (i == 2) {
             DistanceUtils distance = new DistanceUtils();
             result = distance.getDistance(direction, plane, height, orientationAtPoints);
             orientationSensor.unregister();
             Log.d("RESULT_INPUT", toString());
             showResult(result);
-        }
-        else {
+        } else {
             i++;
             markPointButton.setText(points[i]);
-            if(i == 1 && isDistanceSimple()) {
+            if (i == 1 && isDistanceSimple()) {
                 setOrientationValues(i);
                 i++;
             }
@@ -161,7 +158,9 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @SuppressWarnings("SameReturnValue")
-    private boolean isDistanceSimple() { return true; } // Upcoming feature
+    private boolean isDistanceSimple() {
+        return true;
+    } // Upcoming feature
 
     private void showResult(double result) {
         if (result != -1) {
@@ -169,8 +168,7 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
             ResultsDialog dialog = new ResultsDialog();
             dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "Result");
-        }
-        else
+        } else
             Toast.makeText(context, "Still developing this feature", Toast.LENGTH_SHORT).show();
     }
 }
