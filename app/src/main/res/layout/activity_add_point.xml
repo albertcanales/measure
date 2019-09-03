@@ -1,8 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AddPointActivity">
+    android:gravity="center_horizontal|top"
+    android:orientation="vertical"
+    tools:context=".activities.AddPointActivity"
+    android:paddingBottom="70dp">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD POINT"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="2"
+        tools:ignore="ContentDescription" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:layout_weight="3">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textSize="18sp"
+                android:text="Name"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textShortMessage"
+                android:labelFor="@+id/a_label"
+                android:layout_weight="2"
+                android:textAlignment="center"
+                android:maxWidth="160dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/x_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textSize="18sp"
+                android:text="Coordinate X"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/coordinate_x"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:labelFor="@+id/x_label"
+                android:layout_weight="2"
+                android:textAlignment="center"
+                android:maxWidth="160dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/y_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textSize="18sp"
+                android:text="Coordinate Y"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/coordinate_y"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:labelFor="@+id/y_label"
+                android:layout_weight="2"
+                android:textAlignment="center"
+                android:maxWidth="160dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/z_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textSize="18sp"
+                android:text="Coordinate Z"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/coordinate_z"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:labelFor="@+id/y_label"
+                android:layout_weight="2"
+                android:textAlignment="center"
+                android:maxWidth="160dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

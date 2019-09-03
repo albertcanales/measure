@@ -138,6 +138,10 @@ public class Point extends Element implements Parcelable {
         return getX() == 0 && getY() == 0 && getZ() == 0;
     }
 
+    public boolean equals(Point q) {
+        return getX() == q.getX() && getY() == q.getY() && getZ() == q.getZ();
+    }
+
     @NonNull
     @Override
     public String toString() {
