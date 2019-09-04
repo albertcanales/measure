@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class AddAreaActivity extends AddElementActivity {
     private Spinner spinnerB;
     private Spinner spinnerC;
     private Spinner spinnerD;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class AddAreaActivity extends AddElementActivity {
         spinnerB = findViewById(R.id.b_spinner);
         spinnerC = findViewById(R.id.c_spinner);
         spinnerD = findViewById(R.id.d_spinner);
+        imageView = findViewById(R.id.image);
         tableRowSpinnerD = findViewById(R.id.row_spinner_d);
         nameET = findViewById(R.id.name_edit_text);
 
@@ -53,7 +56,7 @@ public class AddAreaActivity extends AddElementActivity {
                     typeSpinner.setSelection(1);
                     Toast.makeText(context, "Option not available by now", Toast.LENGTH_SHORT).show();
                 }
-                setAreaType(i);
+                else setAreaType(i);
             }
 
             @Override
@@ -81,11 +84,11 @@ public class AddAreaActivity extends AddElementActivity {
         Point pointC = pointList.get(getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
         if (areaType == Area.GENERAL_QUADRILATERAL) {
             Point pointD = pointList.get(getPointNames().indexOf(spinnerD.getSelectedItem().toString()));
+            // TODO Test if they are on a same plane
             area = new Area(name, pointA, pointB, pointC, pointD);
         } else {
             area = new Area(name, pointA, pointB, pointC, areaType);
         }
-        // TODO Test if they are on a same plane
         areaList.add(area);
         Intent resultIntent = new Intent();
         ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(areaList);
@@ -95,13 +98,15 @@ public class AddAreaActivity extends AddElementActivity {
     }
 
     private void setAreaType(int areaType) {
-        // TODO + Select Image
         this.areaType = areaType;
         if (areaType == Area.TRIANGLE) {
+            imageView.setImageDrawable(getDrawable(R.drawable.areatriangle));
             tableRowSpinnerD.setVisibility(View.GONE);
         } else if (areaType == Area.PARALLELOGRAM) {
+            imageView.setImageDrawable(getDrawable(R.drawable.areaparalelogram));
             tableRowSpinnerD.setVisibility(View.GONE);
         } else {
+            imageView.setImageDrawable(getDrawable(R.drawable.areaquadrilater));
             tableRowSpinnerD.setVisibility(View.VISIBLE);
         }
     }

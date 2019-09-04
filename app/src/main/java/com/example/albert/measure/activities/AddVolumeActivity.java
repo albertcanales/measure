@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.elements.Area;
@@ -22,6 +22,7 @@ public class AddVolumeActivity extends AddElementActivity {
     int volumeType;
     private Spinner spinnerA;
     private Spinner spinnerB;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class AddVolumeActivity extends AddElementActivity {
         spinnerA = findViewById(R.id.a_spinner);
         spinnerB = findViewById(R.id.b_spinner);
         nameET = findViewById(R.id.name_edit_text);
+        imageView = findViewById(R.id.image);
 
         spinnerA.setAdapter(getDataAdapter(getAreaNames()));
         spinnerB.setAdapter(getDataAdapter(getPointNames()));
@@ -68,10 +70,10 @@ public class AddVolumeActivity extends AddElementActivity {
     }
 
     private void setVolumeType(int volumeType) {
-        // TODO Select Image
         this.volumeType = volumeType;
-        if (volumeType == Volume.TYPE_PYRAMID) {
-        } else {
-        }
+        if (volumeType == Volume.TYPE_PYRAMID)
+            imageView.setImageDrawable(getDrawable(R.drawable.volumepyramid));
+        else
+            imageView.setImageDrawable(getDrawable(R.drawable.volumeprism));
     }
 }

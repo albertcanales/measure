@@ -50,7 +50,7 @@ public class AddAngleActivity extends AddElementActivity {
         Point pointA = pointList.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
         Point pointB = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
         Point pointC = pointList.get(getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
-        Angle angle = new Angle(name, pointA, pointC, pointB);
+        Angle angle = new Angle(name, pointB, pointC, pointA);
         angleList.add(angle);
         Intent resultIntent = new Intent();
         ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(angleList);
