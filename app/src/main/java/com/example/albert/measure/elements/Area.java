@@ -95,7 +95,7 @@ public class Area extends Element implements Parcelable {
     }
 
     private double getAreaFromAngle(Angle angle) {
-        return (angle.getV().getDistance() * angle.getU().getDistance() * angle.getAngle()) / 2;
+        return (angle.getV().getDistance() * angle.getU().getDistance() * Math.sin(angle.getAngle())) / 2;
     }
 
     public Vector getV() {

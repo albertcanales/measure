@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,11 +23,13 @@ import com.example.albert.measure.activities.AddAngleActivity;
 import com.example.albert.measure.activities.AddAreaActivity;
 import com.example.albert.measure.activities.AddPointActivity;
 import com.example.albert.measure.activities.AddVectorActivity;
+import com.example.albert.measure.activities.AddVolumeActivity;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
+import com.example.albert.measure.elements.Volume;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,34 +76,37 @@ public class PlaceholderFragment extends Fragment {
         List<Angle> angleList = myActivity.getAngleList();
         List<Vector> vectorList = myActivity.getVectorList();
         List<Area> areaList = myActivity.getAreaList();
+        List<Volume> volumeList = myActivity.getVolumeList();
 
+        RecyclerView.Adapter adapter = null;
         if (tabPosition == 0) {  // POINTS
             elementTypeStr = "point";
             if (pointList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            PointsAdapter pointsAdapter = new PointsAdapter(pointList, angleList, vectorList, areaList, myActivity);
-            recyclerViewElements.setAdapter(pointsAdapter);
+            adapter = new PointsAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
         } else if (tabPosition == 1) {   // ANGLES
             elementTypeStr = "angle";
             if (angleList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             //angleList.add(new Angle("TestAngle", pointList.get(0), pointList.get(1), pointList.get(2)));
             //angleList.add(new Angle(new Point("First", 3.0, 4.0, 5.0),
             //        new Point("Second", 5.0, 7.0, 0.0), new Point("Vertex", 0.0, 0.0, 0.0)));
-            AnglesAdapter anglesAdapter = new AnglesAdapter(pointList, angleList, vectorList, areaList, myActivity);
-            recyclerViewElements.setAdapter(anglesAdapter);
-        } else if (tabPosition == 2) {
+            adapter = new AnglesAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+        } else if (tabPosition == 2) {  // VECTORS
             elementTypeStr = "distance";
             if (vectorList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             //vectorList.add(new Vector("TestDistance1", pointList.get(0), pointList.get(1)));
             //vectorList.add(new Vector("TestDistance2", pointList.get(1), pointList.get(2)));
-            VectorsAdapter vectorsAdapter = new VectorsAdapter(pointList, angleList, vectorList, areaList, myActivity);
-            recyclerViewElements.setAdapter(vectorsAdapter);
-        } else if (tabPosition == 3) {
+            adapter = new VectorsAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+        } else if (tabPosition == 3) {  // AREAS
             elementTypeStr = "area";
             if (areaList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
             //areaList.add(new Area("TestArea", pointList.get(0), pointList.get(1), pointList.get(2),1));
-            AreasAdapter areasAdapter = new AreasAdapter(pointList, angleList, vectorList, areaList, myActivity);
-            recyclerViewElements.setAdapter(areasAdapter);
+            adapter = new AreasAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+        } else {
+            elementTypeStr = "volume";
+            if (volumeList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            adapter = new VolumesAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
         }
+        recyclerViewElements.setAdapter(adapter);
         addElement.setOnClickListener(new AddElementButtonListener(tabPosition, myActivity));
         addElement.setText("Add ".concat(elementTypeStr));
         noElementTV.setText(String.format("No %s calculated.\nClick below to add one!", elementTypeStr));
@@ -123,6 +129,9 @@ public class PlaceholderFragment extends Fragment {
             } else if (requestCode == 3) {
                 List<Area> areas = data.getParcelableArrayListExtra("areas");
                 myActivity.setAreaList(areas);
+            } else if(requestCode == 4) {
+                List<Volume> volumes = data.getParcelableArrayListExtra("volumes");
+                myActivity.setVolumeList(volumes);
             }
         }
         myActivity.refreshAdapter(requestCode);
@@ -158,18 +167,19 @@ public class PlaceholderFragment extends Fragment {
                     Toast.makeText(context, "There must be at least three points", Toast.LENGTH_SHORT).show();
                 else
                     intent = new Intent(context, AddAreaActivity.class);
-
+            } else if (elementType == 4) {
+                if (myActivity.getAreaList().size() < 1)
+                    Toast.makeText(context, "There must be at least one area", Toast.LENGTH_SHORT).show();
+                else
+                    intent = new Intent(context, AddVolumeActivity.class);
             }
             if (!intent.filterEquals(new Intent())) {
 
-                ArrayList<Parcelable> points = new ArrayList<Parcelable>(myActivity.getPointList());
-                intent.putParcelableArrayListExtra("points", points);
-                ArrayList<Parcelable> vectors = new ArrayList<Parcelable>(myActivity.getVectorList());
-                intent.putParcelableArrayListExtra("vectors", vectors);
-                ArrayList<Parcelable> angles = new ArrayList<Parcelable>(myActivity.getAngleList());
-                intent.putParcelableArrayListExtra("angles", angles);
-                ArrayList<Parcelable> areas = new ArrayList<Parcelable>(myActivity.getAreaList());
-                intent.putParcelableArrayListExtra("areas", areas);
+                intent.putParcelableArrayListExtra("points", new ArrayList<Parcelable>(myActivity.getPointList()));
+                intent.putParcelableArrayListExtra("vectors", new ArrayList<Parcelable>(myActivity.getVectorList()));
+                intent.putParcelableArrayListExtra("angles", new ArrayList<Parcelable>(myActivity.getAngleList()));
+                intent.putParcelableArrayListExtra("areas", new ArrayList<Parcelable>(myActivity.getAreaList()));
+                intent.putParcelableArrayListExtra("volumes", new ArrayList<Parcelable>(myActivity.getVolumeList()));
 
                 startActivityForResult(intent, elementType);
             }

@@ -32,4 +32,9 @@
         <item>Parallelogram</item>
         <item>General quadrilateral</item>
     </string-array>
+
+    <string-array name="volume_types_array">
+        <item>Pyramid</item>
+        <item>Prism</item>
+    </string-array>
 </resources>

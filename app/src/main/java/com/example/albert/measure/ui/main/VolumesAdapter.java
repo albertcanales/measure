@@ -18,18 +18,18 @@ import com.example.albert.measure.elements.Volume;
 
 import java.util.List;
 
-public class AreasAdapter extends ElementsAdapter {
+public class VolumesAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    AreasAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
-        super(points, angles, vectors, new ListAreaRef(areas), volumes, context);
+    VolumesAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
+        super(points, angles, vectors, areas, new ListVolumeRef(volumes), context);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_areas, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_volumes, parent, false);
         holder = new ViewHolder(v);
         return holder;
     }
@@ -37,41 +37,48 @@ public class AreasAdapter extends ElementsAdapter {
     @SuppressLint("DefaultLocale")
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
-        double area = areaList.get(position).getArea();
-        this.holder.textArea.setText(String.format("%.2f", area).concat(" cm²"));
+        double volume = volumeList.get(position).getVolume();
+        double base = volumeList.get(position).getBase().getArea();
+        double height = volumeList.get(position).getHeight();
+        this.holder.textVolume.setText(String.format("%.1f", volume).concat(" cm³"));
+        this.holder.base.setText(String.format("%.1f", base).concat(" cm²"));
+        this.holder.height.setText(String.format("%.1f", height).concat(" cm"));
     }
 
     @Override
     public int getItemCount() {
-        return areaList.size();
+        return volumeList.size();
     }
 
     @Override
     void removeItem(int position) {
-        areaList.remove(position);
-        ((ResultsActivity) context).setAreaList(areaList);
+        volumeList.remove(position);
+        ((ResultsActivity) context).setVolumeList(volumeList);
         ((ResultsActivity) context).refreshAdapter(3);
     }
 
     @Override
     String getItemName(int position) {
-        return areaList.get(position).getName();
+        return volumeList.get(position).getName();
     }
 
     @Override
     void renameItem(int position, String name) {
-        areaList.get(position).setName(name);
-        ((ResultsActivity) context).setAreaList(areaList);
-        ((ResultsActivity) context).refreshAdapter(3);
+        volumeList.get(position).setName(name);
+        ((ResultsActivity) context).setVolumeList(volumeList);
+        ((ResultsActivity) context).refreshAdapter(4);
     }
 
 
     public static class ViewHolder extends ElementsAdapter.ViewHolder {
-        TextView textArea;
+        TextView textVolume, base, height;
 
         ViewHolder(View v) {
             super(v);
-            textArea = v.findViewById(R.id.area);
+            textVolume = v.findViewById(R.id.volume);
+            base = v.findViewById(R.id.base);
+            height = v.findViewById(R.id.height);
         }
     }
 }
+

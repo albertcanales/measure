@@ -45,6 +45,14 @@ public class Point extends Element implements Parcelable {
     }
 
     // Manual Constructor
+    // Manual Constructor
+    public Point(double x, double y, double z) {
+        super("");
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
     public Point(String name, double x, double y, double z) {
         super(name);
         this.x = x;

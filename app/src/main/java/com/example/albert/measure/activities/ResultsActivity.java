@@ -11,6 +11,7 @@ import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
+import com.example.albert.measure.elements.Volume;
 import com.example.albert.measure.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ResultsActivity extends AppCompatActivity {
     private List<Angle> angleList = new ArrayList<>();
     private List<Vector> vectorList = new ArrayList<>();
     private List<Area> areaList = new ArrayList<>();
+    private List<Volume> volumeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,14 @@ public class ResultsActivity extends AppCompatActivity {
     public void setAreaList(List<Area> areaList) {
         Log.d("AREAS", areaList.toString());
         this.areaList = areaList;
+    }
+
+    public List<Volume> getVolumeList() {
+        return volumeList;
+    }
+
+    public void setVolumeList(List<Volume> volumeList) {
+        this.volumeList = volumeList;
     }
 
     public void refreshAdapter(int tabPosition) {

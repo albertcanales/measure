@@ -36,6 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.AddPointActivity" />
         <activity android:name=".activities.AddAngleActivity" />
+        <activity android:name=".activities.AddVolumeActivity" />
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />

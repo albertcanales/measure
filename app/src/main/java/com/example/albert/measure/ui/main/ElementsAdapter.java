@@ -19,6 +19,7 @@ import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Element;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
+import com.example.albert.measure.elements.Volume;
 
 import java.util.List;
 
@@ -29,34 +30,52 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
     List<Angle> angleList;
     List<Vector> vectorList;
     List<Area> areaList;
+    List<Volume> volumeList;
+
     private ElementsAdapter(Context context) {
         this.context = context;
     }
-    ElementsAdapter(ListPointRef points, List<Angle> angles, List<Vector> vectors, List<Area> areas, Context context) {
+    ElementsAdapter(ListPointRef points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
         this(context);
         this.pointList = points.getPoints();
         this.angleList = angles;
         this.vectorList = vectors;
+        this.areaList = areas;
+        this.volumeList = volumes;
     }
-    ElementsAdapter(List<Point> points, ListAngleRef angles, List<Vector> vectors, List<Area> areas, Context context) {
+    ElementsAdapter(List<Point> points, ListAngleRef angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
         this(context);
         this.pointList = points;
         this.angleList = angles.getAngles();
         this.vectorList = vectors;
+        this.areaList = areas;
+        this.volumeList = volumes;
     }
-    ElementsAdapter(List<Point> points, List<Angle> angles, ListVectorRef vectors, List<Area> areas, Context context) {
+    ElementsAdapter(List<Point> points, List<Angle> angles, ListVectorRef vectors, List<Area> areas, List<Volume> volumes, Context context) {
         this(context);
         this.pointList = points;
         this.angleList = angles;
         this.vectorList = vectors.getVectors();
+        this.areaList = areas;
+        this.volumeList = volumes;
     }
 
-    ElementsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, ListAreaRef areas, Context context) {
+    ElementsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, ListAreaRef areas, List<Volume> volumes, Context context) {
         this(context);
         this.pointList = points;
         this.angleList = angles;
         this.vectorList = vectors;
         this.areaList = areas.getAreas();
+        this.volumeList = volumes;
+    }
+
+    ElementsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, ListVolumeRef volumes, Context context) {
+        this(context);
+        this.pointList = points;
+        this.angleList = angles;
+        this.vectorList = vectors;
+        this.areaList = areas;
+        this.volumeList = volumes.getVolumes();
     }
 
     @NonNull
@@ -131,6 +150,18 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
         }
     }
 
+    static class ListVolumeRef {
+        List<Volume> volumes;
+
+        ListVolumeRef(List<Volume> volumes) {
+            this.volumes = volumes;
+        }
+
+        List<Volume> getVolumes() {
+            return volumes;
+        }
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, rename, remove;
 
@@ -192,7 +223,7 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
                                 String name = nameET.getText().toString().trim();
                                 if(getItemName(position).equals(name)) dialog.dismiss();
                                 if (Element.validNameFromEditText(nameET, pointList, angleList,
-                                        vectorList, areaList) == Element.VALID_NAME) {
+                                        vectorList, areaList, volumeList) == Element.VALID_NAME) {
                                     renameItem(position, name);
                                     dialog.dismiss();
                                 }

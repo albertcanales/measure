@@ -18,6 +18,7 @@ import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Element;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
+import com.example.albert.measure.elements.Volume;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
     List<Angle> angleList;
     List<Vector> vectorList;
     List<Area> areaList;
+    List<Volume> volumeList;
 
     Context context;
 
@@ -44,6 +46,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
         angleList = getIntent().getParcelableArrayListExtra("angles");
         vectorList = getIntent().getParcelableArrayListExtra("vectors");
         areaList = getIntent().getParcelableArrayListExtra("areas");
+        volumeList = getIntent().getParcelableArrayListExtra("volumes");
     }
 
     @Override
@@ -90,6 +93,12 @@ public abstract class AddElementActivity extends AppCompatActivity {
         return names;
     }
 
+    List<String> getVolumeNames() {
+        List<String> names = new ArrayList<>();
+        for (Volume v : volumeList) names.add(v.getName());
+        return names;
+    }
+
 
     abstract List<Spinner> getSpinnerList();
 
@@ -106,7 +115,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
 
     private boolean checkName() {
         name = nameET.getText().toString().trim();
-        return Element.validNameFromEditText(nameET, pointList, angleList, vectorList, areaList) == 0;
+        return Element.validNameFromEditText(nameET, pointList, angleList, vectorList, areaList, volumeList) == 0;
     }
 
     // Check if have the same value, O(n^2)

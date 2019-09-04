@@ -2,6 +2,11 @@ package com.example.albert.measure.elements;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Pair;
+
+import com.example.albert.measure.Triplet;
+
+import javax.xml.transform.dom.DOMLocator;
 
 public class Vector extends Element implements Parcelable {
 
@@ -108,6 +113,21 @@ public class Vector extends Element implements Parcelable {
 
     public void setSecond(Point second) {
         this.second = second;
+    }
+
+    // Pure vector methods, used in calculations on Volume Class
+    public Triplet<Double, Double, Double> getVector() {
+        return new Triplet<>(second.getX() - first.getX(), second.getY() - second.getY(), second.getZ() - first.getZ());
+    }
+
+    public Triplet<Double, Double, Double> multiplyByScalar(double scalar) {
+        Triplet<Double, Double, Double> myVector = getVector();
+        return new Triplet<>(myVector.getFirst()*scalar, myVector.getSecond()*scalar,
+                myVector.getThird()*scalar);
+    }
+
+    public static double getNorm(Triplet<Double,Double,Double> triplet) {
+        return (new Vector(new Point(), new Point(triplet.getFirst(), triplet.getSecond(), triplet.getThird()))).getDistance();
     }
 
     @Override

@@ -14,6 +14,7 @@ import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
+import com.example.albert.measure.elements.Volume;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class PointsAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    PointsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, Context context) {
-        super(new ListPointRef(points), angles, vectors, areas, context);
+    PointsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
+        super(new ListPointRef(points), angles, vectors, areas, volumes, context);
     }
 
     @NonNull
