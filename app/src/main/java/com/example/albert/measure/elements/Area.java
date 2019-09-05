@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 public class Area extends Element implements Parcelable {
 
-    public static final int TRIANGLE = 0;
-    public static final int PARALLELOGRAM = 1;
-    public static final int GENERAL_QUADRILATERAL = 2;
+    public static final int TYPE_TRIANGLE = 0;
+    public static final int TYPE_PARALLELOGRAM = 1;
+    public static final int TYPE_GENERAL_QUADRILATERAL = 2;
     public static final Creator<Area> CREATOR = new Creator<Area>() {
         @Override
         public Area createFromParcel(Parcel in) {
@@ -67,14 +67,14 @@ public class Area extends Element implements Parcelable {
         super("");
         angle1 = new Angle(first, second, vertex);
         angle2 = new Angle(second, first, secondVertex);
-        areaType = GENERAL_QUADRILATERAL;
+        areaType = TYPE_GENERAL_QUADRILATERAL;
     }
 
     public Area(String name, Point first, Point second, Point vertex, Point secondVertex) {
         super(name);
         angle1 = new Angle(first, second, vertex);
         angle2 = new Angle(second, first, secondVertex);
-        areaType = GENERAL_QUADRILATERAL;
+        areaType = TYPE_GENERAL_QUADRILATERAL;
     }
 
     // Constructor for parcelable
@@ -86,9 +86,9 @@ public class Area extends Element implements Parcelable {
     }
 
     public double getArea() {
-        if (areaType == TRIANGLE)
+        if (areaType == TYPE_TRIANGLE)
             return getAreaFromAngle(angle1);
-        else if (areaType == PARALLELOGRAM)
+        else if (areaType == TYPE_PARALLELOGRAM)
             return 2 * getAreaFromAngle(angle1);
         else
             return getAreaFromAngle(angle1) + getAreaFromAngle(angle2);
@@ -108,6 +108,10 @@ public class Area extends Element implements Parcelable {
 
     public Point getVertex() {
         return angle1.getVertex();
+    }
+
+    public int getAreaType() {
+        return areaType;
     }
 
     @Override

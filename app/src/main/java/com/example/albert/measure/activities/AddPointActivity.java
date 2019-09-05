@@ -1,5 +1,6 @@
 package com.example.albert.measure.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
 
 public class AddPointActivity extends AddElementActivity {
 
@@ -31,6 +34,7 @@ public class AddPointActivity extends AddElementActivity {
         coordinateY = findViewById(R.id.coordinate_y);
         coordinateZ = findViewById(R.id.coordinate_z);
         nameET = findViewById(R.id.name_edit_text);
+        nameET.setText(String.format("Point%d", pointList.size()+1));
     }
 
     @Override
@@ -49,7 +53,7 @@ public class AddPointActivity extends AddElementActivity {
                 pointList.add(point);
                 Intent resultIntent = new Intent();
                 ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(pointList);
-                resultIntent.putParcelableArrayListExtra("points", parcelables);
+                resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[POINT_TAB]), parcelables);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }

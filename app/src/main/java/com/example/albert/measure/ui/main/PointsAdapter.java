@@ -51,7 +51,7 @@ public class PointsAdapter extends ElementsAdapter {
     void removeItem(int position) {
         pointList.remove(position);
         ((ResultsActivity) context).setPointList(pointList);
-        ((ResultsActivity) context).refreshAdapter(0);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.POINT_TAB);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class PointsAdapter extends ElementsAdapter {
     void renameItem(int position, String name) {
         pointList.get(position).setName(name);
         ((ResultsActivity) context).setPointList(pointList);
-        ((ResultsActivity) context).refreshAdapter(0);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.POINT_TAB);
     }
 
     static class ViewHolder extends ElementsAdapter.ViewHolder {

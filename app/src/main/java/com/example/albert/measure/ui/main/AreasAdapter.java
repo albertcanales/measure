@@ -50,7 +50,7 @@ public class AreasAdapter extends ElementsAdapter {
     void removeItem(int position) {
         areaList.remove(position);
         ((ResultsActivity) context).setAreaList(areaList);
-        ((ResultsActivity) context).refreshAdapter(3);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.AREA_TAB);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class AreasAdapter extends ElementsAdapter {
     void renameItem(int position, String name) {
         areaList.get(position).setName(name);
         ((ResultsActivity) context).setAreaList(areaList);
-        ((ResultsActivity) context).refreshAdapter(3);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.AREA_TAB);
     }
 
 

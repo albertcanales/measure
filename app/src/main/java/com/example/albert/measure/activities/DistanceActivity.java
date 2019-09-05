@@ -126,9 +126,9 @@ public class DistanceActivity extends AppCompatActivity implements View.OnClickL
 
     private void setOrientationValues(int i) {
         double[] orientationValues = {
-                Math.PI / 2 - orientationSensor.getPitch(),
-                Math.PI / 2 - orientationSensor.getRoll(),
-                Math.PI / 2 - orientationSensor.getAzimuth(),
+                orientationSensor.getPitch(),
+                orientationSensor.getRoll(),
+                orientationSensor.getAzimuth(),
         };
         System.arraycopy(orientationValues, 0, orientationAtPoints[i], 0, 3);
     }

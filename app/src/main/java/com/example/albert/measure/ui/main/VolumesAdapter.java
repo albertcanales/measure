@@ -40,9 +40,9 @@ public class VolumesAdapter extends ElementsAdapter {
         double volume = volumeList.get(position).getVolume();
         double base = volumeList.get(position).getBase().getArea();
         double height = volumeList.get(position).getHeight();
-        this.holder.textVolume.setText(String.format("%.1f", volume).concat(" cm³"));
-        this.holder.base.setText(String.format("%.1f", base).concat(" cm²"));
-        this.holder.height.setText(String.format("%.1f", height).concat(" cm"));
+        this.holder.textVolume.setText(String.format("%.1f  cm³", volume));
+        this.holder.base.setText(String.format("Base\n%.1f cm²", base));
+        this.holder.height.setText(String.format("Height\n%.1f cm", height));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class VolumesAdapter extends ElementsAdapter {
     void removeItem(int position) {
         volumeList.remove(position);
         ((ResultsActivity) context).setVolumeList(volumeList);
-        ((ResultsActivity) context).refreshAdapter(3);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VOLUME_TAB);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class VolumesAdapter extends ElementsAdapter {
     void renameItem(int position, String name) {
         volumeList.get(position).setName(name);
         ((ResultsActivity) context).setVolumeList(volumeList);
-        ((ResultsActivity) context).refreshAdapter(4);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VOLUME_TAB);
     }
 
 

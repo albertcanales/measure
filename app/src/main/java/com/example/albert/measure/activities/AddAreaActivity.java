@@ -1,5 +1,6 @@
 package com.example.albert.measure.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
 
 public class AddAreaActivity extends AddElementActivity {
 
@@ -44,6 +47,7 @@ public class AddAreaActivity extends AddElementActivity {
         imageView = findViewById(R.id.image);
         tableRowSpinnerD = findViewById(R.id.row_spinner_d);
         nameET = findViewById(R.id.name_edit_text);
+        nameET.setText(String.format("Area%d", areaList.size()+1));
 
         spinnerA.setAdapter(getDataAdapter(getPointNames()));
         spinnerB.setAdapter(getDataAdapter(getPointNames()));
@@ -71,7 +75,7 @@ public class AddAreaActivity extends AddElementActivity {
         spinnerList.add(spinnerA);
         spinnerList.add(spinnerB);
         spinnerList.add(spinnerC);
-        if (areaType == Area.GENERAL_QUADRILATERAL)
+        if (areaType == Area.TYPE_GENERAL_QUADRILATERAL)
             spinnerList.add(spinnerD);
         return spinnerList;
     }
@@ -82,7 +86,7 @@ public class AddAreaActivity extends AddElementActivity {
         Point pointA = pointList.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
         Point pointB = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
         Point pointC = pointList.get(getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
-        if (areaType == Area.GENERAL_QUADRILATERAL) {
+        if (areaType == Area.TYPE_GENERAL_QUADRILATERAL) {
             Point pointD = pointList.get(getPointNames().indexOf(spinnerD.getSelectedItem().toString()));
             // TODO Test if they are on a same plane
             area = new Area(name, pointA, pointB, pointC, pointD);
@@ -92,17 +96,17 @@ public class AddAreaActivity extends AddElementActivity {
         areaList.add(area);
         Intent resultIntent = new Intent();
         ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(areaList);
-        resultIntent.putParcelableArrayListExtra("areas", parcelables);
+        resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[AREA_TAB]), parcelables);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
 
     private void setAreaType(int areaType) {
         this.areaType = areaType;
-        if (areaType == Area.TRIANGLE) {
+        if (areaType == Area.TYPE_TRIANGLE) {
             imageView.setImageDrawable(getDrawable(R.drawable.areatriangle));
             tableRowSpinnerD.setVisibility(View.GONE);
-        } else if (areaType == Area.PARALLELOGRAM) {
+        } else if (areaType == Area.TYPE_PARALLELOGRAM) {
             imageView.setImageDrawable(getDrawable(R.drawable.areaparalelogram));
             tableRowSpinnerD.setVisibility(View.GONE);
         } else {

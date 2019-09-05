@@ -33,9 +33,9 @@ public class SensorTestFragment extends Fragment
     private final Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
-            tvAzimuth.setText(String.format("Azimuth: %s", sensors.getAzimuth()));
-            tvPitch.setText(String.format("Pitch: %s", sensors.getPitch()));
-            tvRoll.setText(String.format("Roll: %s", sensors.getRoll()));
+            tvAzimuth.setText(String.format("Azimuth: %s", Math.toDegrees(sensors.getAzimuth())));
+            tvPitch.setText(String.format("Pitch: %s", Math.toDegrees(sensors.getPitch())));
+            tvRoll.setText(String.format("Roll: %s", Math.toDegrees(sensors.getRoll())));
             myHandler.postDelayed(this, period);
         }
     };

@@ -1,5 +1,6 @@
 package com.example.albert.measure.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
 
 public class AddAngleActivity extends AddElementActivity {
 
@@ -30,6 +33,7 @@ public class AddAngleActivity extends AddElementActivity {
         spinnerB = findViewById(R.id.b_spinner);
         spinnerC = findViewById(R.id.c_spinner);
         nameET = findViewById(R.id.name_edit_text);
+        nameET.setText(String.format("Angle%d", angleList.size()+1));
 
         spinnerA.setAdapter(getDataAdapter(getPointNames()));
         spinnerB.setAdapter(getDataAdapter(getPointNames()));
@@ -54,7 +58,7 @@ public class AddAngleActivity extends AddElementActivity {
         angleList.add(angle);
         Intent resultIntent = new Intent();
         ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(angleList);
-        resultIntent.putParcelableArrayListExtra("angles", parcelables);
+        resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[ANGLE_TAB]), parcelables);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

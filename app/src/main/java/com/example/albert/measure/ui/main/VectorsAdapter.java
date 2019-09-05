@@ -52,7 +52,7 @@ public class VectorsAdapter extends ElementsAdapter {
     void removeItem(int position) {
         vectorList.remove(position);
         ((ResultsActivity) context).setVectorList(vectorList);
-        ((ResultsActivity) context).refreshAdapter(2);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VECTOR_TAB);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class VectorsAdapter extends ElementsAdapter {
     void renameItem(int position, String name) {
         vectorList.get(position).setName(name);
         ((ResultsActivity) context).setVectorList(vectorList);
-        ((ResultsActivity) context).refreshAdapter(2);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VECTOR_TAB);
     }
 
 

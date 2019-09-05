@@ -69,7 +69,7 @@ public class AnglesAdapter extends ElementsAdapter {
     void removeItem(int position) {
         angleList.remove(position);
         ((ResultsActivity) context).setAngleList(angleList);
-        ((ResultsActivity) context).refreshAdapter(1);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.ANGLE_TAB);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class AnglesAdapter extends ElementsAdapter {
     void renameItem(int position, String name) {
         angleList.get(position).setName(name);
         ((ResultsActivity) context).setAngleList(angleList);
-        ((ResultsActivity) context).refreshAdapter(1);
+        ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.ANGLE_TAB);
     }
 
 

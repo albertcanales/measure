@@ -214,8 +214,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
 
     private void measurePoint() {
         String name = "Point".concat(Integer.toString(numPoints + 1));
-        Pair<Double, Double> angles = new Pair<>(Math.PI / 2 - orientationSensor.getPitch(),
-                Math.PI / 2 - orientationSensor.getAzimuth());
+        Pair<Double, Double> angles = new Pair<>(orientationSensor.getPitch(), orientationSensor.getAzimuth());
         // TODO Measure it. Could be even treated it as a distance
         if (pointType == 0) {
             pointList.add(new Point(name, h, angles));

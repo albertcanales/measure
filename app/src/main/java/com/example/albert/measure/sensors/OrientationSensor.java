@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 
 public class OrientationSensor extends MySensorEvent implements SensorEventListener {
 
-    private float azimuth, pitch, roll;
+    private double azimuth, pitch, roll;
 
     public OrientationSensor(Context context) {
         super(context, Sensor.TYPE_ROTATION_VECTOR);
@@ -43,19 +43,19 @@ public class OrientationSensor extends MySensorEvent implements SensorEventListe
         SensorManager.getOrientation(adjustedRotationMatrix, orientation);
 
         azimuth = orientation[0];
-        pitch = orientation[1];
+        pitch = Math.PI/2 - orientation[1];
         roll = orientation[2];
     }
 
-    public float getAzimuth() {
+    public double getAzimuth() {
         return azimuth;
     }
 
-    public float getPitch() {
+    public double getPitch() {
         return pitch;
     }
 
-    public float getRoll() {
+    public double getRoll() {
         return roll;
     }
 

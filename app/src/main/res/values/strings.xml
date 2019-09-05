@@ -30,7 +30,7 @@
     <string-array name="area_types_array">
         <item>Triangle</item>
         <item>Parallelogram</item>
-        <item>General quadrilateral</item>
+        <!-- <item>General quadrilateral</item> !-->
     </string-array>
 
     <string-array name="volume_types_array">

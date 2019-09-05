@@ -16,8 +16,13 @@ import com.example.albert.measure.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.points, R.string.angles,
+    public static final int[] TAB_TITLES = new int[]{R.string.points, R.string.angles,
             R.string.distances, R.string.areas, R.string.volumes};
+    public static final int POINT_TAB = 0;
+    public static final int ANGLE_TAB = 1;
+    public static final int VECTOR_TAB = 2;
+    public static final int AREA_TAB = 3;
+    public static final int VOLUME_TAB = 4;
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {

@@ -19,10 +19,13 @@ import com.example.albert.measure.elements.Element;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 import com.example.albert.measure.elements.Volume;
+import com.example.albert.measure.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
 
 public abstract class AddElementActivity extends AppCompatActivity {
 
@@ -42,11 +45,11 @@ public abstract class AddElementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        pointList = getIntent().getParcelableArrayListExtra("points");
-        angleList = getIntent().getParcelableArrayListExtra("angles");
-        vectorList = getIntent().getParcelableArrayListExtra("vectors");
-        areaList = getIntent().getParcelableArrayListExtra("areas");
-        volumeList = getIntent().getParcelableArrayListExtra("volumes");
+        pointList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[POINT_TAB]));
+        angleList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[ANGLE_TAB]));
+        vectorList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[VECTOR_TAB]));
+        areaList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[AREA_TAB]));
+        volumeList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[VOLUME_TAB]));
     }
 
     @Override
@@ -98,7 +101,6 @@ public abstract class AddElementActivity extends AppCompatActivity {
         for (Volume v : volumeList) names.add(v.getName());
         return names;
     }
-
 
     abstract List<Spinner> getSpinnerList();
 

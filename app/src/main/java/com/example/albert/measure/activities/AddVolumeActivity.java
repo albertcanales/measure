@@ -1,10 +1,12 @@
 package com.example.albert.measure.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -17,9 +19,11 @@ import com.example.albert.measure.elements.Volume;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
+
 public class AddVolumeActivity extends AddElementActivity {
 
-    int volumeType;
+    private int volumeType = Volume.TYPE_PYRAMID;
     private Spinner spinnerA;
     private Spinner spinnerB;
     private ImageView imageView;
@@ -35,10 +39,22 @@ public class AddVolumeActivity extends AddElementActivity {
         typeSpinner.setSelection(0);
         spinnerA = findViewById(R.id.a_spinner);
         spinnerB = findViewById(R.id.b_spinner);
-        nameET = findViewById(R.id.name_edit_text);
         imageView = findViewById(R.id.image);
+        nameET = findViewById(R.id.name_edit_text);
+        nameET.setText(String.format("Volume%d", volumeList.size()+1));
 
         spinnerA.setAdapter(getDataAdapter(getAreaNames()));
+        spinnerA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                setVolumeType(volumeType);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         spinnerB.setAdapter(getDataAdapter(getPointNames()));
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -48,8 +64,11 @@ public class AddVolumeActivity extends AddElementActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
+
+        setVolumeType(volumeType);
     }
 
     @Override
@@ -64,16 +83,24 @@ public class AddVolumeActivity extends AddElementActivity {
         volumeList.add(new Volume(name, base, pointHeight, volumeType));
         Intent resultIntent = new Intent();
         ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(volumeList);
-        resultIntent.putParcelableArrayListExtra("volumes", parcelables);
+        resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[VOLUME_TAB]), parcelables);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
 
     private void setVolumeType(int volumeType) {
         this.volumeType = volumeType;
-        if (volumeType == Volume.TYPE_PYRAMID)
-            imageView.setImageDrawable(getDrawable(R.drawable.volumepyramid));
-        else
-            imageView.setImageDrawable(getDrawable(R.drawable.volumeprism));
+        int areaType = areaList.get(getAreaNames().indexOf(spinnerA.getSelectedItem().toString())).getAreaType();
+        if (volumeType == Volume.TYPE_PYRAMID) {
+            if (areaType == Area.TYPE_TRIANGLE)
+                imageView.setImageDrawable(getDrawable(R.drawable.volumetrianglepyramid));
+            else
+                imageView.setImageDrawable(getDrawable(R.drawable.volumeparalelogrampyramid));
+        } else {
+            if(areaType == Area.TYPE_TRIANGLE)
+                imageView.setImageDrawable(getDrawable(R.drawable.volumetriangleprism));
+            else
+                imageView.setImageDrawable(getDrawable(R.drawable.volumeparalelogramprism));
+        }
     }
 }
