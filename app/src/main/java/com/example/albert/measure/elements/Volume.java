@@ -1,17 +1,11 @@
 package com.example.albert.measure.elements;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-public class Volume extends Element implements Parcelable {
+public class Volume extends Element {
 
     public static final int TYPE_PYRAMID = 0;
     public static final int TYPE_PRISM = 1;
-
-    private Area base;
-    private Point pointHeight;
-    private int volumeType;
-
     public static final Creator<Volume> CREATOR = new Creator<Volume>() {
         @Override
         public Volume createFromParcel(Parcel in) {
@@ -23,6 +17,9 @@ public class Volume extends Element implements Parcelable {
             return new Volume[size];
         }
     };
+    private Area base;
+    private Point pointHeight;
+    private int volumeType;
 
     // Empty constructors
     public Volume() {
@@ -63,12 +60,12 @@ public class Volume extends Element implements Parcelable {
     }
 
     public double getHeight() {
-        return Vector.getNorm((new Vector(pointHeight,base.getVertex())).
-                multiplyByScalar(base.getV().dot(base.getU()))) / Math.abs(base.getV().dot(base.getU()));
+        return Vector.getVectorNorm((new Vector(pointHeight, base.getVertex())).
+                VectorByScalar(base.getV().dot(base.getU()))) / Math.abs(base.getV().dot(base.getU()));
     }
 
     public double getVolume() {
-        if(volumeType == TYPE_PYRAMID)
+        if (volumeType == TYPE_PYRAMID)
             return base.getArea() * getHeight() / 3;
         return base.getArea() * getHeight();
     }

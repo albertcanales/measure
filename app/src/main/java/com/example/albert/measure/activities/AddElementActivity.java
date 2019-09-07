@@ -19,7 +19,6 @@ import com.example.albert.measure.elements.Element;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 import com.example.albert.measure.elements.Volume;
-import com.example.albert.measure.ui.main.SectionsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +116,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
 
     private boolean checkName() {
         name = nameET.getText().toString().trim();
-        return Element.validNameFromEditText(nameET, pointList, angleList, vectorList, areaList, volumeList) == 0;
+        return Element.validNameOfET(nameET, pointList, angleList, vectorList, areaList, volumeList) == 0;
     }
 
     // Check if have the same value, O(n^2)

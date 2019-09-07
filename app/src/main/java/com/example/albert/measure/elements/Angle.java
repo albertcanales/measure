@@ -1,9 +1,9 @@
 package com.example.albert.measure.elements;
 
 import android.os.Parcel;
-import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-public class Angle extends Element implements Parcelable {
+public class Angle extends Element {
 
     public static final Creator<Angle> CREATOR = new Creator<Angle>() {
         @Override
@@ -17,42 +17,34 @@ public class Angle extends Element implements Parcelable {
         }
     };
     // Point-based definition included though vectors to avoid data repetition
-    private Vector v;
-    private Vector u;
+    private final Vector v;
+    private final Vector u;
 
     public Angle() {
-        super("");
-        v = new Vector();
-        u = new Vector();
+        super();
+        v = u = new Vector();
     }
 
     public Angle(Vector v, Vector u) {
-        super("");
+        super();
         this.v = v;
         this.u = u;
     }
 
-    public Angle(String name, Vector v, Vector u) {
+    // Angle is \angle BAC
+    public Angle(Point b, Point c, Point a) {
+        super();
+        v = new Vector(a, b);
+        u = new Vector(a, c);
+    }
+
+    public Angle(String name, Point b, Point c, Point a) {
         super(name);
-        this.v = v;
-        this.u = u;
+        v = new Vector(a, b);
+        u = new Vector(a, c);
     }
 
-    public Angle(Point first, Point second, Point vertex) {
-        super("");
-        v = new Vector(vertex, first);
-        u = new Vector(vertex, second);
-    }
-
-    public Angle(String name, Point first, Point second, Point vertex) {
-        super(name);
-        v = new Vector(vertex, first);
-        u = new Vector(vertex, second);
-    }
-
-    // TODO Finish calculations
-
-    Angle(Parcel in) {
+    private Angle(Parcel in) {
         name = in.readString();
         v = in.readParcelable(Vector.class.getClassLoader());
         u = in.readParcelable(Vector.class.getClassLoader());
@@ -75,36 +67,15 @@ public class Angle extends Element implements Parcelable {
         return new Angle(v.projectionZ(), u.projectionZ()).getAngle();
     }
 
-    public Point getFirst() {
-        return v.getSecond();
-    }
-
-    public void setFirst(Point first) {
-        v.setSecond(first);
-    }
-
-    public Point getSecond() {
-        return u.getSecond();
-    }
-
-    public void setSecond(Point second) {
-        u.setSecond(second);
-    }
-
-    public Point getVertex() {
-        return v.getFirst();
-    }
-
-    public void setVertex(Point vertex) {
-        v.setFirst(vertex);
-        u.setFirst(vertex);
+    Point getA() {
+        return v.getA();
     }
 
     public Vector getV() {
         return v;
     }
 
-    public Vector getU() {
+    Vector getU() {
         return u;
     }
 
@@ -120,12 +91,12 @@ public class Angle extends Element implements Parcelable {
         parcel.writeParcelable(u, i);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Angle{" +
                 "name='" + name + '\'' +
                 ", v=" + v +
-                ", u=" + u +
                 ", u=" + u +
                 ", angle=" + getAngle() +
                 ", angleX=" + getAngleX() +

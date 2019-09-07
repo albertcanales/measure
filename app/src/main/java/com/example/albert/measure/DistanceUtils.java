@@ -21,10 +21,10 @@ public class DistanceUtils {
     }
 
     // Public for points method
-    public double PVS(double h, double A, double B) {
+    private double PVS(double h, double tanA, double B) {    // The tangent values are given to avoid redoing measurements
         if (B < Math.PI / 2)
-            return h * (1 - Math.tan(A) / Math.tan(B));
-        return h * (Math.tan(B - Math.PI / 2) * Math.tan(A) + 1);
+            return h * (1 - tanA / Math.tan(B));
+        return h * (Math.tan(B - Math.PI / 2) * tanA + 1);
     }
 
     private double parallelVertical(double h, double A, double B, double C) {

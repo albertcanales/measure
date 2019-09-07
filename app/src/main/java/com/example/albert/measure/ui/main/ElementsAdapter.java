@@ -222,8 +222,8 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
                             public void onClick(View view) {
                                 String name = nameET.getText().toString().trim();
                                 if(getItemName(position).equals(name)) dialog.dismiss();
-                                if (Element.validNameFromEditText(nameET, pointList, angleList,
-                                        vectorList, areaList, volumeList) == Element.VALID_NAME) {
+                                if (Element.validNameOfET(nameET, pointList, angleList,
+                                        vectorList, areaList, volumeList) == Element.VALID) {
                                     renameItem(position, name);
                                     dialog.dismiss();
                                 }

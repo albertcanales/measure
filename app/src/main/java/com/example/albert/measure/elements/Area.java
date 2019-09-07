@@ -1,9 +1,8 @@
 package com.example.albert.measure.elements;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-public class Area extends Element implements Parcelable {
+public class Area extends Element {
 
     public static final int TYPE_TRIANGLE = 0;
     public static final int TYPE_PARALLELOGRAM = 1;
@@ -107,7 +106,7 @@ public class Area extends Element implements Parcelable {
     }
 
     public Point getVertex() {
-        return angle1.getVertex();
+        return angle1.getA();
     }
 
     public int getAreaType() {

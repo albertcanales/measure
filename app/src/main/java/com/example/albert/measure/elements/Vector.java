@@ -1,14 +1,9 @@
 package com.example.albert.measure.elements;
 
 import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Pair;
+import android.support.annotation.NonNull;
 
-import com.example.albert.measure.Triplet;
-
-import javax.xml.transform.dom.DOMLocator;
-
-public class Vector extends Element implements Parcelable {
+public class Vector extends Element {
 
     public static final Creator<Vector> CREATOR = new Creator<Vector>() {
         @Override
@@ -21,77 +16,82 @@ public class Vector extends Element implements Parcelable {
             return new Vector[size];
         }
     };
-    private Point first;
-    private Point second;
+
+    private final Point A;
+    private final Point B;
 
     public Vector() {
-        super("");
-        first = new Point();
-        second = new Point();
+        super();
+        A = B = new Point();
     }
 
-    public Vector(Point first, Point second) {
-        super("");
-        this.first = first;
-        this.second = second;
+    public Vector(Point a, Point b) {
+        super();
+        this.A = a;
+        this.B = b;
     }
 
-    public Vector(String name, Point first, Point second) {
+    public Vector(String name, Point a, Point b) {
         super(name);
-        this.first = first;
-        this.second = second;
+        this.A = a;
+        this.B = b;
     }
 
     // Parcelable constructor
-    public Vector(Parcel in) {
+    private Vector(Parcel in) {
         name = in.readString();
-        first = in.readParcelable(getClass().getClassLoader());
-        second = in.readParcelable(getClass().getClassLoader());
+        A = in.readParcelable(getClass().getClassLoader());
+        B = in.readParcelable(getClass().getClassLoader());
     }
 
-    public Vector projectionX() {
-        return new Vector(name, new Point(first.getName(), 0, first.getY(), first.getZ()),
-                new Point(second.getName(), 0, second.getY(), second.getZ()));
+    // Mathematical vector methods, used in calculations on Volume Class
+    static double getVectorNorm(double[] vector) {
+        return (new Vector(new Point(), new Point(vector[0], vector[1], vector[2]))).getDistance();
     }
 
-    public Vector projectionY() {
-        return new Vector(name, new Point(first.getName(), first.getX(), 0, first.getZ()),
-                new Point(second.getName(), second.getX(), 0, second.getZ()));
+    Vector projectionX() {
+        return new Vector(name, new Point(A.getName(), 0, A.getY(), A.getZ()),
+                new Point(B.getName(), 0, B.getY(), B.getZ()));
     }
 
-    public Vector projectionZ() {
-        return new Vector(name, new Point(first.getName(), first.getX(), first.getY(), 0),
-                new Point(second.getName(), second.getX(), second.getY(), 0));
+    Vector projectionY() {
+        return new Vector(name, new Point(A.getName(), A.getX(), 0, A.getZ()),
+                new Point(B.getName(), B.getX(), 0, B.getZ()));
     }
 
-    public double dot(Vector v) {
-        return v.signedNormX() * signedNormX() +
-                v.signedNormY() * signedNormY() + v.signedNormZ() * signedNormZ();
+    Vector projectionZ() {
+        return new Vector(name, new Point(A.getName(), A.getX(), A.getY(), 0),
+                new Point(B.getName(), B.getX(), B.getY(), 0));
+    }
+
+    double dot(Vector v) {
+        return v.vectorX() * vectorX() +
+                v.vectorY() * vectorY() + v.vectorZ() * vectorZ();
     }
 
     // Needed for dot product, before called getVector
-    private double signedNormX() {
-        return getSecond().getX() - getFirst().getX();
+    private double vectorX() {
+        return B.getX() - A.getX();
     }
 
-    private double signedNormY() {
-        return getSecond().getY() - getFirst().getY();
+    private double vectorY() {
+        return B.getY() - A.getY();
     }
 
-    private double signedNormZ() {
-        return getSecond().getZ() - getFirst().getZ();
+    private double vectorZ() {
+        return B.getZ() - A.getZ();
     }
 
     public double getDistanceX() {
-        return Math.abs(signedNormX());
+        return Math.abs(vectorX());
     }
 
     public double getDistanceY() {
-        return Math.abs(signedNormY());
+        return Math.abs(vectorY());
     }
 
     public double getDistanceZ() {
-        return Math.abs(signedNormZ());
+        return Math.abs(vectorZ());
     }
 
     public double getDistance() {
@@ -99,35 +99,28 @@ public class Vector extends Element implements Parcelable {
                 Math.pow(getDistanceY(), 2) + Math.pow(getDistanceZ(), 2));
     }
 
-    public Point getFirst() {
-        return first;
+    double[] VectorByScalar(double scalar) {
+        double[] myVector = new double[]{vectorX(), vectorY(), vectorZ()};
+        for (int i = 0; i < myVector.length; i++) myVector[i] *= scalar;
+        return myVector;
     }
 
-    public void setFirst(Point first) {
-        this.first = first;
+    public Point getA() {
+        return A;
     }
 
-    public Point getSecond() {
-        return second;
-    }
-
-    public void setSecond(Point second) {
-        this.second = second;
-    }
-
-    // Pure vector methods, used in calculations on Volume Class
-    public Triplet<Double, Double, Double> getVector() {
-        return new Triplet<>(second.getX() - first.getX(), second.getY() - second.getY(), second.getZ() - first.getZ());
-    }
-
-    public Triplet<Double, Double, Double> multiplyByScalar(double scalar) {
-        Triplet<Double, Double, Double> myVector = getVector();
-        return new Triplet<>(myVector.getFirst()*scalar, myVector.getSecond()*scalar,
-                myVector.getThird()*scalar);
-    }
-
-    public static double getNorm(Triplet<Double,Double,Double> triplet) {
-        return (new Vector(new Point(), new Point(triplet.getFirst(), triplet.getSecond(), triplet.getThird()))).getDistance();
+    @NonNull
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "name='" + name + '\'' +
+                ", A=" + A +
+                ", B=" + B +
+                ", distance=" + getDistance() +
+                ", distanceX=" + getDistanceX() +
+                ", distanceY=" + getDistanceY() +
+                ", distanceZ=" + getDistanceZ() +
+                '}';
     }
 
     @Override
@@ -138,20 +131,7 @@ public class Vector extends Element implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
-        parcel.writeParcelable(first, i);
-        parcel.writeParcelable(second, i);
-    }
-
-    @Override
-    public String toString() {
-        return "Vector{" +
-                "name='" + name + '\'' +
-                ", first=" + first +
-                ", second=" + second +
-                ", distance=" + getDistance() +
-                ", distanceX=" + getDistanceX() +
-                ", distanceY=" + getDistanceY() +
-                ", distanceZ=" + getDistanceZ() +
-                '}';
+        parcel.writeParcelable(A, i);
+        parcel.writeParcelable(B, i);
     }
 }

@@ -1,19 +1,13 @@
 package com.example.albert.measure.elements;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.util.Pair;
-
-import com.example.albert.measure.DistanceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
-public class Point extends Element implements Parcelable {
+public class Point extends Element {
 
-    public static final double DEFAULT_PROXIMITY_DISTANCE = 20; // TODO Implement a more flexible method
     public static final Creator<Point> CREATOR = new Creator<Point>() {
         @Override
         public Point createFromParcel(Parcel in) {
@@ -25,29 +19,17 @@ public class Point extends Element implements Parcelable {
             return new Point[size];
         }
     };
+
     private final double x, y, z;
-    private double pitch, azimuth;
 
     // Origin Constructor
     public Point() {
         super("Origin");
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
+        x = y = z = 0;
     }
 
-    // Device Constructor
-    public Point(double h) {
-        super("Device");
-        this.x = 0;
-        this.y = 0;
-        this.z = h;
-    }
-
-    // Manual Constructor
-    // Manual Constructor
     public Point(double x, double y, double z) {
-        super("");
+        super();
         this.x = x;
         this.y = y;
         this.z = z;
@@ -60,60 +42,51 @@ public class Point extends Element implements Parcelable {
         this.z = z;
     }
 
-    // Manual constructor for base points
-    public Point(String name, double x, double y) {
-        super(name);
-        this.x = x;
-        this.y = y;
-        this.z = 0;
-    }
-
     // Constructor for base points
-    public Point(String name, double h, Pair<Double, Double> angles) {
+    public Point(String name, double h, double[] angles) {
         super(name);
+        this.y = Math.tan(angles[0]) * h;
+        this.x = this.y * Math.tan(angles[1]);
         z = 0;
-        this.pitch = angles.first;
-        this.azimuth = angles.second;
-        this.y = Math.tan(pitch) * h;
-        this.x = this.y * Math.tan(azimuth);
-    }
-
-    // Manual constructor for non-base points given its base point
-    public Point(String name, Point p, double h) {
-        super(name);
-        z = h;
-        this.y = p.getY();
-        this.x = p.getX();
     }
 
     // TODO Control possible points as both azimuths must be equal or at least similar
     // Constructor for non-base points given its base point
-    public Point(String name, Point p, double h, Pair<Double, Double> angles) {
+    public Point(String name, Point p, double h, double[] angles) {
         super(name);
-        this.pitch = angles.first;
-        this.azimuth = angles.second;
         this.y = p.getY();
         this.x = p.getX();
-        this.z = (new DistanceUtils()).PVS(h, p.pitch, this.pitch);
+        this.z = PVS(h, Math.atan(y / h), angles[0]);  // TODO Avoid h == 0
     }
 
     // Parcelable constructor
-    public Point(Parcel in) {
+    private Point(Parcel in) {
         name = in.readString();
         x = in.readDouble();
         y = in.readDouble();
         z = in.readDouble();
-        pitch = in.readDouble();
-        azimuth = in.readDouble();
     }
 
-    public List<Point> CloseBasePoints(List<Point> points, double distance) {
+    private double PVS(double h, double A, double B) {
+        if (B < Math.PI / 2)
+            return h * (1 - Math.tan(A) / Math.tan(B));
+        return h * (Math.tan(B - Math.PI / 2) * Math.tan(A) + 1);
+    }
+
+
+    private List<Point> CloseBasePoints(List<Point> points, double distance) {
         List<Point> closePoints = new ArrayList<>();
         for (Point q : points) {
             if ((new Vector(this, q)).getDistance() <= distance && q.isBased())
                 closePoints.add(q);
         }
         return closePoints;
+    }
+
+    // TODO Implement a more flexible method
+    public List<Point> CloseBasePoints(List<Point> points) {
+        double DEFAULT_PROXIMITY_DISTANCE = 20;
+        return CloseBasePoints(points, DEFAULT_PROXIMITY_DISTANCE);
     }
 
     public double getX() {
@@ -128,17 +101,7 @@ public class Point extends Element implements Parcelable {
         return z;
     }
 
-    // TODO Calculate it if not given
-    // Angle Origin -- Device -- this
-    public double getPitch() {
-        return pitch;
-    }
-
-    public double getAzimuth() {
-        return azimuth;
-    }
-
-    public boolean isBased() {
+    private boolean isBased() {
         return z == 0;
     }
 
@@ -172,7 +135,5 @@ public class Point extends Element implements Parcelable {
         parcel.writeDouble(x);
         parcel.writeDouble(y);
         parcel.writeDouble(z);
-        parcel.writeDouble(pitch);
-        parcel.writeDouble(azimuth);
     }
 }
