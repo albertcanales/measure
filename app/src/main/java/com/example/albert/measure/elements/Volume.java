@@ -1,11 +1,11 @@
 package com.example.albert.measure.elements;
 
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 
 public class Volume extends Element {
 
     public static final int TYPE_PYRAMID = 0;
-    public static final int TYPE_PRISM = 1;
     public static final Creator<Volume> CREATOR = new Creator<Volume>() {
         @Override
         public Volume createFromParcel(Parcel in) {
@@ -17,78 +17,57 @@ public class Volume extends Element {
             return new Volume[size];
         }
     };
-    private Area base;
-    private Point pointHeight;
-    private int volumeType;
+    private final int type;
+    private final Area base;
+    private final Vector w;
 
-    // Empty constructors
-    public Volume() {
-        super("");
-        base = new Area();
-        pointHeight = new Point();
-        volumeType = TYPE_PYRAMID;
-    }
-
-    public Volume(String name) {
+    public Volume(String name, Area base, Point p, int type) {
         super(name);
-        base = new Area();
-        pointHeight = new Point();
-        volumeType = TYPE_PYRAMID;
-    }
-
-    // Default constructors
-    public Volume(Area base, Point pointHeight, int volumeType) {
-        super("");
+        this.type = type;
         this.base = base;
-        this.pointHeight = pointHeight;
-        this.volumeType = volumeType;
-    }
-
-    public Volume(String name, Area base, Point pointHeight, int volumeType) {
-        super(name);
-        this.base = base;
-        this.pointHeight = pointHeight;
-        this.volumeType = volumeType;
+        w = new Vector(base.getA(), p);
     }
 
     // Parcelable constructor
     private Volume(Parcel in) {
         name = in.readString();
+        type = in.readInt();
         base = in.readParcelable(Area.class.getClassLoader());
-        pointHeight = in.readParcelable(Point.class.getClassLoader());
-        volumeType = in.readInt();
+        w = in.readParcelable(Vector.class.getClassLoader());
     }
 
     public double getHeight() {
-        return Vector.getVectorNorm((new Vector(pointHeight, base.getVertex())).
-                VectorByScalar(base.getV().dot(base.getU()))) / Math.abs(base.getV().dot(base.getU()));
-    }
-
-    public double getVolume() {
-        if (volumeType == TYPE_PYRAMID)
-            return base.getArea() * getHeight() / 3;
-        return base.getArea() * getHeight();
+        return getVolume() / base.getArea();
     }
 
     public Area getBase() {
         return base;
     }
 
-    public Point getPointHeight() {
-        return pointHeight;
+    public double getVolume() {
+        double volume = getMatrixDeterminant();
+        if (type == TYPE_PYRAMID)
+            volume /= 3;
+        if (base.getType() == Area.TYPE_TRIANGLE)
+            volume /= 2;
+        return Math.abs(volume);
     }
 
-    public int getVolumeType() {
-        return volumeType;
+    private double getMatrixDeterminant() {
+        Vector v = base.getV();
+        Vector u = base.getU();
+        return v.getX() * u.getY() * w.getZ() + v.getY() * u.getZ() * w.getX() + v.getZ() * u.getX() * w.getY()
+                - v.getZ() * u.getY() * w.getX() - v.getX() * u.getZ() * w.getY() - v.getY() * u.getX() * w.getZ();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Volume{" +
                 "name='" + name + '\'' +
                 ", base=" + base +
-                ", pointHeight=" + pointHeight +
-                ", volumeType=" + volumeType +
+                ", w=" + w +
+                ", type=" + type +
                 ", height=" + getHeight() +
                 ", volume=" + getVolume() +
                 '}';
@@ -102,8 +81,8 @@ public class Volume extends Element {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
+        parcel.writeInt(type);
         parcel.writeParcelable(base, i);
-        parcel.writeParcelable(pointHeight, i);
-        parcel.writeInt(volumeType);
+        parcel.writeParcelable(w, i);
     }
 }

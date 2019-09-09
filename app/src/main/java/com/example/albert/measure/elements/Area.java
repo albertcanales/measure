@@ -1,12 +1,11 @@
 package com.example.albert.measure.elements;
 
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 
 public class Area extends Element {
 
     public static final int TYPE_TRIANGLE = 0;
-    public static final int TYPE_PARALLELOGRAM = 1;
-    public static final int TYPE_GENERAL_QUADRILATERAL = 2;
     public static final Creator<Area> CREATOR = new Creator<Area>() {
         @Override
         public Area createFromParcel(Parcel in) {
@@ -18,99 +17,51 @@ public class Area extends Element {
             return new Area[size];
         }
     };
-    private int areaType;
-    private Angle angle1;
-    private Angle angle2;
+    private final int type;
+    private final Angle angle;
 
     // Empty constructor
     public Area() {
         super("");
-        angle1 = new Angle();
-        angle2 = new Angle();
-        this.areaType = 0;
+        angle = new Angle();
+        this.type = 0;
     }
 
-    // Manual constructors
-    public Area(Vector v, Vector u, int areaType) {
-        super("");
-        angle1 = new Angle(v, u);
-        angle2 = new Angle();
-        this.areaType = areaType;
-    }
-
-    public Area(String name, Vector v, Vector u, int areaType) {
+    public Area(String name, Point b, Point c, Point a, int type) {
         super(name);
-        angle1 = new Angle(v, u);
-        angle2 = new Angle();
-        this.areaType = areaType;
-
-    }
-
-    // Constructors for point-defined triangles and parallelograms
-    public Area(Point first, Point second, Point vertex, int areaType) {
-        super("");
-        angle1 = new Angle(first, second, vertex);
-        angle2 = new Angle();
-        this.areaType = areaType;
-    }
-
-    public Area(String name, Point first, Point second, Point vertex, int areaType) {
-        super(name);
-        angle1 = new Angle(first, second, vertex);
-        angle2 = new Angle();
-        this.areaType = areaType;
-    }
-
-    // Constructors for general-quadrilateral
-    public Area(Point first, Point second, Point vertex, Point secondVertex) {
-        super("");
-        angle1 = new Angle(first, second, vertex);
-        angle2 = new Angle(second, first, secondVertex);
-        areaType = TYPE_GENERAL_QUADRILATERAL;
-    }
-
-    public Area(String name, Point first, Point second, Point vertex, Point secondVertex) {
-        super(name);
-        angle1 = new Angle(first, second, vertex);
-        angle2 = new Angle(second, first, secondVertex);
-        areaType = TYPE_GENERAL_QUADRILATERAL;
+        angle = new Angle(b, c, a);
+        this.type = type;
     }
 
     // Constructor for parcelable
-    Area(Parcel in) {
+    private Area(Parcel in) {
         name = in.readString();
-        angle1 = in.readParcelable(Angle.class.getClassLoader());
-        angle2 = in.readParcelable(Angle.class.getClassLoader());
-        areaType = in.readInt();
+        angle = in.readParcelable(Angle.class.getClassLoader());
+        type = in.readInt();
     }
 
     public double getArea() {
-        if (areaType == TYPE_TRIANGLE)
-            return getAreaFromAngle(angle1);
-        else if (areaType == TYPE_PARALLELOGRAM)
-            return 2 * getAreaFromAngle(angle1);
+        double angleArea = (angle.getV().getDistance() * angle.getU().getDistance() * Math.sin(angle.getAngle())) / 2;
+        if (type == TYPE_TRIANGLE)
+            return angleArea;
         else
-            return getAreaFromAngle(angle1) + getAreaFromAngle(angle2);
-    }
-
-    private double getAreaFromAngle(Angle angle) {
-        return (angle.getV().getDistance() * angle.getU().getDistance() * Math.sin(angle.getAngle())) / 2;
+            return 2 * angleArea;
     }
 
     public Vector getV() {
-        return angle1.getV();
+        return angle.getV();
     }
 
-    public Vector getU() {
-        return angle1.getU();
+    Vector getU() {
+        return angle.getU();
     }
 
-    public Point getVertex() {
-        return angle1.getA();
+    Point getA() {
+        return angle.getA();
     }
 
-    public int getAreaType() {
-        return areaType;
+    int getType() {
+        return type;
     }
 
     @Override
@@ -121,18 +72,17 @@ public class Area extends Element {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
-        parcel.writeParcelable(angle1, i);
-        parcel.writeParcelable(angle2, i);
-        parcel.writeInt(areaType);
+        parcel.writeParcelable(angle, i);
+        parcel.writeInt(type);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Area{" +
                 "name='" + name + '\'' +
-                ", areaType=" + areaType +
-                ", angle1=" + angle1 +
-                ", angle2=" + angle2 +
+                ", type=" + type +
+                ", angle=" + angle +
                 ", area=" + getArea() +
                 '}';
     }

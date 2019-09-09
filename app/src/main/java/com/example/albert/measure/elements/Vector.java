@@ -44,11 +44,6 @@ public class Vector extends Element {
         B = in.readParcelable(getClass().getClassLoader());
     }
 
-    // Mathematical vector methods, used in calculations on Volume Class
-    static double getVectorNorm(double[] vector) {
-        return (new Vector(new Point(), new Point(vector[0], vector[1], vector[2]))).getDistance();
-    }
-
     Vector projectionX() {
         return new Vector(name, new Point(A.getName(), 0, A.getY(), A.getZ()),
                 new Point(B.getName(), 0, B.getY(), B.getZ()));
@@ -65,44 +60,38 @@ public class Vector extends Element {
     }
 
     double dot(Vector v) {
-        return v.vectorX() * vectorX() +
-                v.vectorY() * vectorY() + v.vectorZ() * vectorZ();
+        return v.getX() * getX() +
+                v.getY() * getY() + v.getZ() * getZ();
     }
 
     // Needed for dot product, before called getVector
-    private double vectorX() {
+    double getX() {
         return B.getX() - A.getX();
     }
 
-    private double vectorY() {
+    double getY() {
         return B.getY() - A.getY();
     }
 
-    private double vectorZ() {
+    double getZ() {
         return B.getZ() - A.getZ();
     }
 
     public double getDistanceX() {
-        return Math.abs(vectorX());
+        return Math.abs(getX());
     }
 
     public double getDistanceY() {
-        return Math.abs(vectorY());
+        return Math.abs(getY());
     }
 
     public double getDistanceZ() {
-        return Math.abs(vectorZ());
+        return Math.abs(getZ());
     }
 
     public double getDistance() {
         return Math.sqrt(Math.pow(getDistanceX(), 2) +
                 Math.pow(getDistanceY(), 2) + Math.pow(getDistanceZ(), 2));
-    }
-
-    double[] VectorByScalar(double scalar) {
-        double[] myVector = new double[]{vectorX(), vectorY(), vectorZ()};
-        for (int i = 0; i < myVector.length; i++) myVector[i] *= scalar;
-        return myVector;
     }
 
     public Point getA() {

@@ -1,12 +1,10 @@
 package com.example.albert.measure.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -90,7 +88,7 @@ public class AddVolumeActivity extends AddElementActivity {
 
     private void setVolumeType(int volumeType) {
         this.volumeType = volumeType;
-        int areaType = areaList.get(getAreaNames().indexOf(spinnerA.getSelectedItem().toString())).getAreaType();
+        int areaType = areaList.get(getAreaNames().indexOf(spinnerA.getSelectedItem().toString())).getType();
         if (volumeType == Volume.TYPE_PYRAMID) {
             if (areaType == Area.TYPE_TRIANGLE)
                 imageView.setImageDrawable(getDrawable(R.drawable.volumetrianglepyramid));
