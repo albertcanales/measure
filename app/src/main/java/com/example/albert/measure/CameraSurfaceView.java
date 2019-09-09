@@ -19,7 +19,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.example.albert.measure.activities.DistanceActivity;
+import com.example.albert.measure.activities.PointMethodActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class CameraSurfaceView implements SurfaceHolder.Callback, Handler.Callback {
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1242;
-    private static final String TAG = DistanceActivity.class.getSimpleName();
+    private static final String TAG = PointMethodActivity.class.getSimpleName();
     private static final int MSG_CAMERA_OPENED = 1;
     private static final int MSG_SURFACE_READY = 2;
     private static final int CAMERA_ID = 0; // 0 -> Back camera -------- 1 -> Front camera

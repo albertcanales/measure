@@ -27,13 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DistanceActivity" />
         <activity android:name=".activities.PointMethodActivity" />
-        <activity
-            android:name=".activities.DistanceParametersActivity"
-            android:label="@string/title_activity_distance_parameters"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.AddPointActivity" />
         <activity android:name=".activities.AddAngleActivity" />
         <activity android:name=".activities.AddVolumeActivity" />
