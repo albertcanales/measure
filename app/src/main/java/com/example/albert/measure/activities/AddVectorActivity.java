@@ -1,6 +1,5 @@
 package com.example.albert.measure.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,10 +30,10 @@ public class AddVectorActivity extends AddElementActivity {
         spinnerA = findViewById(R.id.a_spinner);
         spinnerB = findViewById(R.id.b_spinner);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Distance%d", vectorList.size()+1));
+        nameET.setText(String.format("Distance%d", elements.getVectorList().size()+1));
 
-        spinnerA.setAdapter(getDataAdapter(getPointNames()));
-        spinnerB.setAdapter(getDataAdapter(getPointNames()));
+        spinnerA.setAdapter(getDataAdapter(elements.getPointNames()));
+        spinnerB.setAdapter(getDataAdapter(elements.getPointNames()));
     }
 
     @Override
@@ -47,13 +46,12 @@ public class AddVectorActivity extends AddElementActivity {
 
     @Override
     void addElement() {
-        Point pointA = pointList.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
-        Point pointB = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
+        Point pointA = elements.getPointList().get(elements.getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
+        Point pointB = elements.getPointList().get(elements.getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
         Vector vector = new Vector(name, pointA, pointB);
-        vectorList.add(vector);
+        elements.getVectorList().add(vector);
         Intent resultIntent = new Intent();
-        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(vectorList);
-        resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[VECTOR_TAB]), parcelables);
+        resultIntent.putExtra("elements", elements);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

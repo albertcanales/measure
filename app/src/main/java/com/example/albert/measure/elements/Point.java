@@ -28,13 +28,6 @@ public class Point extends Element {
         x = y = z = 0;
     }
 
-    public Point(double x, double y, double z) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
     public Point(String name, double x, double y, double z) {
         super(name);
         this.x = x;

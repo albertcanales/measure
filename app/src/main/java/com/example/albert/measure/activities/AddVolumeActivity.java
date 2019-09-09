@@ -3,7 +3,6 @@ package com.example.albert.measure.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -16,8 +15,6 @@ import com.example.albert.measure.elements.Volume;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
 
 public class AddVolumeActivity extends AddElementActivity {
 
@@ -39,9 +36,9 @@ public class AddVolumeActivity extends AddElementActivity {
         spinnerB = findViewById(R.id.b_spinner);
         imageView = findViewById(R.id.image);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Volume%d", volumeList.size()+1));
+        nameET.setText(String.format("Volume%d", elements.getVolumeList().size()+1));
 
-        spinnerA.setAdapter(getDataAdapter(getAreaNames()));
+        spinnerA.setAdapter(getDataAdapter(elements.getAreaNames()));
         spinnerA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -53,7 +50,7 @@ public class AddVolumeActivity extends AddElementActivity {
 
             }
         });
-        spinnerB.setAdapter(getDataAdapter(getPointNames()));
+        spinnerB.setAdapter(getDataAdapter(elements.getPointNames()));
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,24 +68,23 @@ public class AddVolumeActivity extends AddElementActivity {
 
     @Override
     List<Spinner> getSpinnerList() {
-        return new ArrayList<>();   // Not necessary there is no possible repeating elementType
+        return new ArrayList<>();   // Not necessary as there is no possible repetition
     }
 
     @Override
     void addElement() {
-        Area base = areaList.get(getAreaNames().indexOf(spinnerA.getSelectedItem().toString()));
-        Point pointHeight = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
-        volumeList.add(new Volume(name, base, pointHeight, volumeType));
+        Area base = elements.getAreaList().get(elements.getAreaNames().indexOf(spinnerA.getSelectedItem().toString()));
+        Point pointHeight = elements.getPointList().get(elements.getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
+        elements.getVolumeList().add(new Volume(name, base, pointHeight, volumeType));
         Intent resultIntent = new Intent();
-        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(volumeList);
-        resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[VOLUME_TAB]), parcelables);
+        resultIntent.putExtra("elements", elements);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
 
     private void setVolumeType(int volumeType) {
         this.volumeType = volumeType;
-        int areaType = areaList.get(getAreaNames().indexOf(spinnerA.getSelectedItem().toString())).getType();
+        int areaType = elements.getAreaList().get(elements.getAreaNames().indexOf(spinnerA.getSelectedItem().toString())).getType();
         if (volumeType == Volume.TYPE_PYRAMID) {
             if (areaType == Area.TYPE_TRIANGLE)
                 imageView.setImageDrawable(getDrawable(R.drawable.volumetrianglepyramid));

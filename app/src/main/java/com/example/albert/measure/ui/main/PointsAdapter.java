@@ -10,20 +10,15 @@ import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
-import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Area;
+import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
-import com.example.albert.measure.elements.Volume;
-
-import java.util.List;
 
 public class PointsAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    PointsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
-        super(new ListPointRef(points), angles, vectors, areas, volumes, context);
+    PointsAdapter(ElementsLists elements, Context context) {
+        super(elements, context);
     }
 
     @NonNull
@@ -37,32 +32,33 @@ public class PointsAdapter extends ElementsAdapter {
     @SuppressLint("DefaultLocale")
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
-        this.holder.textX.setText(String.format("x\n%.1f", pointList.get(position).getX()));
-        this.holder.textY.setText(String.format("y\n%.1f", pointList.get(position).getY()));
-        this.holder.textZ.setText(String.format("z\n%.1f", pointList.get(position).getZ()));
+        Point p = elements.getPointList().get(position);
+        this.holder.textX.setText(String.format("x\n%.1f", p.getX()));
+        this.holder.textY.setText(String.format("y\n%.1f", p.getY()));
+        this.holder.textZ.setText(String.format("z\n%.1f", p.getZ()));
     }
 
     @Override
     public int getItemCount() {
-        return pointList.size();
+        return elements.getPointList().size();
     }
 
     @Override
     void removeItem(int position) {
-        pointList.remove(position);
-        ((ResultsActivity) context).setPointList(pointList);
+        elements.getPointList().remove(position);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.POINT_TAB);
     }
 
     @Override
     String getItemName(int position) {
-        return pointList.get(position).getName();
+        return elements.getPointList().get(position).getName();
     }
 
     @Override
     void renameItem(int position, String name) {
-        pointList.get(position).setName(name);
-        ((ResultsActivity) context).setPointList(pointList);
+        elements.getPointList().get(position).setName(name);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.POINT_TAB);
     }
 

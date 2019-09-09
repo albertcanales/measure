@@ -10,20 +10,15 @@ import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
-import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Area;
-import com.example.albert.measure.elements.Point;
+import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.elements.Vector;
-import com.example.albert.measure.elements.Volume;
-
-import java.util.List;
 
 public class VectorsAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    VectorsAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
-        super(points, angles, new ListVectorRef(vectors), areas, volumes, context);
+    VectorsAdapter(ElementsLists elements, Context context) {
+        super(elements, context);
     }
 
     @NonNull
@@ -37,33 +32,34 @@ public class VectorsAdapter extends ElementsAdapter {
     @SuppressLint("DefaultLocale")
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
-        this.holder.textDistance.setText(String.format("%.1f", vectorList.get(position).getDistance()));
-        this.holder.textX.setText(String.format("x\n%.1f", vectorList.get(position).getDistanceX()));
-        this.holder.textY.setText(String.format("y\n%.1f", vectorList.get(position).getDistanceY()));
-        this.holder.textZ.setText(String.format("z\n%.1f", vectorList.get(position).getDistanceZ()));
+        Vector v = elements.getVectorList().get(position);
+        this.holder.textDistance.setText(String.format("%.1f", v.getDistance()));
+        this.holder.textX.setText(String.format("x\n%.1f", v.getDistanceX()));
+        this.holder.textY.setText(String.format("y\n%.1f", v.getDistanceY()));
+        this.holder.textZ.setText(String.format("z\n%.1f", v.getDistanceZ()));
     }
 
     @Override
     public int getItemCount() {
-        return vectorList.size();
+        return elements.getVectorList().size();
     }
 
     @Override
     void removeItem(int position) {
-        vectorList.remove(position);
-        ((ResultsActivity) context).setVectorList(vectorList);
+        elements.getVectorList().remove(position);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VECTOR_TAB);
     }
 
     @Override
     String getItemName(int position) {
-        return vectorList.get(position).getName();
+        return elements.getVectorList().get(position).getName();
     }
 
     @Override
     void renameItem(int position, String name) {
-        vectorList.get(position).setName(name);
-        ((ResultsActivity) context).setVectorList(vectorList);
+        elements.getVectorList().get(position).setName(name);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VECTOR_TAB);
     }
 

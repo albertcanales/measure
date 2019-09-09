@@ -12,6 +12,7 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.Area;
+import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.elements.Vector;
 import com.example.albert.measure.elements.Volume;
@@ -22,8 +23,8 @@ public class VolumesAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    VolumesAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
-        super(points, angles, vectors, areas, new ListVolumeRef(volumes), context);
+    VolumesAdapter(ElementsLists elements, Context context) {
+        super(elements, context);
     }
 
     @NonNull
@@ -37,9 +38,10 @@ public class VolumesAdapter extends ElementsAdapter {
     @SuppressLint("DefaultLocale")
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
-        double volume = volumeList.get(position).getVolume();
-        double base = volumeList.get(position).getBase().getArea();
-        double height = volumeList.get(position).getHeight();
+        Volume v = elements.getVolumeList().get(position);
+        double volume = v.getVolume();
+        double base = v.getBase().getArea();
+        double height = v.getHeight();
         this.holder.textVolume.setText(String.format("%.1f  cm³", volume));
         this.holder.base.setText(String.format("Base\n%.1f cm²", base));
         this.holder.height.setText(String.format("Height\n%.1f cm", height));
@@ -47,25 +49,25 @@ public class VolumesAdapter extends ElementsAdapter {
 
     @Override
     public int getItemCount() {
-        return volumeList.size();
+        return elements.getVolumeList().size();
     }
 
     @Override
     void removeItem(int position) {
-        volumeList.remove(position);
-        ((ResultsActivity) context).setVolumeList(volumeList);
+        elements.getVolumeList().remove(position);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VOLUME_TAB);
     }
 
     @Override
     String getItemName(int position) {
-        return volumeList.get(position).getName();
+        return elements.getVolumeList().get(position).getName();
     }
 
     @Override
     void renameItem(int position, String name) {
-        volumeList.get(position).setName(name);
-        ((ResultsActivity) context).setVolumeList(volumeList);
+        elements.getVolumeList().get(position).setName(name);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.VOLUME_TAB);
     }
 

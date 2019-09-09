@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.albert.measure.CameraSurfaceView;
 import com.example.albert.measure.R;
+import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.elements.Point;
 import com.example.albert.measure.sensors.OrientationSensor;
 
@@ -188,8 +189,8 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         } else {  // DoneFAB pressed
             if (pointType == -1) {
                 Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
-                ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(pointList);
-                intent.putParcelableArrayListExtra("pointList", parcelables);
+                Parcelable parcelable = new ElementsLists(pointList);
+                intent.putExtra("elements", parcelable);
                 startActivity(intent);
             } else {
                 mustFinishMeasurement();

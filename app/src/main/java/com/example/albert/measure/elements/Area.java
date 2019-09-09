@@ -60,7 +60,7 @@ public class Area extends Element {
         return angle.getA();
     }
 
-    int getType() {
+    public int getType() {
         return type;
     }
 

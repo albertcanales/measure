@@ -12,19 +12,14 @@ import android.widget.TextView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Area;
-import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
-import com.example.albert.measure.elements.Volume;
-
-import java.util.List;
+import com.example.albert.measure.elements.ElementsLists;
 
 public class AnglesAdapter extends ElementsAdapter {
 
     private ViewHolder holder;
 
-    AnglesAdapter(List<Point> points, List<Angle> angles, List<Vector> vectors, List<Area> areas, List<Volume> volumes, Context context) {
-        super(points, new ListAngleRef(angles), vectors, areas, volumes, context);
+    AnglesAdapter(ElementsLists elements, Context context) {
+        super(elements, context);
     }
 
     @NonNull
@@ -38,21 +33,22 @@ public class AnglesAdapter extends ElementsAdapter {
     @SuppressLint("DefaultLocale")
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
-        double angle = angleList.get(position).getAngle();
+        Angle a = elements.getAngleList().get(position);
+        double angle = a.getAngle();
         this.holder.textAngle.setText(String.format("%.0f", Math.toDegrees(angle)).concat("°"));
-        double x = angleList.get(position).getAngleX();
+        double x = a.getAngleX();
         if (Double.isNaN(x))
             this.holder.textX.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
             this.holder.textX.setText("x\n".concat(String.format("%.0f", Math.toDegrees(x))).concat("°"));
-        double y = angleList.get(position).getAngleY();
+        double y = a.getAngleY();
         if (Double.isNaN(y))
             this.holder.textY.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
             this.holder.textY.setText("y\n".concat(String.format("%.0f", Math.toDegrees(y))).concat("°"));
-        double z = angleList.get(position).getAngleZ();
+        double z = a.getAngleZ();
         if (Double.isNaN(z))
             this.holder.textZ.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
@@ -62,25 +58,25 @@ public class AnglesAdapter extends ElementsAdapter {
 
     @Override
     public int getItemCount() {
-        return angleList.size();
+        return elements.getAngleList().size();
     }
 
     @Override
     void removeItem(int position) {
-        angleList.remove(position);
-        ((ResultsActivity) context).setAngleList(angleList);
+        elements.getAngleList().remove(position);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.ANGLE_TAB);
     }
 
     @Override
     String getItemName(int position) {
-        return angleList.get(position).getName();
+        return elements.getAngleList().get(position).getName();
     }
 
     @Override
     void renameItem(int position, String name) {
-        angleList.get(position).setName(name);
-        ((ResultsActivity) context).setAngleList(angleList);
+        elements.getAngleList().get(position).setName(name);
+        ((ResultsActivity) context).setElements(elements);
         ((ResultsActivity) context).refreshAdapter(SectionsPagerAdapter.ANGLE_TAB);
     }
 

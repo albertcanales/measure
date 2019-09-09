@@ -24,14 +24,8 @@ import com.example.albert.measure.activities.AddPointActivity;
 import com.example.albert.measure.activities.AddVectorActivity;
 import com.example.albert.measure.activities.AddVolumeActivity;
 import com.example.albert.measure.activities.ResultsActivity;
-import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Area;
-import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
-import com.example.albert.measure.elements.Volume;
+import com.example.albert.measure.elements.ElementsLists;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
@@ -72,28 +66,24 @@ public class PlaceholderFragment extends Fragment {
         myActivity = (ResultsActivity) Objects.requireNonNull(getActivity());
         noElementTV.setVisibility(View.GONE);
 
-        List<Point> pointList = myActivity.getPointList();
-        List<Angle> angleList = myActivity.getAngleList();
-        List<Vector> vectorList = myActivity.getVectorList();
-        List<Area> areaList = myActivity.getAreaList();
-        List<Volume> volumeList = myActivity.getVolumeList();
+        ElementsLists elements = myActivity.getElements();
 
         RecyclerView.Adapter adapter;
         if (tabPosition == POINT_TAB) {
-            if (pointList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            adapter = new PointsAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+            if (elements.getPointList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            adapter = new PointsAdapter(elements, myActivity);
         } else if (tabPosition == ANGLE_TAB) {   // ANGLES
-            if (angleList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            adapter = new AnglesAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+            if (elements.getAngleList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            adapter = new AnglesAdapter(elements, myActivity);
         } else if (tabPosition == VECTOR_TAB) {
-            if (vectorList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            adapter = new VectorsAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+            if (elements.getVectorList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            adapter = new VectorsAdapter(elements, myActivity);
         } else if (tabPosition == AREA_TAB) {
-            if (areaList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            adapter = new AreasAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+            if (elements.getAreaList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            adapter = new AreasAdapter(elements, myActivity);
         } else {
-            if (volumeList.isEmpty()) noElementTV.setVisibility(View.VISIBLE);
-            adapter = new VolumesAdapter(pointList, angleList, vectorList, areaList, volumeList, myActivity);
+            if (elements.getVolumeList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            adapter = new VolumesAdapter(elements, myActivity);
         }
         recyclerViewElements.setAdapter(adapter);
         addElement.setOnClickListener(new AddElementButtonListener(tabPosition, myActivity));
@@ -106,24 +96,10 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        final String name = getString(TAB_TITLES[requestCode]);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == POINT_TAB) {
-                List<Point> points = data.getParcelableArrayListExtra(name);
-                myActivity.setPointList(points);
-            } else if (requestCode == ANGLE_TAB) {
-                List<Angle> angles = data.getParcelableArrayListExtra(name);
-                myActivity.setAngleList(angles);
-            } else if (requestCode == VECTOR_TAB) {
-                List<Vector> vectors = data.getParcelableArrayListExtra(name);
-                myActivity.setVectorList(vectors);
-            } else if (requestCode == AREA_TAB) {
-                List<Area> areas = data.getParcelableArrayListExtra(name);
-                myActivity.setAreaList(areas);
-            } else {
-                List<Volume> volumes = data.getParcelableArrayListExtra(name);
-                myActivity.setVolumeList(volumes);
-            }
+            ElementsLists elements = Objects.requireNonNull(data.getExtras()).getParcelable("elements");
+            assert elements != null;
+            myActivity.setElements(elements);
         }
         myActivity.refreshAdapter(requestCode);
     }
@@ -144,34 +120,28 @@ public class PlaceholderFragment extends Fragment {
             if (elementType == POINT_TAB)
                 intent = new Intent(context, AddPointActivity.class);
             else if (elementType == ANGLE_TAB) {
-                if (myActivity.getPointList().size() < 3)
+                if (myActivity.getElements().getPointList().size() < 3)
                     Toast.makeText(context, "There must be at least three points", Toast.LENGTH_SHORT).show();
                 else
                     intent = new Intent(context, AddAngleActivity.class);
             } else if (elementType == VECTOR_TAB) {
-                if (myActivity.getPointList().size() < 2)
+                if (myActivity.getElements().getPointList().size() < 2)
                     Toast.makeText(context, "There must be at least two points", Toast.LENGTH_SHORT).show();
                 else
                     intent = new Intent(context, AddVectorActivity.class);
             } else if (elementType == AREA_TAB) {
-                if (myActivity.getPointList().size() < 3)
+                if (myActivity.getElements().getPointList().size() < 3)
                     Toast.makeText(context, "There must be at least three points", Toast.LENGTH_SHORT).show();
                 else
                     intent = new Intent(context, AddAreaActivity.class);
             } else {
-                if (myActivity.getAreaList().size() < 1)
+                if (myActivity.getElements().getAreaList().size() < 1)
                     Toast.makeText(context, "There must be at least one area", Toast.LENGTH_SHORT).show();
                 else
                     intent = new Intent(context, AddVolumeActivity.class);
             }
             if (!intent.filterEquals(new Intent())) {
-
-                intent.putParcelableArrayListExtra(getString(TAB_TITLES[POINT_TAB]), new ArrayList<Parcelable>(myActivity.getPointList()));
-                intent.putParcelableArrayListExtra(getString(TAB_TITLES[ANGLE_TAB]), new ArrayList<Parcelable>(myActivity.getAngleList()));
-                intent.putParcelableArrayListExtra(getString(TAB_TITLES[VECTOR_TAB]), new ArrayList<Parcelable>(myActivity.getVectorList()));
-                intent.putParcelableArrayListExtra(getString(TAB_TITLES[AREA_TAB]), new ArrayList<Parcelable>(myActivity.getAreaList()));
-                intent.putParcelableArrayListExtra(getString(TAB_TITLES[VOLUME_TAB]), new ArrayList<Parcelable>(myActivity.getVolumeList()));
-
+                intent.putExtra("elements", myActivity.getElements());
                 startActivityForResult(intent, elementType);
             }
         }

@@ -1,6 +1,5 @@
 package com.example.albert.measure.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TableRow;
-import android.widget.Toast;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.elements.Area;
@@ -19,7 +16,8 @@ import com.example.albert.measure.elements.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.AREA_TAB;
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.TAB_TITLES;
 
 public class AddAreaActivity extends AddElementActivity {
 
@@ -43,11 +41,11 @@ public class AddAreaActivity extends AddElementActivity {
         spinnerC = findViewById(R.id.c_spinner);
         imageView = findViewById(R.id.image);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Area%d", areaList.size()+1));
+        nameET.setText(String.format("Area%d", elements.getAreaList().size()+1));
 
-        spinnerA.setAdapter(getDataAdapter(getPointNames()));
-        spinnerB.setAdapter(getDataAdapter(getPointNames()));
-        spinnerC.setAdapter(getDataAdapter(getPointNames()));
+        spinnerA.setAdapter(getDataAdapter(elements.getPointNames()));
+        spinnerB.setAdapter(getDataAdapter(elements.getPointNames()));
+        spinnerC.setAdapter(getDataAdapter(elements.getPointNames()));
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,14 +69,13 @@ public class AddAreaActivity extends AddElementActivity {
 
     @Override
     void addElement() {
-        Point pointA = pointList.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
-        Point pointB = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
-        Point pointC = pointList.get(getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
+        Point pointA = elements.getPointList().get(elements.getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
+        Point pointB = elements.getPointList().get(elements.getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
+        Point pointC = elements.getPointList().get(elements.getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
 
-        areaList.add(new Area(name, pointA, pointB, pointC, areaType));
+        elements.getAreaList().add(new Area(name, pointA, pointB, pointC, areaType));
         Intent resultIntent = new Intent();
-        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(areaList);
-        resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[AREA_TAB]), parcelables);
+        resultIntent.putExtra("elements", elements);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

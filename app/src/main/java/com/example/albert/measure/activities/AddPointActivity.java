@@ -34,7 +34,7 @@ public class AddPointActivity extends AddElementActivity {
         coordinateY = findViewById(R.id.coordinate_y);
         coordinateZ = findViewById(R.id.coordinate_z);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Point%d", pointList.size()+1));
+        nameET.setText(String.format("Point%d", elements.getPointList().size()+1));
     }
 
     @Override
@@ -50,10 +50,9 @@ public class AddPointActivity extends AddElementActivity {
             double z = Double.valueOf(coordinateZ.getText().toString());
             Point point = new Point(name, x, y, z);
             if (validPoint(point)) {
-                pointList.add(point);
+                elements.getPointList().add(point);
                 Intent resultIntent = new Intent();
-                ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(pointList);
-                resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[POINT_TAB]), parcelables);
+                resultIntent.putExtra("elements", elements);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }
@@ -64,7 +63,7 @@ public class AddPointActivity extends AddElementActivity {
     }
 
     private boolean validPoint(Point p) {
-        for (Point q : pointList) {
+        for (Point q : elements.getPointList()) {
             if(p.equals(q)) return false;
         }
         return true;

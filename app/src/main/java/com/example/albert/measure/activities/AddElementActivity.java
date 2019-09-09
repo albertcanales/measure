@@ -13,29 +13,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.albert.measure.R;
-import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Area;
-import com.example.albert.measure.elements.Element;
-import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
-import com.example.albert.measure.elements.Volume;
+import com.example.albert.measure.elements.ElementsLists;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
 
 public abstract class AddElementActivity extends AppCompatActivity {
 
     EditText nameET;
     String name;
 
-    List<Point> pointList;
-    List<Angle> angleList;
-    List<Vector> vectorList;
-    List<Area> areaList;
-    List<Volume> volumeList;
+    ElementsLists elements;
 
     Context context;
 
@@ -43,12 +31,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        pointList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[POINT_TAB]));
-        angleList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[ANGLE_TAB]));
-        vectorList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[VECTOR_TAB]));
-        areaList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[AREA_TAB]));
-        volumeList = getIntent().getParcelableArrayListExtra(getString(TAB_TITLES[VOLUME_TAB]));
+        elements = Objects.requireNonNull(getIntent().getExtras()).getParcelable("elements");
     }
 
     @Override
@@ -71,36 +54,6 @@ public abstract class AddElementActivity extends AppCompatActivity {
         return true;
     }
 
-    List<String> getPointNames() {
-        List<String> names = new ArrayList<>();
-        for (Point p : pointList) names.add(p.getName());
-        return names;
-    }
-
-    List<String> getAngleNames() {
-        List<String> names = new ArrayList<>();
-        for (Angle a : angleList) names.add(a.getName());
-        return names;
-    }
-
-    List<String> getVectorNames() {
-        List<String> names = new ArrayList<>();
-        for (Vector v : vectorList) names.add(v.getName());
-        return names;
-    }
-
-    List<String> getAreaNames() {
-        List<String> names = new ArrayList<>();
-        for (Area a : areaList) names.add(a.getName());
-        return names;
-    }
-
-    List<String> getVolumeNames() {
-        List<String> names = new ArrayList<>();
-        for (Volume v : volumeList) names.add(v.getName());
-        return names;
-    }
-
     abstract List<Spinner> getSpinnerList();
 
     ArrayAdapter<String> getDataAdapter(List<String> items) {
@@ -116,7 +69,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
 
     private boolean checkName() {
         name = nameET.getText().toString().trim();
-        return Element.validNameOfET(nameET, pointList, angleList, vectorList, areaList, volumeList) == 0;
+        return elements.validEditText(nameET) == 0;
     }
 
     // Check if have the same value, O(n^2)

@@ -1,6 +1,5 @@
 package com.example.albert.measure.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,8 @@ import com.example.albert.measure.elements.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.ANGLE_TAB;
+import static com.example.albert.measure.ui.main.SectionsPagerAdapter.TAB_TITLES;
 
 public class AddAngleActivity extends AddElementActivity {
 
@@ -33,11 +33,11 @@ public class AddAngleActivity extends AddElementActivity {
         spinnerB = findViewById(R.id.b_spinner);
         spinnerC = findViewById(R.id.c_spinner);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Angle%d", angleList.size()+1));
+        nameET.setText(String.format("Angle%d", elements.getAngleList().size()+1));
 
-        spinnerA.setAdapter(getDataAdapter(getPointNames()));
-        spinnerB.setAdapter(getDataAdapter(getPointNames()));
-        spinnerC.setAdapter(getDataAdapter(getPointNames()));
+        spinnerA.setAdapter(getDataAdapter(elements.getPointNames()));
+        spinnerB.setAdapter(getDataAdapter(elements.getPointNames()));
+        spinnerC.setAdapter(getDataAdapter(elements.getPointNames()));
     }
 
     @Override
@@ -51,14 +51,13 @@ public class AddAngleActivity extends AddElementActivity {
 
     @Override
     void addElement() {
-        Point pointA = pointList.get(getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
-        Point pointB = pointList.get(getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
-        Point pointC = pointList.get(getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
+        Point pointA = elements.getPointList().get(elements.getPointNames().indexOf(spinnerA.getSelectedItem().toString()));
+        Point pointB = elements.getPointList().get(elements.getPointNames().indexOf(spinnerB.getSelectedItem().toString()));
+        Point pointC = elements.getPointList().get(elements.getPointNames().indexOf(spinnerC.getSelectedItem().toString()));
         Angle angle = new Angle(name, pointB, pointC, pointA);
-        angleList.add(angle);
+        elements.getAngleList().add(angle);
         Intent resultIntent = new Intent();
-        ArrayList<Parcelable> parcelables = new ArrayList<Parcelable>(angleList);
-        resultIntent.putParcelableArrayListExtra(getString(TAB_TITLES[ANGLE_TAB]), parcelables);
+        resultIntent.putExtra("elements", elements);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

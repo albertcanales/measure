@@ -7,15 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.albert.measure.R;
-import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Area;
-import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
-import com.example.albert.measure.elements.Volume;
+import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.ui.main.SectionsPagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class ResultsActivity extends AppCompatActivity {
@@ -23,11 +17,7 @@ public class ResultsActivity extends AppCompatActivity {
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
 
-    private List<Point> pointList = new ArrayList<>();
-    private List<Angle> angleList = new ArrayList<>();
-    private List<Vector> vectorList = new ArrayList<>();
-    private List<Area> areaList = new ArrayList<>();
-    private List<Volume> volumeList = new ArrayList<>();
+    private ElementsLists elements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +32,20 @@ public class ResultsActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(1);
         // viewPager.setCurrentItem(2, false);
 
-        pointList = Objects.requireNonNull(getIntent().getExtras()).getParcelableArrayList("pointList");
+        elements = Objects.requireNonNull(getIntent().getExtras()).getParcelable("elements");
     }
 
+    public ElementsLists getElements() {
+        Log.d("ELEMENTS", elements.toString());
+        return elements;
+    }
+
+    public void setElements(ElementsLists elements) {
+        Log.d("ELEMENTS", elements.toString());
+        this.elements = elements;
+    }
+
+    /*
     public List<Point> getPointList() {
         return pointList;
     }
@@ -87,7 +88,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void setVolumeList(List<Volume> volumeList) {
         this.volumeList = volumeList;
-    }
+    }*/
 
     public void refreshAdapter(int tabPosition) {
         viewPager.setAdapter(sectionsPagerAdapter);
