@@ -1,10 +1,8 @@
 package com.example.albert.measure.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -14,8 +12,6 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
 
 public class AddPointActivity extends AddElementActivity {
 

@@ -1,13 +1,9 @@
-package com.example.albert.measure.fragments;
+package com.example.albert.measure.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -18,7 +14,8 @@ import com.example.albert.measure.sensors.OrientationSensor;
 
 import java.util.Objects;
 
-public class SensorTestFragment extends Fragment
+
+public class SensorTestActivity extends AppCompatActivity
         implements CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
 
     private final Handler myHandler = new Handler();
@@ -40,31 +37,34 @@ public class SensorTestFragment extends Fragment
         }
     };
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.sensor_test, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sensor_test);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        View myView = getView();
-        sensors = new OrientationSensor(getContext());
-        tvAzimuth = Objects.requireNonNull(myView).findViewById(R.id.tvAzimuth);
-        tvRoll = myView.findViewById(R.id.tvRoll);
-        tvPitch = myView.findViewById(R.id.tvPitch);
-        tvPeriod = myView.findViewById(R.id.tvPeriod);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        ((ToggleButton) myView.findViewById(R.id.tbFreeze)).setOnCheckedChangeListener(this);
+        sensors = new OrientationSensor(this);
 
-        SeekBar sbPeriod = myView.findViewById(R.id.sbPeriod);
+        tvAzimuth = findViewById(R.id.tvAzimuth);
+        tvRoll = findViewById(R.id.tvRoll);
+        tvPitch = findViewById(R.id.tvPitch);
+        tvPeriod = findViewById(R.id.tvPeriod);
+
+        ((ToggleButton) findViewById(R.id.tbFreeze)).setOnCheckedChangeListener(this);
+
+        SeekBar sbPeriod = findViewById(R.id.sbPeriod);
         sbPeriod.setOnSeekBarChangeListener(this);
         setPeriod(sbPeriod.getProgress());
 
         startSensor();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

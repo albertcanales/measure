@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_info_white_24dp"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/test_sensor"
+        android:icon="@drawable/ic_manage_white"
+        android:orderInCategory="200"
+        android:title=""
+        app:showAsAction="ifRoom" />
+</menu>

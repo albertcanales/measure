@@ -45,51 +45,6 @@ public class ResultsActivity extends AppCompatActivity {
         this.elements = elements;
     }
 
-    /*
-    public List<Point> getPointList() {
-        return pointList;
-    }
-
-    public void setPointList(List<Point> pointList) {
-        this.pointList = pointList;
-        Log.d("POINTS", pointList.toString());
-    }
-
-    public List<Angle> getAngleList() {
-        return angleList;
-    }
-
-    public void setAngleList(List<Angle> angleList) {
-        this.angleList = angleList;
-        Log.d("ANGLES", angleList.toString());
-    }
-
-    public List<Vector> getVectorList() {
-        return vectorList;
-    }
-
-    public void setVectorList(List<Vector> vectorList) {
-        Log.d("VECTORS", vectorList.toString());
-        this.vectorList = vectorList;
-    }
-
-    public List<Area> getAreaList() {
-        return areaList;
-    }
-
-    public void setAreaList(List<Area> areaList) {
-        Log.d("AREAS", areaList.toString());
-        this.areaList = areaList;
-    }
-
-    public List<Volume> getVolumeList() {
-        return volumeList;
-    }
-
-    public void setVolumeList(List<Volume> volumeList) {
-        this.volumeList = volumeList;
-    }*/
-
     public void refreshAdapter(int tabPosition) {
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setCurrentItem(tabPosition, false);
