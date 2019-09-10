@@ -1,4 +1,4 @@
-package com.example.albert.measure.ui.main;
+package com.example.albert.measure.ui.results;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,14 +10,8 @@ import android.widget.TextView;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
-import com.example.albert.measure.elements.Angle;
-import com.example.albert.measure.elements.Area;
 import com.example.albert.measure.elements.ElementsLists;
-import com.example.albert.measure.elements.Point;
-import com.example.albert.measure.elements.Vector;
 import com.example.albert.measure.elements.Volume;
-
-import java.util.List;
 
 public class VolumesAdapter extends ElementsAdapter {
 

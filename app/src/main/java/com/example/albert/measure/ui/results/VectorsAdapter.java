@@ -1,4 +1,4 @@
-package com.example.albert.measure.ui.main;
+package com.example.albert.measure.ui.results;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

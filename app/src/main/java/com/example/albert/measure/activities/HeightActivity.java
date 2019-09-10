@@ -54,7 +54,7 @@ public class HeightActivity extends AppCompatActivity {
                     editText.setError("Cannot be empty");
                 else {
                     double h = (heightMode == MODE_MANUAL) ? Double.valueOf(text) : 0.75 * Double.valueOf(text);
-                    Intent i = new Intent(getApplicationContext(), PointMethodActivity.class);
+                    Intent i = new Intent(getApplicationContext(), TutorialActivity.class);
                     i.putExtra("h", h);
                     i.putExtra("mode", heightMode);
                     startActivity(i);

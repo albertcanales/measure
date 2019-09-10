@@ -1,4 +1,4 @@
-package com.example.albert.measure.ui.main;
+package com.example.albert.measure.ui.results;
 
 import android.content.Context;
 import android.content.DialogInterface;

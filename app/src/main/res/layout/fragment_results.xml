@@ -24,7 +24,7 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:visibility="visible"
-        tools:context=".ui.main.PlaceholderFragment">
+        tools:context=".ui.results.PlaceholderFragment">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/elementsRecyclerView"

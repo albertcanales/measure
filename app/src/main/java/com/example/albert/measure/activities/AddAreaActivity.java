@@ -3,7 +3,6 @@ package com.example.albert.measure.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -15,9 +14,6 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.AREA_TAB;
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.TAB_TITLES;
 
 public class AddAreaActivity extends AddElementActivity {
 

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.elements.ElementsLists;
-import com.example.albert.measure.ui.main.SectionsPagerAdapter;
+import com.example.albert.measure.ui.results.SectionsPagerAdapter;
 
 import java.util.Objects;
 

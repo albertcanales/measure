@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.HeightActivity"></activity>
+        <activity
+            android:name=".activities.TutorialActivity"
+            android:label="@string/title_activity_tutorial"/>
+        <activity android:name=".activities.HeightActivity" />
         <activity android:name=".activities.AboutUsActivity" />
         <activity android:name=".activities.AddAreaActivity" />
         <activity android:name=".activities.AddVectorActivity" />

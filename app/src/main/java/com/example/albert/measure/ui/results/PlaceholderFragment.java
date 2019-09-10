@@ -1,10 +1,9 @@
-package com.example.albert.measure.ui.main;
+package com.example.albert.measure.ui.results;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +27,7 @@ import com.example.albert.measure.elements.ElementsLists;
 
 import java.util.Objects;
 
-import static com.example.albert.measure.ui.main.SectionsPagerAdapter.*;
+import static com.example.albert.measure.ui.results.SectionsPagerAdapter.*;
 
 public class PlaceholderFragment extends Fragment {
 
