@@ -92,6 +92,8 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        h = Objects.requireNonNull(getIntent().getExtras()).getDouble("h");
+
         orientationSensor = new OrientationSensor(context);
 
         initVariables();
