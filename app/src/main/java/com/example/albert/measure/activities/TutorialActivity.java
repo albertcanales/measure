@@ -19,6 +19,7 @@ public class TutorialActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private SectionsPagerAdapter sectionsPagerAdapter;
     private StepView stepView;
+    private MenuItem skipItem;
 
     private int heightMode;
 
@@ -39,6 +40,7 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int i) {
                 setStepView(i);
+                setLastPageSkipTitle(i+1 == sectionsPagerAdapter.getCount());
             }
 
             @Override
@@ -48,6 +50,7 @@ public class TutorialActivity extends AppCompatActivity {
         });
 
         stepView = findViewById(R.id.step_view);
+        stepView.setStepsNumber(sectionsPagerAdapter.getCount());
         stepView.setOnStepClickListener(new StepView.OnStepClickListener() {
             @Override
             public void onStepClick(int step) {
@@ -63,6 +66,7 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tutorial, menu);
+        skipItem = menu.findItem(R.id.skip);
         return true;
     }
 
@@ -84,5 +88,11 @@ public class TutorialActivity extends AppCompatActivity {
 
     public void setStepView(int tabPosition) {
         stepView.go(tabPosition, true);
+    }
+
+    public void setLastPageSkipTitle(boolean lastPage) {
+        String title = lastPage ? "Done" : "Skip";
+        if (skipItem != null)
+            skipItem.setTitle(title);
     }
 }

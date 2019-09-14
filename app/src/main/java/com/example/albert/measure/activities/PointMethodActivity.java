@@ -147,8 +147,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (findViewById(item.getItemId()) != findViewById(R.id.help))
-            onBackPressed();
+        onBackPressed();
         return true;
     }
 
