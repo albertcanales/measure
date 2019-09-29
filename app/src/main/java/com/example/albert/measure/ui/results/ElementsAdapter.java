@@ -60,6 +60,11 @@ public abstract class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapt
         }
     }
 
+    double adjustToUnit(double value, int multiplier) {
+        return value * 1 / Math.pow(10,
+                (ResultsActivity.UNITS.indexOf(((ResultsActivity) context).getActualUnit())-1)*multiplier);
+    }
+
     class ModifyElement implements View.OnClickListener {
 
         int position;

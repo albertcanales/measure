@@ -61,6 +61,7 @@ public class PlaceholderFragment extends Fragment {
         RecyclerView recyclerViewElements = root.findViewById(R.id.elementsRecyclerView);
         recyclerViewElements.setHasFixedSize(true);
         recyclerViewElements.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewElements.setVisibility(View.INVISIBLE);
 
         myActivity = (ResultsActivity) Objects.requireNonNull(getActivity());
         noElementTV.setVisibility(View.GONE);
@@ -70,23 +71,28 @@ public class PlaceholderFragment extends Fragment {
         RecyclerView.Adapter adapter;
         if (tabPosition == POINT_TAB) {
             if (elements.getPointList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            else recyclerViewElements.setVisibility(View.VISIBLE);
             adapter = new PointsAdapter(elements, myActivity);
         } else if (tabPosition == ANGLE_TAB) {   // ANGLES
             if (elements.getAngleList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            else recyclerViewElements.setVisibility(View.VISIBLE);
             adapter = new AnglesAdapter(elements, myActivity);
         } else if (tabPosition == VECTOR_TAB) {
             if (elements.getVectorList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            else recyclerViewElements.setVisibility(View.VISIBLE);
             adapter = new VectorsAdapter(elements, myActivity);
         } else if (tabPosition == AREA_TAB) {
             if (elements.getAreaList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            else recyclerViewElements.setVisibility(View.VISIBLE);
             adapter = new AreasAdapter(elements, myActivity);
         } else {
             if (elements.getVolumeList().isEmpty()) noElementTV.setVisibility(View.VISIBLE);
+            else recyclerViewElements.setVisibility(View.VISIBLE);
             adapter = new VolumesAdapter(elements, myActivity);
         }
         recyclerViewElements.setAdapter(adapter);
         addElement.setOnClickListener(new AddElementButtonListener(tabPosition, myActivity));
-        addElement.setText(String.format("Add new %s", getString(TAB_TITLES[tabPosition])));
+        addElement.setText(String.format("Add new %s", getString(TAB_TITLES[tabPosition])).toUpperCase());
         noElementTV.setText(String.format("No %s calculated.\nClick below to add one!",
                 getString(TAB_TITLES[tabPosition]).toLowerCase()));
         return root;

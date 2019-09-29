@@ -34,7 +34,8 @@ public class AreasAdapter extends ElementsAdapter {
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
         Area a = elements.getAreaList().get(position);
         double area = a.getArea();
-        this.holder.textArea.setText(String.format("%.2f", area).concat(" cm²"));
+        this.holder.textArea.setText(String.format("%.2f %s²", adjustToUnit(area, 2),
+                ((ResultsActivity) context).getActualUnit()));
     }
 
     @Override

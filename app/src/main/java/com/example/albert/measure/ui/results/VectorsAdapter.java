@@ -33,10 +33,10 @@ public class VectorsAdapter extends ElementsAdapter {
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
         Vector v = elements.getVectorList().get(position);
-        this.holder.textDistance.setText(String.format("%.1f", v.getDistance()));
-        this.holder.textX.setText(String.format("x\n%.1f", v.getDistanceX()));
-        this.holder.textY.setText(String.format("y\n%.1f", v.getDistanceY()));
-        this.holder.textZ.setText(String.format("z\n%.1f", v.getDistanceZ()));
+        this.holder.textDistance.setText(String.format("%.1f", adjustToUnit(v.getDistance(),1)));
+        this.holder.textX.setText(String.format("x\n%.1f", adjustToUnit(v.getDistanceX(),1)));
+        this.holder.textY.setText(String.format("y\n%.1f", adjustToUnit(v.getDistanceY(),1)));
+        this.holder.textZ.setText(String.format("z\n%.1f", adjustToUnit(v.getDistanceZ(),1)));
     }
 
     @Override

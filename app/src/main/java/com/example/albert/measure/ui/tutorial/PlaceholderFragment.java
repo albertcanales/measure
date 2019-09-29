@@ -8,15 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.albert.measure.R;
-import com.example.albert.measure.activities.TutorialActivity;
-
-import java.util.Objects;
 
 public class PlaceholderFragment extends Fragment {
 
     private int tabPosition;
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String ARG_TOTAL_TABS = "total_tabs";
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -46,9 +42,9 @@ public class PlaceholderFragment extends Fragment {
         else if(tabPosition == 4)
             fragmentId = R.layout.fragment_tutorial_measure;
         else if(tabPosition == 5)
-            fragmentId = R.layout.fragment_tutorial_height;
-        else if(tabPosition == 6)
             fragmentId = R.layout.fragment_tutorial_video;
+        else if(tabPosition == 6)
+            fragmentId = R.layout.fragment_tutorial_height;
         return inflater.inflate(fragmentId, container, false);
     }
 }

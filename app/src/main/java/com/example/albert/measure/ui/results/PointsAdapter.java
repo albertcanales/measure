@@ -33,9 +33,9 @@ public class PointsAdapter extends ElementsAdapter {
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
         Point p = elements.getPointList().get(position);
-        this.holder.textX.setText(String.format("x\n%.1f", p.getX()));
-        this.holder.textY.setText(String.format("y\n%.1f", p.getY()));
-        this.holder.textZ.setText(String.format("z\n%.1f", p.getZ()));
+        this.holder.textX.setText(String.format("x\n%.1f", adjustToUnit(p.getX(),1)));
+        this.holder.textY.setText(String.format("y\n%.1f", adjustToUnit(p.getY(),1)));
+        this.holder.textZ.setText(String.format("z\n%.1f", adjustToUnit(p.getZ(),1)));
     }
 
     @Override

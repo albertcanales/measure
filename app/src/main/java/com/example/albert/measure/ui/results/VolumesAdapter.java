@@ -33,12 +33,13 @@ public class VolumesAdapter extends ElementsAdapter {
     @Override
     void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
         Volume v = elements.getVolumeList().get(position);
+        final String unit = ((ResultsActivity) context).getActualUnit();
         double volume = v.getVolume();
         double base = v.getBase().getArea();
         double height = v.getHeight();
-        this.holder.textVolume.setText(String.format("%.1f  cm³", volume));
-        this.holder.base.setText(String.format("Base\n%.1f cm²", base));
-        this.holder.height.setText(String.format("Height\n%.1f cm", height));
+        this.holder.textVolume.setText(String.format("%.1f %s³", adjustToUnit(volume, 3), unit));
+        this.holder.base.setText(String.format("Base\n%.1f %s²", adjustToUnit(base, 2), unit));
+        this.holder.height.setText(String.format("Height\n%.1f %s", adjustToUnit(height, 1), unit));
     }
 
     @Override
