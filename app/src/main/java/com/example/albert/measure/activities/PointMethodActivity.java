@@ -40,7 +40,9 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
     private Context context;
     private FloatingActionButton markPointFAB;
     private FloatingActionButton cancelPointFAB;
+    private FloatingActionButton doneFAB;
     private TextView pointNumberTV;
+    private MenuItem addPointMenuItem;
 
     private OrientationSensor orientationSensor;
 
@@ -61,10 +63,10 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         context = this;
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         SurfaceView mSurfaceView = findViewById(R.id.surface_view);
         cameraSurfaceView = new CameraSurfaceView(mSurfaceView, context);
         SurfaceHolder mSurfaceHolder = mSurfaceView.getHolder();
-
         mSurfaceHolder.addCallback(cameraSurfaceView);
         //CameraManager mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
 
@@ -74,7 +76,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         cancelPointFAB = findViewById(R.id.cancel_point);
         cancelPointFAB.setOnClickListener(this);
         cancelPointFAB.setSize(FloatingActionButton.SIZE_MINI);
-        final FloatingActionButton doneFAB = findViewById(R.id.done);
+        doneFAB = findViewById(R.id.done);
         doneFAB.setOnClickListener(this);
         doneFAB.setSize(FloatingActionButton.SIZE_MINI);
         final ImageButton ib = findViewById(R.id.iv_camera_focus);
@@ -142,6 +144,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.point_main, menu);
+        addPointMenuItem = menu.findItem(R.id.add_point);
         return true;
     }
 
@@ -203,11 +206,15 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         if (pointType == -1) {
             markPointFAB.hide();
             cancelPointFAB.hide();
+            doneFAB.show();
+            if(addPointMenuItem != null) addPointMenuItem.setVisible(true);
             pointNumberTV.animate().alpha(0.0f).setDuration(50);
         } else {
             markPointFAB.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_vertical_align_bottom_white));
             markPointFAB.show();
             cancelPointFAB.show();
+            doneFAB.hide();
+            addPointMenuItem.setVisible(false);
             pointNumberTV.setText(String.valueOf(numPoints + 1));
             pointNumberTV.animate().alpha(1.0f).setDuration(50);
         }

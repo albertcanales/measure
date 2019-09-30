@@ -9,73 +9,203 @@
     <TextView
         android:id="@+id/tbTitle"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Orientation Sensors"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvRoll"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="Roll: 0"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tvPitch"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="Pitch: 0"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tvAzimuth"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="Azimuth: 0"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
 
-        <ToggleButton
-            android:id="@+id/tbFreeze"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="Freeze"
-            android:textOn="Run" />
 
-        <TextView
-            android:id="@+id/tvPeriod"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Speed" />
+        <TableRow
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1">
 
-        <SeekBar
-            android:id="@+id/sbPeriod"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            <TextView
+                android:text="PITCH"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingStart="20dp"/>
+
+            <RelativeLayout
+                android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/pitchProgress2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="false"
+                    android:max="360"
+                    android:progress="200"
+                    android:progressDrawable="@drawable/circular_view"
+                    android:progressTint="@color/white"
+                    android:secondaryProgressTint="@color/colorPrimary"
+                    android:secondaryProgress="360" />
+
+                <ProgressBar
+                    android:id="@+id/pitchProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="false"
+                    android:max="180"
+                    android:progress="10"
+                    android:progressDrawable="@drawable/circular_view"
+                    android:secondaryProgress="0" />
+
+                <TextView
+                    android:id="@+id/pitchValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="-180º"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <View
+            android:id="@+id/divider5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="4"
-            android:padding="5dp"
-            android:progress="2" />
-    </LinearLayout>
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TableRow
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="ROLL"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingStart="20dp"/>
+
+            <RelativeLayout
+                android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/rollProgress2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="false"
+                    android:max="360"
+                    android:progress="200"
+                    android:progressDrawable="@drawable/circular_view"
+                    android:progressTint="@color/white"
+                    android:secondaryProgressTint="@color/colorPrimary"
+                    android:secondaryProgress="360" />
+
+                <ProgressBar
+                    android:id="@+id/rollProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="false"
+                    android:max="360"
+                    android:progress="10"
+                    android:progressDrawable="@drawable/circular_view"
+                    android:secondaryProgress="0" />
+
+                <TextView
+                    android:id="@+id/rollValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="-180º"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TableRow
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="30dp"
+                android:text="AZIMUTH"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/azimuthProgress2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="false"
+                    android:max="360"
+                    android:progress="200"
+                    android:progressDrawable="@drawable/circular_view"
+                    android:progressTint="@color/white"
+                    android:secondaryProgressTint="@color/colorPrimary"
+                    android:secondaryProgress="360" />
+
+                <ProgressBar
+                    android:id="@+id/azimuthProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="false"
+                    android:max="360"
+                    android:progress="10"
+                    android:progressDrawable="@drawable/circular_view"
+                    android:secondaryProgress="0" />
+
+
+                <TextView
+                    android:id="@+id/azimuthValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="-180º"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+
 </LinearLayout>

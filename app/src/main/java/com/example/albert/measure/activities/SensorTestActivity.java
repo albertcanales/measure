@@ -1,13 +1,12 @@
 package com.example.albert.measure.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.SeekBar;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.example.albert.measure.R;
 import com.example.albert.measure.sensors.OrientationSensor;
@@ -15,25 +14,28 @@ import com.example.albert.measure.sensors.OrientationSensor;
 import java.util.Objects;
 
 
-public class SensorTestActivity extends AppCompatActivity
-        implements CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
+public class SensorTestActivity extends AppCompatActivity {
 
     private final Handler myHandler = new Handler();
     private OrientationSensor sensors;
     private TextView tvAzimuth;
     private TextView tvPitch;
     private TextView tvRoll;
-    private TextView tvPeriod;
-
-    private int period;
+    private ProgressBar progressPitch;
+    private ProgressBar progressRoll;
+    private ProgressBar progressAzimuth;
+    private ProgressBar antiProgressPitch;
+    private ProgressBar antiProgressRoll;
+    private ProgressBar antiProgressAzimuth;
 
     private final Runnable myRunnable = new Runnable() {
+        @SuppressLint("DefaultLocale")
         @Override
         public void run() {
-            tvAzimuth.setText(String.format("Azimuth: %s", Math.toDegrees(sensors.getAzimuth())));
-            tvPitch.setText(String.format("Pitch: %s", Math.toDegrees(sensors.getPitch())));
-            tvRoll.setText(String.format("Roll: %s", Math.toDegrees(sensors.getRoll())));
-            myHandler.postDelayed(this, period);
+            setValue(tvPitch, progressPitch, antiProgressPitch, sensors.getPitch());
+            setValue(tvRoll, progressRoll, antiProgressRoll, sensors.getRoll());
+            setValue(tvAzimuth, progressAzimuth, antiProgressAzimuth, sensors.getAzimuth());
+            myHandler.postDelayed(this, 10);
         }
     };
 
@@ -46,18 +48,19 @@ public class SensorTestActivity extends AppCompatActivity
 
         sensors = new OrientationSensor(this);
 
-        tvAzimuth = findViewById(R.id.tvAzimuth);
-        tvRoll = findViewById(R.id.tvRoll);
-        tvPitch = findViewById(R.id.tvPitch);
-        tvPeriod = findViewById(R.id.tvPeriod);
+        tvPitch = findViewById(R.id.pitchValue);
+        tvRoll = findViewById(R.id.rollValue);
+        tvAzimuth = findViewById(R.id.azimuthValue);
+        progressPitch = findViewById(R.id.pitchProgress);
+        progressRoll = findViewById(R.id.rollProgress);
+        progressAzimuth = findViewById(R.id.azimuthProgress);
 
-        ((ToggleButton) findViewById(R.id.tbFreeze)).setOnCheckedChangeListener(this);
+        antiProgressPitch = findViewById(R.id.pitchProgress2);
+        antiProgressRoll = findViewById(R.id.rollProgress2);
+        antiProgressAzimuth = findViewById(R.id.azimuthProgress2);
 
-        SeekBar sbPeriod = findViewById(R.id.sbPeriod);
-        sbPeriod.setOnSeekBarChangeListener(this);
-        setPeriod(sbPeriod.getProgress());
-
-        startSensor();
+        sensors.register();
+        myHandler.post(myRunnable);
     }
 
     @Override
@@ -66,39 +69,13 @@ public class SensorTestActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        if (isChecked) stopSensor();
-        else startSensor();
-    }
-
-    private void startSensor() {
-        sensors.register();
-        myHandler.post(myRunnable);
-    }
-
-    private void stopSensor() {
-        sensors.unregister();
-        myHandler.removeCallbacks(myRunnable);
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        setPeriod(i);
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    private void setPeriod(int x) {
-        period = x != 0 ? x * 250 : 10;
-        tvPeriod.setText(String.format("Period: %d ms", period));
+    @SuppressLint("DefaultLocale")
+    private void setValue(TextView tv, ProgressBar pb, ProgressBar pb2, double x) {
+        int finalX = (int) Math.toDegrees(x);
+        tv.setText(String.format("%d°", finalX));
+        if(finalX >= 0) pb.setProgress(finalX);
+        else pb.setProgress(0);
+        if(finalX <= 0)pb2.setProgress(360+finalX);
+        else pb2.setProgress(360);
     }
 }

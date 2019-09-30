@@ -7,20 +7,22 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/emeasure"
-        android:layout_marginTop="20dp"/>
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/measure_logo"
+        android:layout_weight="1"
+        android:padding="50dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:layout_margin="20dp"
         android:gravity="center"
         android:textSize="22sp"
         android:textAlignment="center"
         android:lineSpacingMultiplier="1.5"
-        android:text="Measure allows you to very easily measure a variety of magnitudes in just a few clicks. Try it out!"/>
+        android:text="Measure allows you to obtain a variety of magnitudes in just a few clicks. Try it out!"/>
 
     <Button
         android:id="@+id/getstartedbt"
