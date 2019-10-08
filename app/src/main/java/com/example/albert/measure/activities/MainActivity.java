@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.example.albert.measure.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         if (findViewById(item.getItemId()) == findViewById(R.id.help))
             startActivity(new Intent(getApplicationContext(), AboutUsActivity.class));
-        else if(findViewById(item.getItemId()) == findViewById(R.id.test_sensor))
+        else if (findViewById(item.getItemId()) == findViewById(R.id.test_sensor))
             startActivity(new Intent(getApplicationContext(), SensorTestActivity.class));
         else
             onBackPressed();

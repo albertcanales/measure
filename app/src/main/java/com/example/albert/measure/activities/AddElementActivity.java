@@ -63,7 +63,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
         return dataAdapter;
     }
 
-    boolean validInput() {
+    private boolean validInput() {
         return checkName() && validSpinners();
     }
 
@@ -73,7 +73,7 @@ public abstract class AddElementActivity extends AppCompatActivity {
     }
 
     // Check if have the same value, O(n^2)
-    boolean validSpinners() {
+    private boolean validSpinners() {
         List<Spinner> spinners = getSpinnerList();
         for (int i = 0; i < spinners.size(); i++) {
             for (int j = i + 1; j < spinners.size(); j++) {

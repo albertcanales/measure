@@ -88,7 +88,7 @@ public class ResultsActivity extends AppCompatActivity {
         return actualUnit;
     }
 
-    public void setActualUnit(String actualUnit) {
+    private void setActualUnit(String actualUnit) {
         this.actualUnit = actualUnit;
         unitMenuItem.setTitle(actualUnit);
         refreshAdapter(viewPager.getCurrentItem());

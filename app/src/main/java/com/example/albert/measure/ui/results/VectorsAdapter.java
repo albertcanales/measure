@@ -1,6 +1,5 @@
 package com.example.albert.measure.ui.results;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -12,6 +11,8 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.elements.Vector;
+
+import java.util.Locale;
 
 public class VectorsAdapter extends ElementsAdapter {
 
@@ -29,14 +30,13 @@ public class VectorsAdapter extends ElementsAdapter {
         return holder;
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
-    void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
+    void onBindChildrenViewHolder(int position) {
         Vector v = elements.getVectorList().get(position);
-        this.holder.textDistance.setText(String.format("%.1f", adjustToUnit(v.getDistance(),1)));
-        this.holder.textX.setText(String.format("x\n%.1f", adjustToUnit(v.getDistanceX(),1)));
-        this.holder.textY.setText(String.format("y\n%.1f", adjustToUnit(v.getDistanceY(),1)));
-        this.holder.textZ.setText(String.format("z\n%.1f", adjustToUnit(v.getDistanceZ(),1)));
+        this.holder.textDistance.setText(String.format(Locale.getDefault(), "%.1f", adjustToUnit(v.getDistance(), 1)));
+        this.holder.textX.setText(String.format(Locale.getDefault(), "x\n%.1f", adjustToUnit(v.getDistanceX(), 1)));
+        this.holder.textY.setText(String.format(Locale.getDefault(), "y\n%.1f", adjustToUnit(v.getDistanceY(), 1)));
+        this.holder.textZ.setText(String.format(Locale.getDefault(), "z\n%.1f", adjustToUnit(v.getDistanceZ(), 1)));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class VectorsAdapter extends ElementsAdapter {
 
 
     public static class ViewHolder extends ElementsAdapter.ViewHolder {
-        TextView textDistance, textX, textY, textZ;
+        final TextView textDistance, textX, textY, textZ;
 
         ViewHolder(View v) {
             super(v);

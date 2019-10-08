@@ -27,7 +27,11 @@ import com.example.albert.measure.elements.ElementsLists;
 
 import java.util.Objects;
 
-import static com.example.albert.measure.ui.results.SectionsPagerAdapter.*;
+import static com.example.albert.measure.ui.results.SectionsPagerAdapter.ANGLE_TAB;
+import static com.example.albert.measure.ui.results.SectionsPagerAdapter.AREA_TAB;
+import static com.example.albert.measure.ui.results.SectionsPagerAdapter.POINT_TAB;
+import static com.example.albert.measure.ui.results.SectionsPagerAdapter.TAB_TITLES;
+import static com.example.albert.measure.ui.results.SectionsPagerAdapter.VECTOR_TAB;
 
 public class PlaceholderFragment extends Fragment {
 
@@ -111,8 +115,8 @@ public class PlaceholderFragment extends Fragment {
 
     private class AddElementButtonListener implements View.OnClickListener {
 
-        int elementType;
-        Context context;
+        final int elementType;
+        final Context context;
 
         AddElementButtonListener(int elementType, Context context) {
             this.elementType = elementType;

@@ -14,10 +14,11 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddAreaActivity extends AddElementActivity {
 
-    int areaType;
+    private int areaType;
     private Spinner spinnerA;
     private Spinner spinnerB;
     private Spinner spinnerC;
@@ -37,7 +38,7 @@ public class AddAreaActivity extends AddElementActivity {
         spinnerC = findViewById(R.id.c_spinner);
         imageView = findViewById(R.id.image);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Area%d", elements.getAreaList().size()+1));
+        nameET.setText(String.format(Locale.getDefault(), "Area%d", elements.getAreaList().size() + 1));
 
         spinnerA.setAdapter(getDataAdapter(elements.getPointNames()));
         spinnerB.setAdapter(getDataAdapter(elements.getPointNames()));

@@ -15,6 +15,7 @@ import com.example.albert.measure.elements.Volume;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddVolumeActivity extends AddElementActivity {
 
@@ -36,7 +37,7 @@ public class AddVolumeActivity extends AddElementActivity {
         spinnerB = findViewById(R.id.b_spinner);
         imageView = findViewById(R.id.image);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Volume%d", elements.getVolumeList().size()+1));
+        nameET.setText(String.format(Locale.getDefault(), "Volume%d", elements.getVolumeList().size() + 1));
 
         spinnerA.setAdapter(getDataAdapter(elements.getAreaNames()));
         spinnerA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -91,7 +92,7 @@ public class AddVolumeActivity extends AddElementActivity {
             else
                 imageView.setImageDrawable(getDrawable(R.drawable.volumeparalelogrampyramid));
         } else {
-            if(areaType == Area.TYPE_TRIANGLE)
+            if (areaType == Area.TYPE_TRIANGLE)
                 imageView.setImageDrawable(getDrawable(R.drawable.volumetriangleprism));
             else
                 imageView.setImageDrawable(getDrawable(R.drawable.volumeparalelogramprism));

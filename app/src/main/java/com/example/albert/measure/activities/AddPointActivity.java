@@ -12,6 +12,7 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddPointActivity extends AddElementActivity {
 
@@ -30,7 +31,7 @@ public class AddPointActivity extends AddElementActivity {
         coordinateY = findViewById(R.id.coordinate_y);
         coordinateZ = findViewById(R.id.coordinate_z);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Point%d", elements.getPointList().size()+1));
+        nameET.setText(String.format(Locale.getDefault(), "Point%d", elements.getPointList().size() + 1));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class AddPointActivity extends AddElementActivity {
 
     @Override
     void addElement() {
-        if(nonEmptyEditText()) {
+        if (nonEmptyEditText()) {
             double x = Double.valueOf(coordinateX.getText().toString());
             double y = Double.valueOf(coordinateY.getText().toString());
             double z = Double.valueOf(coordinateZ.getText().toString());
@@ -51,8 +52,7 @@ public class AddPointActivity extends AddElementActivity {
                 resultIntent.putExtra("elements", elements);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
-            }
-            else {
+            } else {
                 Toast.makeText(context, "This point already exists", Toast.LENGTH_SHORT).show();
             }
         }
@@ -60,22 +60,25 @@ public class AddPointActivity extends AddElementActivity {
 
     private boolean validPoint(Point p) {
         for (Point q : elements.getPointList()) {
-            if(p.equals(q)) return false;
+            if (p.equals(q)) return false;
         }
         return true;
     }
 
     private boolean nonEmptyEditText() {
         boolean nonEmpty = true;
-        if(coordinateX.getText().toString().isEmpty()) {
+        if (coordinateX.getText().toString().isEmpty()) {
             coordinateX.setError("Cannot be empty");
             nonEmpty = false;
-        } if(coordinateY.getText().toString().isEmpty()) {
+        }
+        if (coordinateY.getText().toString().isEmpty()) {
             coordinateY.setError("Cannot be empty");
             nonEmpty = false;
-        } if(coordinateZ.getText().toString().isEmpty()) {
+        }
+        if (coordinateZ.getText().toString().isEmpty()) {
             coordinateZ.setError("Cannot be empty");
             nonEmpty = false;
-        } return nonEmpty;
+        }
+        return nonEmpty;
     }
 }

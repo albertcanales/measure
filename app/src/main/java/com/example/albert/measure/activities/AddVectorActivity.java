@@ -11,6 +11,7 @@ import com.example.albert.measure.elements.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddVectorActivity extends AddElementActivity {
 
@@ -27,7 +28,7 @@ public class AddVectorActivity extends AddElementActivity {
         spinnerA = findViewById(R.id.a_spinner);
         spinnerB = findViewById(R.id.b_spinner);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Distance%d", elements.getVectorList().size()+1));
+        nameET.setText(String.format(Locale.getDefault(), "Distance%d", elements.getVectorList().size() + 1));
 
         spinnerA.setAdapter(getDataAdapter(elements.getPointNames()));
         spinnerB.setAdapter(getDataAdapter(elements.getPointNames()));

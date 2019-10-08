@@ -1,8 +1,8 @@
 package com.example.albert.measure.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +19,7 @@ public class HeightActivity extends AppCompatActivity {
     private static final int MODE_MANUAL = 0;
     private static final int MODE_AUTOMATIC = 1;
 
-    int heightMode;
+    private int heightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,7 @@ public class HeightActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                // TODO Change Image
-                if(i == R.id.type_manual_rb) {
+                if (i == R.id.type_manual_rb) {
                     imageView.setImageDrawable(getDrawable(R.drawable.modemanual));
                     heightMode = MODE_MANUAL;
                 } else {
@@ -50,7 +49,7 @@ public class HeightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String text = editText.getText().toString();
-                if(text.isEmpty())
+                if (text.isEmpty())
                     editText.setError("Cannot be empty");
                 else {
                     double h = (heightMode == MODE_MANUAL) ? Double.valueOf(text) : 0.75 * Double.valueOf(text);

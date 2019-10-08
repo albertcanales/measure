@@ -1,6 +1,5 @@
 package com.example.albert.measure.ui.results;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -12,6 +11,8 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.elements.Volume;
+
+import java.util.Locale;
 
 public class VolumesAdapter extends ElementsAdapter {
 
@@ -29,17 +30,14 @@ public class VolumesAdapter extends ElementsAdapter {
         return holder;
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
-    void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
+    void onBindChildrenViewHolder(int position) {
         Volume v = elements.getVolumeList().get(position);
         final String unit = ((ResultsActivity) context).getActualUnit();
         double volume = v.getVolume();
         double base = v.getBase().getArea();
-        double height = v.getHeight();
-        this.holder.textVolume.setText(String.format("%.1f %s³", adjustToUnit(volume, 3), unit));
-        this.holder.base.setText(String.format("Base\n%.1f %s²", adjustToUnit(base, 2), unit));
-        this.holder.height.setText(String.format("Height\n%.1f %s", adjustToUnit(height, 1), unit));
+        this.holder.textVolume.setText(String.format(Locale.getDefault(), "%.1f %s³", adjustToUnit(volume, 3), unit));
+        this.holder.base.setText(String.format(Locale.getDefault(), "Base\n%.1f %s²", adjustToUnit(base, 2), unit));
     }
 
     @Override
@@ -68,13 +66,12 @@ public class VolumesAdapter extends ElementsAdapter {
 
 
     public static class ViewHolder extends ElementsAdapter.ViewHolder {
-        TextView textVolume, base, height;
+        final TextView textVolume, base;
 
         ViewHolder(View v) {
             super(v);
             textVolume = v.findViewById(R.id.volume);
             base = v.findViewById(R.id.base);
-            height = v.findViewById(R.id.height);
         }
     }
 }

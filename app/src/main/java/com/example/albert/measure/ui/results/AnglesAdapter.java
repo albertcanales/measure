@@ -1,6 +1,5 @@
 package com.example.albert.measure.ui.results;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -13,6 +12,8 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.Angle;
 import com.example.albert.measure.elements.ElementsLists;
+
+import java.util.Locale;
 
 public class AnglesAdapter extends ElementsAdapter {
 
@@ -30,30 +31,29 @@ public class AnglesAdapter extends ElementsAdapter {
         return holder;
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
-    void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
+    void onBindChildrenViewHolder(int position) {
         Angle a = elements.getAngleList().get(position);
         double angle = a.getAngle();
-        this.holder.textAngle.setText(String.format("%.0f", Math.toDegrees(angle)).concat("°"));
+        this.holder.textAngle.setText(String.format(Locale.getDefault(), "%.0f", Math.toDegrees(angle)).concat("°"));
         double x = a.getAngleX();
         if (Double.isNaN(x))
             this.holder.textX.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
-            this.holder.textX.setText("x\n".concat(String.format("%.0f", Math.toDegrees(x))).concat("°"));
+            this.holder.textX.setText("x\n".concat(String.format(Locale.getDefault(), "%.0f", Math.toDegrees(x))).concat("°"));
         double y = a.getAngleY();
         if (Double.isNaN(y))
             this.holder.textY.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
-            this.holder.textY.setText("y\n".concat(String.format("%.0f", Math.toDegrees(y))).concat("°"));
+            this.holder.textY.setText("y\n".concat(String.format(Locale.getDefault(), "%.0f", Math.toDegrees(y))).concat("°"));
         double z = a.getAngleZ();
         if (Double.isNaN(z))
             this.holder.textZ.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0f));
         else
-            this.holder.textZ.setText("z\n".concat(String.format("%.0f", Math.toDegrees(z))).concat("°"));
+            this.holder.textZ.setText("z\n".concat(String.format(Locale.getDefault(), "%.0f", Math.toDegrees(z))).concat("°"));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class AnglesAdapter extends ElementsAdapter {
 
 
     public static class ViewHolder extends ElementsAdapter.ViewHolder {
-        TextView textAngle, textX, textY, textZ;
+        final TextView textAngle, textX, textY, textZ;
 
         ViewHolder(View v) {
             super(v);

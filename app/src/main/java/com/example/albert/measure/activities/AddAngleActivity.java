@@ -11,6 +11,7 @@ import com.example.albert.measure.elements.Point;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddAngleActivity extends AddElementActivity {
 
@@ -29,7 +30,7 @@ public class AddAngleActivity extends AddElementActivity {
         spinnerB = findViewById(R.id.b_spinner);
         spinnerC = findViewById(R.id.c_spinner);
         nameET = findViewById(R.id.name_edit_text);
-        nameET.setText(String.format("Angle%d", elements.getAngleList().size()+1));
+        nameET.setText(String.format(Locale.getDefault(), "Angle%d", elements.getAngleList().size() + 1));
 
         spinnerA.setAdapter(getDataAdapter(elements.getPointNames()));
         spinnerB.setAdapter(getDataAdapter(elements.getPointNames()));

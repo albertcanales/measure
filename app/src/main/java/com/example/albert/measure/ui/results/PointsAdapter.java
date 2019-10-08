@@ -1,6 +1,5 @@
 package com.example.albert.measure.ui.results;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -12,6 +11,8 @@ import com.example.albert.measure.R;
 import com.example.albert.measure.activities.ResultsActivity;
 import com.example.albert.measure.elements.ElementsLists;
 import com.example.albert.measure.elements.Point;
+
+import java.util.Locale;
 
 public class PointsAdapter extends ElementsAdapter {
 
@@ -29,13 +30,12 @@ public class PointsAdapter extends ElementsAdapter {
         return holder;
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
-    void onBindChildrenViewHolder(ElementsAdapter.ViewHolder holder, int position) {
+    void onBindChildrenViewHolder(int position) {
         Point p = elements.getPointList().get(position);
-        this.holder.textX.setText(String.format("x\n%.1f", adjustToUnit(p.getX(),1)));
-        this.holder.textY.setText(String.format("y\n%.1f", adjustToUnit(p.getY(),1)));
-        this.holder.textZ.setText(String.format("z\n%.1f", adjustToUnit(p.getZ(),1)));
+        this.holder.textX.setText(String.format(Locale.getDefault(), "x\n%.1f", adjustToUnit(p.getX(), 1)));
+        this.holder.textY.setText(String.format(Locale.getDefault(), "y\n%.1f", adjustToUnit(p.getY(), 1)));
+        this.holder.textZ.setText(String.format(Locale.getDefault(), "z\n%.1f", adjustToUnit(p.getZ(), 1)));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class PointsAdapter extends ElementsAdapter {
     }
 
     static class ViewHolder extends ElementsAdapter.ViewHolder {
-        TextView textX, textY, textZ;
+        final TextView textX, textY, textZ;
 
         ViewHolder(View v) {
             super(v);

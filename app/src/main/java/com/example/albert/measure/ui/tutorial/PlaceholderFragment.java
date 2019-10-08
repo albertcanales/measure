@@ -11,8 +11,8 @@ import com.example.albert.measure.R;
 
 public class PlaceholderFragment extends Fragment {
 
-    private int tabPosition;
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private int tabPosition;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -39,11 +39,11 @@ public class PlaceholderFragment extends Fragment {
             fragmentId = R.layout.fragment_tutorial_pointtypes;
         else if (tabPosition == 3)
             fragmentId = R.layout.fragment_tutorial_points;
-        else if(tabPosition == 4)
+        else if (tabPosition == 4)
             fragmentId = R.layout.fragment_tutorial_measure;
-        else if(tabPosition == 5)
+        else if (tabPosition == 5)
             fragmentId = R.layout.fragment_tutorial_video;
-        else if(tabPosition == 6)
+        else if (tabPosition == 6)
             fragmentId = R.layout.fragment_tutorial_height;
         return inflater.inflate(fragmentId, container, false);
     }

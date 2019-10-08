@@ -1,6 +1,5 @@
 package com.example.albert.measure.activities;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.example.albert.measure.R;
 import com.example.albert.measure.sensors.OrientationSensor;
 
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -29,7 +29,6 @@ public class SensorTestActivity extends AppCompatActivity {
     private ProgressBar antiProgressAzimuth;
 
     private final Runnable myRunnable = new Runnable() {
-        @SuppressLint("DefaultLocale")
         @Override
         public void run() {
             setValue(tvPitch, progressPitch, antiProgressPitch, sensors.getPitch());
@@ -69,13 +68,12 @@ public class SensorTestActivity extends AppCompatActivity {
         return true;
     }
 
-    @SuppressLint("DefaultLocale")
     private void setValue(TextView tv, ProgressBar pb, ProgressBar pb2, double x) {
         int finalX = (int) Math.toDegrees(x);
-        tv.setText(String.format("%d°", finalX));
-        if(finalX >= 0) pb.setProgress(finalX);
+        tv.setText(String.format(Locale.getDefault(), "%d°", finalX));
+        if (finalX >= 0) pb.setProgress(finalX);
         else pb.setProgress(0);
-        if(finalX <= 0)pb2.setProgress(360+finalX);
+        if (finalX <= 0) pb2.setProgress(360 + finalX);
         else pb2.setProgress(360);
     }
 }

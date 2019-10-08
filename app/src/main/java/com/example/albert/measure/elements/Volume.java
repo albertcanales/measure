@@ -36,10 +36,6 @@ public class Volume extends Element {
         w = in.readParcelable(Vector.class.getClassLoader());
     }
 
-    public double getHeight() {
-        return getVolume() / base.getArea();
-    }
-
     public Area getBase() {
         return base;
     }
@@ -68,7 +64,6 @@ public class Volume extends Element {
                 ", base=" + base +
                 ", w=" + w +
                 ", type=" + type +
-                ", height=" + getHeight() +
                 ", volume=" + getVolume() +
                 '}';
     }

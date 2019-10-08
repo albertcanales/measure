@@ -207,7 +207,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             markPointFAB.hide();
             cancelPointFAB.hide();
             doneFAB.show();
-            if(addPointMenuItem != null) addPointMenuItem.setVisible(true);
+            if (addPointMenuItem != null) addPointMenuItem.setVisible(true);
             pointNumberTV.animate().alpha(0.0f).setDuration(50);
         } else {
             markPointFAB.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_vertical_align_bottom_white));
@@ -223,7 +223,6 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
     private void measurePoint() {
         String name = "Point".concat(Integer.toString(numPoints + 1));
         double[] angles = {orientationSensor.getPitch(), orientationSensor.getAzimuth()};
-        // TODO Measure it. Could be even treated it as a distance
         if (pointType == 0) {
             pointList.add(new Point(name, h, angles));
             setPointType(-1);

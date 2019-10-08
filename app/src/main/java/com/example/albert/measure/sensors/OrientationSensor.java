@@ -43,7 +43,7 @@ public class OrientationSensor extends MySensorEvent implements SensorEventListe
         SensorManager.getOrientation(adjustedRotationMatrix, orientation);
 
         azimuth = orientation[0];
-        pitch = Math.PI/2 - orientation[1];
+        pitch = Math.PI / 2 - orientation[1];
         roll = orientation[2];
     }
 

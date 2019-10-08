@@ -40,7 +40,7 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int i) {
                 setStepView(i);
-                setLastPageSkipTitle(i+1 == sectionsPagerAdapter.getCount());
+                setLastPageSkipTitle(i + 1 == sectionsPagerAdapter.getCount());
             }
 
             @Override
@@ -81,16 +81,16 @@ public class TutorialActivity extends AppCompatActivity {
         return true;
     }
 
-    public void refreshAdapter(int tabPosition) {
+    private void refreshAdapter(int tabPosition) {
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setCurrentItem(tabPosition, false);
     }
 
-    public void setStepView(int tabPosition) {
+    private void setStepView(int tabPosition) {
         stepView.go(tabPosition, true);
     }
 
-    public void setLastPageSkipTitle(boolean lastPage) {
+    private void setLastPageSkipTitle(boolean lastPage) {
         String title = lastPage ? "Done" : "Skip";
         if (skipItem != null)
             skipItem.setTitle(title);
