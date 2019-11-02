@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/unit_mm"
-        android:title="mm" />
-    <item
-        android:id="@+id/unit_cm"
-        android:title="cm" />
-    <item
-        android:id="@+id/unit_dm"
-        android:title="dm" />
-    <item
-        android:id="@+id/unit_m"
-        android:title="m" />
+    <item android:title="@string/mm" />
+    <item android:title="@string/cm" />
+    <item android:title="@string/dm" />
+    <item android:title="@string/m" />
 </menu>

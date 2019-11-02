@@ -15,10 +15,9 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginTop="50dp"
-        android:text="No element calculated.\nClick below to add one!"/>
+        android:text="@string/no_element"/>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -38,7 +37,6 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"/>
@@ -47,7 +45,7 @@
         android:id="@+id/add_element"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add element"
+        android:text="@string/add_element"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
         android:background="@null"

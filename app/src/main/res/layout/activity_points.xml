@@ -22,7 +22,6 @@
         tools:ignore="ContentDescription" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/ly_bar_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

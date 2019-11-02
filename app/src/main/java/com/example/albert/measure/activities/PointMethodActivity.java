@@ -54,6 +54,7 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
 
     private int color_id;
     private boolean popupActive;
+    private boolean activityActive = true;
     private double h = 120;
 
     @Override
@@ -101,6 +102,12 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
         initVariables();
 
         setPointType(pointType);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activityActive = true;
     }
 
     private void initVariables() {
@@ -191,10 +198,13 @@ public class PointMethodActivity extends AppCompatActivity implements View.OnCli
             Log.d("POINTS", pointList.toString());
         } else {  // DoneFAB pressed
             if (pointType == -1) {
-                Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
-                Parcelable parcelable = new ElementsLists(pointList);
-                intent.putExtra("elements", parcelable);
-                startActivity(intent);
+                if (activityActive) {
+                    activityActive = false;
+                    Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+                    Parcelable parcelable = new ElementsLists(pointList);
+                    intent.putExtra("elements", parcelable);
+                    startActivity(intent);
+                }
             } else {
                 mustFinishMeasurement();
             }

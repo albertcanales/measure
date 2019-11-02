@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -28,9 +29,10 @@
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Test Distance"
+                android:text="@string/empty_string"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="NestedWeights" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,7 +45,7 @@
 
                 <TextView
                     android:id="@+id/distance"
-                    android:text="65"
+                    android:text="@string/empty_string"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_width="0dp"
@@ -61,7 +63,7 @@
 
                     <TextView
                         android:id="@+id/distanceX"
-                        android:text="4"
+                        android:text="@string/empty_string"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_width="0dp"
@@ -70,11 +72,12 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        tools:ignore="NestedWeights" />
 
                     <TextView
                         android:id="@+id/distanceY"
-                        android:text="53"
+                        android:text="@string/empty_string"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_width="0dp"
@@ -87,7 +90,7 @@
 
                     <TextView
                         android:id="@+id/distanceZ"
-                        android:text="10"
+                        android:text="@string/empty_string"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_width="0dp"
@@ -126,7 +129,7 @@
                 android:id="@+id/rename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RENAME"
+                android:text="@string/rename"
                 android:textStyle="bold"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorAccent"
@@ -137,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="REMOVE"
+                android:text="@string/remove"
                 android:textStyle="bold"
                 android:textColor="@color/colorAccent"
                 android:background="@null"/>
@@ -147,7 +150,6 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />

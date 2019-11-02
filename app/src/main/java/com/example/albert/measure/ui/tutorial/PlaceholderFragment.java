@@ -41,7 +41,7 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, final ViewGroup container,
             Bundle savedInstanceState) {
         View myView;
-        if(tabPosition == 1) {
+        if (tabPosition == 1) {
             myView = inflater.inflate(R.layout.fragment_tutorial_introduction, container, false);
             myView.findViewById(R.id.introduction_video).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -50,20 +50,16 @@ public class PlaceholderFragment extends Fragment {
                     Toast.makeText(getContext(), "Video missing!", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-        else if (tabPosition == 2) {
+        } else if (tabPosition == 2) {
             myView = inflater.inflate(R.layout.fragment_tutorial_height, container, false);
             int textId = ((TutorialActivity) Objects.requireNonNull(getActivity())).getHeightMode() == HeightActivity.MODE_MANUAL ?
                     R.string.tutorial_manual_height : R.string.tutorial_automatic_height;
-                ((TextView)myView.findViewById(R.id.heighttype_tv)).setText(textId);
-        }
-        else if (tabPosition == 3) {
+            ((TextView) myView.findViewById(R.id.height_type_tv)).setText(textId);
+        } else if (tabPosition == 3) {
             myView = inflater.inflate(R.layout.fragment_tutorial_pointtypes, container, false);
-        }
-        else if (tabPosition == 4) {
+        } else if (tabPosition == 4) {
             myView = inflater.inflate(R.layout.fragment_tutorial_points, container, false);
-        }
-        else {
+        } else {
             myView = inflater.inflate(R.layout.fragment_tutorial_measure, container, false);
             myView.findViewById(R.id.guide_video).setOnClickListener(new View.OnClickListener() {
                 @Override

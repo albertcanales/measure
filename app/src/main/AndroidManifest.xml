@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.albert.measure">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,18 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".activities.TutorialActivity"
-            android:label="@string/title_activity_tutorial"/>
-        <activity android:name=".activities.HeightActivity" />
-        <activity android:name=".activities.AboutUsActivity" />
-        <activity android:name=".activities.AddAreaActivity" />
-        <activity android:name=".activities.AddVectorActivity" />
-        <activity android:name=".activities.AddElementActivity" />
-        <activity
-            android:name=".activities.ResultsActivity"
-            android:theme="@style/ResultsAppTheme"/>
+        tools:ignore="GoogleAppIndexingWarning"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
@@ -33,13 +25,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PointMethodActivity" />
-        <activity android:name=".activities.AddPointActivity" />
-        <activity android:name=".activities.AddAngleActivity" />
-        <activity android:name=".activities.AddVolumeActivity" />
-        <activity android:name=".activities.SensorTestActivity" />
+        <activity
+            android:name=".activities.AboutUsActivity"
+            android:label="@string/title_activity_about_us"/>
+        <activity
+            android:name=".activities.SensorTestActivity"
+            android:label="@string/title_activity_sensor_test"/>
+        <activity
+            android:name=".activities.HeightActivity"
+            android:label="@string/title_activity_height"/>
+        <activity
+            android:name=".activities.TutorialActivity"
+            android:label="@string/title_activity_tutorial"/>
+        <activity
+            android:name=".activities.PointMethodActivity"
+            android:label="@string/title_activity_point_method"/>
+        <activity
+            android:name=".activities.ResultsActivity"
+            android:label="@string/title_activity_results"
+            android:theme="@style/ResultsAppTheme"/>
+        <activity
+            android:name=".activities.AddElementActivity"
+            android:label="@string/title_activity_add_element"/>
+        <activity
+            android:name=".activities.AddPointActivity"
+            android:label="@string/title_activity_add_element"/>
+        <activity
+            android:name=".activities.AddAngleActivity"
+            android:label="@string/title_activity_add_element"/>
+        <activity
+            android:name=".activities.AddVectorActivity"
+            android:label="@string/title_activity_add_element"/>
+        <activity
+            android:name=".activities.AddAreaActivity"
+            android:label="@string/title_activity_add_element"/>
+        <activity
+            android:name=".activities.AddVolumeActivity"
+            android:label="@string/title_activity_add_element"/>
     </application>
-
-    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

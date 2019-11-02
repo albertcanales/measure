@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:text="ADD AREA"
+        android:text="@string/add_area"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="Area Type"
+            android:text="@string/area_type"
             android:textSize="18sp" />
 
         <Spinner
@@ -53,7 +53,7 @@
         android:layout_height="0dp"
         android:layout_margin="20dp"
         android:layout_weight="2"
-        android:src="@drawable/areatriangle"
+        android:src="@drawable/area_triangle"
         tools:ignore="ContentDescription" />
 
     <TableLayout
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="Name"
+                android:text="@string/name"
                 android:textSize="18sp" />
 
             <EditText
@@ -87,7 +87,9 @@
                 android:inputType="textShortMessage"
                 android:labelFor="@id/name_label"
                 android:maxWidth="160dp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
         </TableRow>
 
@@ -103,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="Point A"
+                android:text="@string/point_a"
                 android:textSize="18sp" />
 
             <Spinner
@@ -128,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="Point B"
+                android:text="@string/point_b"
                 android:textSize="18sp" />
 
             <Spinner
@@ -153,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="Point C"
+                android:text="@string/point_c"
                 android:textSize="18sp" />
 
             <Spinner

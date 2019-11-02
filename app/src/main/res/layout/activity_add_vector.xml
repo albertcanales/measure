@@ -12,7 +12,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD DISTANCE"
+        android:text="@string/add_distance"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="22sp"
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:textSize="18sp"
-                android:text="Name"
+                android:text="@string/name"
                 android:layout_weight="1"/>
 
             <EditText
@@ -60,7 +60,9 @@
                 android:labelFor="@+id/a_label"
                 android:layout_weight="2"
                 android:textAlignment="center"
-                android:maxWidth="160dp"/>
+                android:maxWidth="160dp"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
         </TableRow>
 
@@ -76,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:textSize="18sp"
-                android:text="Point A"
+                android:text="@string/point_a"
                 android:layout_weight="1"/>
 
             <Spinner
@@ -101,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:textSize="18sp"
-                android:text="Point B"
+                android:text="@string/point_b"
                 android:layout_weight="1"/>
 
             <Spinner

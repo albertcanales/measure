@@ -21,6 +21,7 @@ import java.util.Objects;
 public class ResultsActivity extends AppCompatActivity {
 
     public static final List<String> UNITS = Arrays.asList("mm", "cm", "dm", "m");
+    private boolean activityActive = true;
     private String actualUnit = "cm";
     private boolean popupActive = false;
 
@@ -48,6 +49,12 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        activityActive = true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.results, menu);
         unitMenuItem = menu.findItem(R.id.unit);
@@ -62,7 +69,6 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void showPopup(MenuItem item) {
         if (!popupActive) {
-
             popupActive = true;
             PopupMenu popup = new PopupMenu(this, findViewById(item.getItemId()));
             MenuInflater inflater = popup.getMenuInflater();
@@ -107,5 +113,13 @@ public class ResultsActivity extends AppCompatActivity {
     public void refreshAdapter(int tabPosition) {
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setCurrentItem(tabPosition, false);
+    }
+
+    public boolean isActivityActive() {
+        return activityActive;
+    }
+
+    public void setActivityActive(boolean activityActive) {
+        this.activityActive = activityActive;
     }
 }

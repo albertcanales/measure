@@ -1,36 +1,107 @@
 <resources>
+    <!-- General -->
     <string name="app_name">Measure</string>
-    <string name="aboutUs">The app Measure is the result of a TdR (Treball de Recerca), a project in which students get the opportunity to research in a specific field they like.\n
-
-\nThe aim of the project is to give everyone a reliable tool to measure and identify the geometries around them at any situation, without any necessity of specific equipment which is not usually carried around, like a meter. To archive that, the solution uses something we all have with us everywhere, our mobile phones. Although there are some solutions which use a more sophisticated way of doing it, we wanted to explore a more mathematical approach.\n
-
-\nThis project was developed between 2018 and 2019 by the student Albert Canales Ros, and tutored by the Mathematics Doctor Jordi Sorolla.\n
-
-\nThe whole process of making the app can be found on BitBucket by clicking the button below\n
-
-\nIn order to contact us for any reason, we would appreciate you to do it by the email: albertcanalesros@gmail.com\n
-
-\nWe hope you enjoy the app and you find it useful!\n</string>
-    <string name="title_activity_results">ResultsActivity</string>
+    <string name="empty_string"> </string>
     <string name="points">Points</string>
     <string name="angles">Angles</string>
     <string name="distances">Distances</string>
     <string name="areas">Areas</string>
     <string name="volumes">Volumes</string>
-    <string name="cm">
-        cm</string>
 
+    <!-- MainActivity -->
+    <string name="summary_main">Measure allows you to obtain a variety of magnitudes in just a few clicks. Try it out!</string>
+    <string name="get_started">Get Started!</string>
+
+    <!-- About Us -->
+    <string name="title_activity_about_us">About Us</string>
+    <string name="aboutUs">The app Measure is the result of a TdR (Treball de Recerca), a project in which students get the opportunity to research in a specific field they like.\nThe aim of the project is to give everyone a reliable tool to measure and identify the geometries around them at any situation, without any necessity of specific equipment which is not usually carried around, like a meter. To archive that, the solution uses something we all have with us everywhere, our mobile phones. Although there are some solutions which use a more sophisticated way of doing it, we wanted to explore a more mathematical approach. \nThis project was developed between 2018 and 2019 by the student Albert Canales Ros, and tutored by Jordi Sorolla, PhD in Mathematics. \nThe whole process of making the app can be found on BitBucket by clicking the button below. \nIn order to contact us for any reason, we would appreciate you to do it by the email: albertcanalesros@gmail.com. \nWe hope you enjoy the app and you find it useful!\n</string>
+
+    <!-- Test Sensors -->
+    <string name="title_activity_sensor_test">Sensor Test</string>
+    <string name="orientation_sensors">Orientation Sensors</string>
+    <string name="pitch">PITCH</string>
+    <string name="azimuth">AZIMUTH</string>
+    <string name="roll">ROLL</string>
+
+    <!-- HeightActivity -->
+    <string name="title_activity_height">Initial Height</string>
+    <string name="point_type_request">Can you take the measurements from a known height?</string>
+    <string name="answer_manual">Of course!</string>
+    <string name="answer_automatic">Not sure</string>
+    <string name="height_value_label">Value of h (cm):</string>
+    <string name="continue_bt">Continue</string>
+
+    <!-- Tutorial -->
     <string name="title_activity_tutorial">Tutorial</string>
+    <string name="skip">Skip</string>
+    <string name="tutorial_intro_1">With measure, you can easily calculate distances, angles, areas and volumes around you.  To do so, you will simply have to aim at the points which form them using the camera and following the steps on the next slides.  Once you have obtained all the necessary points you can get the desired magnitudes.</string>
+    <string name="tutorial_intro_2">Swipe to learn how to use the app!</string>
+    <string name="example_video">Example Video</string>
+
+    <string name="tutorial_height_1">Firstly, let\'s consider how to position the device during the measurement.</string>
     <string name="tutorial_automatic_height">As you have given your height on the previous activity, stand still during the measurement and locate the device at the height of your chest. \nIt is recommended to give a specific height if known, in order to get more precise results.</string>
     <string name="tutorial_manual_height">As you have selected \'Of course\' and entered a specific height on the previous slide, you will have to locate the device at the given height from the ground.</string>
+    <string name="tutorial_height_2">Before starting the measure of the points, locate yourself and the device on  a comfortable position, where you can see the screen and aim at the points correctly.  To  aim at the points, you can only rotate the device keeping its camera steady, as moving it  from its initial position will highly worsen the results.</string>
+
+    <string name="tutorial_point_types_1">Before considering how to measure points, some simple concepts have to be  explained.  To be able to measure any point in space, you will firstly need to measure its \'Base Point.  That is to say, a point in the same place but on the ground. A comparison can be seen on the picture.</string>
+    <string name="tutorial_point_types_2">Note that if the desired point is on the ground, no previous point measurement is necessary.</string>
+
+    <string name="tutorial_points">To measure a point, click the \'Add\' button on the top-right corner and select an option the according type regarding if the desired point is on the ground (Based Point) or not (Non-based point).  To mark a point, click the button-middle button. Remember that if the desired point is not on the ground, you will have to aim first at its \'Base Point\' (explained in the previous slide).  You can cancel a point measurement by clicking on the bottom-left corner button.  You can finish measuring points and get to the results by clicking on the bottom-right corner button.</string>
+
+    <string name="tutorial_measure_1">To obtain precise values, measure the points following these steps:</string>
+    <string name="_1">1.</string>
+    <string name="tutorial_measure_2">Position the phone vertically.</string>
+    <string name="_2">2.</string>
+    <string name="tutorial_measure_3">Pan the camera around in order to aim at the same direction of the desired point.</string>
+    <string name="_3">3.</string>
+    <string name="tutorial_measure_4">Rotate the camera on a nodding movement to aim at the point.</string>
+    <string name="_4">4.</string>
+    <string name="tutorial_measure_5">Wait a second for the sensors to stabilise and mark the point.</string>
+    <string name="video_guide">Video Guide</string>
+
+    <!-- Point Measure -->
+    <string name="title_activity_point_method">Measure Points</string>
+    <string name="based_point">Based point</string>
+    <string name="non_based_point">Non-based point</string>
+
+    <!-- Results -->
+    <string name="title_activity_results">Results</string>
+    <string name="no_element">No element calculated. Click below to add one!</string>
+    <string name="add_element">Add element</string>
+    <string name="rename">RENAME</string>
+    <string name="remove">REMOVE</string>
+    <string name="mm">mm</string>
+    <string name="cm">cm</string>
+    <string name="dm">dm</string>
+    <string name="m">m</string>
+
+    <!-- Add Elements -->
+    <string name="title_activity_add_element">New Result</string>
+    <string name="add_point">ADD POINT</string>
+    <string name="add_angle">ADD ANGLE</string>
+    <string name="add_distance">ADD DISTANCE</string>
+    <string name="add_area">ADD AREA</string>
+    <string name="add_volume">ADD VOLUME</string>
+    <string name="name">Name</string>
+    <string name="coordinate_x">Coordinate X</string>
+    <string name="coordinate_y">Coordinate Y</string>
+    <string name="coordinate_z">Coordinate Z</string>
+    <string name="point_a">Point A</string>
+    <string name="point_b">Point B</string>
+    <string name="point_c">Point C</string>
+    <string name="point_p">Point P</string>
+    <string name="area_type">Area Type</string>
+    <string name="volume_type">Volume Type</string>
+    <string name="base">Base</string>
 
     <string-array name="area_types_array">
         <item>Triangle</item>
         <item>Parallelogram</item>
-        <!-- <item>General quadrilateral</item> !-->
+        <!-- <item>General quadrilateral</item> -->
     </string-array>
     <string-array name="volume_types_array">
         <item>Pyramid</item>
         <item>Prism</item>
     </string-array>
+
 </resources>

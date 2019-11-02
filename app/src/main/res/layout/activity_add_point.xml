@@ -12,7 +12,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD POINT"
+        android:text="@string/add_point"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="22sp"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:textSize="18sp"
-                android:text="Name"
+                android:text="@string/name"
                 android:layout_weight="1"/>
 
             <EditText
@@ -65,7 +65,9 @@
                 android:labelFor="@+id/a_label"
                 android:layout_weight="2"
                 android:textAlignment="center"
-                android:maxWidth="160dp"/>
+                android:maxWidth="160dp"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
         </TableRow>
 
@@ -81,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:textSize="18sp"
-                android:text="Coordinate X"
+                android:text="@string/coordinate_x"
                 android:layout_weight="1"/>
 
             <EditText
@@ -92,7 +94,9 @@
                 android:labelFor="@+id/x_label"
                 android:layout_weight="2"
                 android:textAlignment="center"
-                android:maxWidth="160dp"/>
+                android:maxWidth="160dp"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
         </TableRow>
 
@@ -108,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:textSize="18sp"
-                android:text="Coordinate Y"
+                android:text="@string/coordinate_y"
                 android:layout_weight="1"/>
 
             <EditText
@@ -119,7 +123,9 @@
                 android:labelFor="@+id/y_label"
                 android:layout_weight="2"
                 android:textAlignment="center"
-                android:maxWidth="160dp"/>
+                android:maxWidth="160dp"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
         </TableRow>
 
@@ -130,12 +136,11 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/z_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:textSize="18sp"
-                android:text="Coordinate Z"
+                android:text="@string/coordinate_z"
                 android:layout_weight="1"/>
 
             <EditText
@@ -146,7 +151,9 @@
                 android:labelFor="@+id/y_label"
                 android:layout_weight="2"
                 android:textAlignment="center"
-                android:maxWidth="160dp"/>
+                android:maxWidth="160dp"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
         </TableRow>
 

@@ -5,6 +5,6 @@
         android:id="@+id/unit"
         android:onClick="showPopup"
         android:orderInCategory="200"
-        android:title="cm"
+        android:title="@string/cm"
         app:showAsAction="ifRoom" />
 </menu>

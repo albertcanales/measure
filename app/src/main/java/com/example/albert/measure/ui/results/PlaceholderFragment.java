@@ -150,8 +150,11 @@ public class PlaceholderFragment extends Fragment {
                     intent = new Intent(context, AddVolumeActivity.class);
             }
             if (!intent.filterEquals(new Intent())) {
-                intent.putExtra("elements", myActivity.getElements());
-                startActivityForResult(intent, elementType);
+                if (myActivity.isActivityActive()) {
+                    myActivity.setActivityActive(false);
+                    intent.putExtra("elements", myActivity.getElements());
+                    startActivityForResult(intent, elementType);
+                }
             }
         }
     }

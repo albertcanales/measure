@@ -22,6 +22,7 @@ public class TutorialActivity extends AppCompatActivity {
     private MenuItem skipItem;
 
     private int heightMode;
+    private boolean activityActive = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,12 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        activityActive = true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tutorial, menu);
         skipItem = menu.findItem(R.id.skip);
@@ -73,9 +80,12 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (findViewById(item.getItemId()) == findViewById(R.id.skip)) {
-            Intent intent = new Intent(getApplicationContext(), PointMethodActivity.class);
-            intent.putExtras(getIntent());
-            startActivity(intent);
+            if (activityActive) {
+                activityActive = false;
+                Intent intent = new Intent(getApplicationContext(), PointMethodActivity.class);
+                intent.putExtras(getIntent());
+                startActivity(intent);
+            }
         } else
             onBackPressed();
         return true;

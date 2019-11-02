@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:text="ADD VOLUME"
+        android:text="@string/add_volume"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_weight="1.5"
-            android:text="Volume Type"
+            android:text="@string/volume_type"
             android:textSize="18sp" />
 
         <Spinner
@@ -53,7 +53,7 @@
         android:layout_height="0dp"
         android:layout_margin="20dp"
         android:layout_weight="2"
-        android:src="@drawable/volumetrianglepyramid"
+        android:src="@drawable/volume_triangle_pyramid"
         tools:ignore="ContentDescription" />
 
     <TableLayout
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="Name"
+                android:text="@string/name"
                 android:textSize="18sp" />
 
             <EditText
@@ -87,7 +87,9 @@
                 android:inputType="textShortMessage"
                 android:labelFor="@id/name_label"
                 android:maxWidth="160dp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
 
         </TableRow>
 
@@ -103,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="Base"
+                android:text="@string/base"
                 android:textSize="18sp" />
 
             <Spinner
@@ -128,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="Point P"
+                android:text="@string/point_p"
                 android:textSize="18sp" />
 
             <Spinner

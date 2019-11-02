@@ -80,7 +80,7 @@ public class AddAreaActivity extends AddElementActivity {
     private void setAreaType(int areaType) {
         this.areaType = areaType;
         if (areaType == Area.TYPE_TRIANGLE)
-            imageView.setImageDrawable(getDrawable(R.drawable.areatriangle));
+            imageView.setImageDrawable(getDrawable(R.drawable.area_triangle));
         else
             imageView.setImageDrawable(getDrawable(R.drawable.areaparalelogram));
     }

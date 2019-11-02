@@ -11,12 +11,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Can you take the measurements from a known height?"
+        android:text="@string/point_type_request"
         android:layout_margin="20dp"
         android:textSize="22sp"/>
 
     <View
-        android:id="@+id/divider3"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
@@ -38,7 +37,7 @@
             android:id="@+id/type_manual_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Of course!"
+            android:text="@string/answer_manual"
             android:gravity="center"
             android:textStyle="bold" />
 
@@ -48,11 +47,10 @@
             android:layout_weight="1" />
 
         <RadioButton
-            android:id="@+id/type_automatic_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Not sure"
+            android:text="@string/answer_automatic"
             android:textStyle="bold" />
 
         <Space
@@ -63,7 +61,6 @@
     </RadioGroup>
 
     <View
-        android:id="@+id/divider4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
@@ -73,9 +70,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="20dp"
-        android:src="@drawable/modemanual"
-        android:scaleType="centerCrop"/>
+        android:src="@drawable/mode_manual"
+        android:scaleType="fitCenter"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="Value of h (cm): "/>
+            android:text="@string/height_value_label"/>
 
         <EditText
             android:id="@+id/height_et"
@@ -97,7 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            tools:ignore="LabelFor"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
@@ -105,7 +104,7 @@
         android:id="@+id/tutorial_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continue"
+        android:text="@string/continue_bt"
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="16sp"

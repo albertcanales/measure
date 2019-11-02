@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.tutorial.PlaceholderFragment"
@@ -16,7 +15,7 @@
         android:textSize="16sp"
         android:lineSpacingMultiplier="1.5"
         android:singleLine="false"
-        android:text="To obtain precise values, measure the points following these steps:"/>
+        android:text="@string/tutorial_measure_1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,37 +29,14 @@
             android:layout_margin="10dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="1."/>
+            android:text="@string/_1"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="16sp"
-            android:text="Position the phone vertically."/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="2."/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:text="Pan the camera around in order to aim at the same direction of the desired point."/>
+            android:text="@string/tutorial_measure_2"/>
 
     </LinearLayout>
 
@@ -76,14 +52,14 @@
             android:layout_margin="10dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="3."/>
+            android:text="@string/_2"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="16sp"
-            android:text="Rotate the camera on a nodding movement to aim at the point."/>
+            android:text="@string/tutorial_measure_3"/>
 
     </LinearLayout>
 
@@ -99,40 +75,48 @@
             android:layout_margin="10dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="4."/>
+            android:text="@string/_3"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="16sp"
-            android:text="Wait a second for the sensors to stabilise and mark the point."/>
+            android:text="@string/tutorial_measure_4"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_margin="20sp">
+        android:gravity="top"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_gravity="center"
-            android:text="Video Guide"
-            android:layout_marginEnd="10dp"/>
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/_4"/>
 
-        <ImageButton
-            android:id="@+id/guide_video"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="Example Video"
-            android:src="@drawable/ic_videocam" />
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:text="@string/tutorial_measure_5"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/guide_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20sp"
+        android:textAlignment="center"
+        android:text="@string/video_guide"
+        android:drawableStart="@drawable/ic_videocam"/>
 
 </LinearLayout>

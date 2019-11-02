@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.tutorial.PlaceholderFragment"
@@ -16,16 +15,15 @@
         android:textSize="16sp"
         android:lineSpacingMultiplier="1.5"
         android:singleLine="false"
-        android:text="Before considering how to measure points, some simple concepts have to be \
-explained. \nTo be able to measure any point in space, you will firstly need to measure its 'Base Point. \
-That is to say, a point in the same place but on the ground. A comparison can be seen on the picture."/>
+        android:text="@string/tutorial_point_types_1"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_gravity="center"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:layout_width="match_parent"
@@ -33,6 +31,6 @@ That is to say, a point in the same place but on the ground. A comparison can be
         android:textSize="16sp"
         android:lineSpacingMultiplier="1.5"
         android:singleLine="false"
-        android:text="Note that if the desired point is on the ground, no previous point measurement is necessary."/>
+        android:text="@string/tutorial_point_types_2"/>
 
 </LinearLayout>

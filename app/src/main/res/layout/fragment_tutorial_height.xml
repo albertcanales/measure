@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.tutorial.PlaceholderFragment"
@@ -16,10 +15,10 @@
         android:textSize="16sp"
         android:lineSpacingMultiplier="1.5"
         android:singleLine="false"
-        android:text="Firstly, let's consider how to position the device during the measurement." />
+        android:text="@string/tutorial_height_1" />
 
     <TextView
-        android:id="@+id/heighttype_tv"
+        android:id="@+id/height_type_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
@@ -35,9 +34,6 @@
         android:textSize="16sp"
         android:lineSpacingMultiplier="1.5"
         android:singleLine="false"
-        android:text="Before starting the measure of the points, locate yourself and the device on \
-a comfortable position, where you can see the screen and aim at the points correctly. \nTo \
-aim at the points, you can only rotate the device keeping its camera steady, as moving it \
-from its initial position will highly worsen the results." />
+        android:text="@string/tutorial_height_2" />
 
 </LinearLayout>

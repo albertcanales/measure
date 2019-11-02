@@ -2,8 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/based"
-        android:title="Based point" />
-    <item
-        android:id="@+id/nonbased"
-        android:title="Non-based point" />
+        android:title="@string/based_point" />
+    <item android:title="@string/non_based_point" />
 </menu>

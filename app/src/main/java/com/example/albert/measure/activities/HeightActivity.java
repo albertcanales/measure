@@ -19,6 +19,7 @@ public class HeightActivity extends AppCompatActivity {
     public static final int MODE_MANUAL = 0;
     private static final int MODE_AUTOMATIC = 1;
 
+    private boolean activityActive = true;
     private int heightMode;
 
     @Override
@@ -33,7 +34,7 @@ public class HeightActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.type_manual_rb) {
-                    imageView.setImageDrawable(getDrawable(R.drawable.modemanual));
+                    imageView.setImageDrawable(getDrawable(R.drawable.mode_manual));
                     heightMode = MODE_MANUAL;
                 } else {
                     imageView.setImageDrawable(getDrawable(R.drawable.modeautomatic));
@@ -53,10 +54,17 @@ public class HeightActivity extends AppCompatActivity {
                     editText.setError("Cannot be empty");
                 else {
                     double h = (heightMode == MODE_MANUAL) ? Double.valueOf(text) : 0.75 * Double.valueOf(text);
-                    Intent i = new Intent(getApplicationContext(), TutorialActivity.class);
-                    i.putExtra("h", h);
-                    i.putExtra("mode", heightMode);
-                    startActivity(i);
+                    if (h < 10)
+                        editText.setError("Too small value, beware of the units!");
+                    else {
+                        if (activityActive) {
+                            activityActive = false;
+                            Intent i = new Intent(getApplicationContext(), TutorialActivity.class);
+                            i.putExtra("h", h);
+                            i.putExtra("mode", heightMode);
+                            startActivity(i);
+                        }
+                    }
                 }
             }
         });
@@ -71,5 +79,11 @@ public class HeightActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activityActive = true;
     }
 }

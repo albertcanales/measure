@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/test_sensor"
-        android:icon="@drawable/ic_manage_white"
+        android:icon="@drawable/ic_build_white"
         android:orderInCategory="200"
         android:title=""
         app:showAsAction="ifRoom" />

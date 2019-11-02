@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <View
-        android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
@@ -34,9 +34,10 @@
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Test Point"
+                android:text="@string/empty_string"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="NestedWeights" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,7 +49,7 @@
 
                 <TextView
                     android:id="@+id/angleX"
-                    android:text="x = 0"
+                    android:text="@string/empty_string"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_width="0dp"
@@ -61,7 +62,7 @@
 
                 <TextView
                     android:id="@+id/angleY"
-                    android:text="y = 0"
+                    android:text="@string/empty_string"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_width="0dp"
@@ -74,7 +75,7 @@
 
                 <TextView
                     android:id="@+id/angleZ"
-                    android:text="z = 0"
+                    android:text="@string/empty_string"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_width="0dp"
@@ -101,7 +102,7 @@
                 android:id="@+id/rename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RENAME"
+                android:text="@string/rename"
                 android:textStyle="bold"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorAccent"
@@ -112,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="REMOVE"
+                android:text="@string/remove"
                 android:textStyle="bold"
                 android:textColor="@color/colorAccent"
                 android:background="@null"/>

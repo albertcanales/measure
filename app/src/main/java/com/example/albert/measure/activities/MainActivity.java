@@ -9,19 +9,24 @@ import android.view.View;
 
 import com.example.albert.measure.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
+
+    private boolean activityActive = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.getstartedbt).setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        startActivity(new Intent(getApplicationContext(), HeightActivity.class));
+        findViewById(R.id.get_started_bt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (activityActive) {
+                    startActivity(new Intent(getApplicationContext(), HeightActivity.class));
+                    activityActive = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -32,12 +37,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (findViewById(item.getItemId()) == findViewById(R.id.help))
-            startActivity(new Intent(getApplicationContext(), AboutUsActivity.class));
-        else if (findViewById(item.getItemId()) == findViewById(R.id.test_sensor))
-            startActivity(new Intent(getApplicationContext(), SensorTestActivity.class));
-        else
-            onBackPressed();
+        if (activityActive) {
+            activityActive = false;
+            if (findViewById(item.getItemId()) == findViewById(R.id.help))
+                startActivity(new Intent(getApplicationContext(), AboutUsActivity.class));
+            else if (findViewById(item.getItemId()) == findViewById(R.id.test_sensor))
+                startActivity(new Intent(getApplicationContext(), SensorTestActivity.class));
+        }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activityActive = true;
     }
 }

@@ -88,7 +88,7 @@ public class AddVolumeActivity extends AddElementActivity {
         int areaType = elements.getAreaList().get(elements.getAreaNames().indexOf(spinnerA.getSelectedItem().toString())).getType();
         if (volumeType == Volume.TYPE_PYRAMID) {
             if (areaType == Area.TYPE_TRIANGLE)
-                imageView.setImageDrawable(getDrawable(R.drawable.volumetrianglepyramid));
+                imageView.setImageDrawable(getDrawable(R.drawable.volume_triangle_pyramid));
             else
                 imageView.setImageDrawable(getDrawable(R.drawable.volumeparalelogrampyramid));
         } else {
