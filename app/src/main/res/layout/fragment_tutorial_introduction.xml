@@ -6,32 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".ui.tutorial.PlaceholderFragment"
     android:orientation="vertical"
-    android:padding="50dp"
-    android:layout_gravity="center"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="25dp">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="With Measure, you can easily calculate distances, angles, areas and volumes"/>
+        android:lineSpacingMultiplier="1.5"
+        android:singleLine="false"
+        android:text="With measure, you can easily calculate distances, angles, areas and volumes
+around you. \nTo do so, you will simply have to aim at the points which form them using the
+camera and following the steps on the next slides. \nOnce you have obtained all the necessary
+points you can get the desired magnitudes."/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="20sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:text="Example video"
+            android:layout_marginEnd="10dp"/>
+
+        <ImageButton
+            android:id="@+id/introduction_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="Example Video"
+            android:src="@drawable/ic_videocam" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="To do it, you just have to mark those points which define the desired magnitude"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:text="Once you've measured the points, you'll be able to add more manually and calculate multiple magnitudes with them"/>
+        android:text="Swipe to learn how to use the app!"/>
 
 </LinearLayout>

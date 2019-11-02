@@ -6,8 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.albert.measure.R;
+import com.example.albert.measure.activities.HeightActivity;
+import com.example.albert.measure.activities.TutorialActivity;
+
+import java.util.Objects;
 
 public class PlaceholderFragment extends Fragment {
 
@@ -32,19 +38,41 @@ public class PlaceholderFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, final ViewGroup container,
             Bundle savedInstanceState) {
-        int fragmentId = R.layout.fragment_tutorial_introduction;
-        if (tabPosition == 2)
-            fragmentId = R.layout.fragment_tutorial_pointtypes;
-        else if (tabPosition == 3)
-            fragmentId = R.layout.fragment_tutorial_points;
-        else if (tabPosition == 4)
-            fragmentId = R.layout.fragment_tutorial_measure;
-        else if (tabPosition == 5)
-            fragmentId = R.layout.fragment_tutorial_video;
-        else if (tabPosition == 6)
-            fragmentId = R.layout.fragment_tutorial_height;
-        return inflater.inflate(fragmentId, container, false);
+        View myView;
+        if(tabPosition == 1) {
+            myView = inflater.inflate(R.layout.fragment_tutorial_introduction, container, false);
+            myView.findViewById(R.id.introduction_video).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO Make video
+                    Toast.makeText(getContext(), "Video missing!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else if (tabPosition == 2) {
+            myView = inflater.inflate(R.layout.fragment_tutorial_height, container, false);
+            int textId = ((TutorialActivity) Objects.requireNonNull(getActivity())).getHeightMode() == HeightActivity.MODE_MANUAL ?
+                    R.string.tutorial_manual_height : R.string.tutorial_automatic_height;
+                ((TextView)myView.findViewById(R.id.heighttype_tv)).setText(textId);
+        }
+        else if (tabPosition == 3) {
+            myView = inflater.inflate(R.layout.fragment_tutorial_pointtypes, container, false);
+        }
+        else if (tabPosition == 4) {
+            myView = inflater.inflate(R.layout.fragment_tutorial_points, container, false);
+        }
+        else {
+            myView = inflater.inflate(R.layout.fragment_tutorial_measure, container, false);
+            myView.findViewById(R.id.guide_video).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO Make video
+                    Toast.makeText(getContext(), "Video missing!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        return myView;
     }
 }

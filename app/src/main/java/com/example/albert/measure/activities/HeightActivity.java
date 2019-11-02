@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class HeightActivity extends AppCompatActivity {
 
-    private static final int MODE_MANUAL = 0;
+    public static final int MODE_MANUAL = 0;
     private static final int MODE_AUTOMATIC = 1;
 
     private int heightMode;

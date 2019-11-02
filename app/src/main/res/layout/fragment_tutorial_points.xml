@@ -13,83 +13,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Based Points"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:textSize="16sp"
-        android:text="To measure a point which is based, just measured directly as shown in the next slides"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Non-Based Points"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:text="To measure point that is on a certain height, two points will have to be measured in the following order"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="1."/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:text="The based point corresponding to the desired point. That is to say, the point in the same position but on the floor"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="2."/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:text="The actual wanted point"/>
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:layout_weight="1" />
+        android:lineSpacingMultiplier="1.5"
+        android:singleLine="false"
+        android:text="To measure a point, click the 'Add' button on the top-right corner and select
+an option the according type regarding if the desired point is on the ground (Based Point) or not
+(Non-based point). \nTo mark a point, click the button-middle button. Remember that if the desired
+point is not on the ground, you will have to aim first at its 'Base Point' (explained in the previous slide).
+\nYou can cancel a point measurement by clicking on the bottom-left corner button. \nYou can finish
+measuring points and get to the results by clicking on the bottom-right corner button."/>
 
 </LinearLayout>

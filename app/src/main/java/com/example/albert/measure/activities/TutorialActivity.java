@@ -95,4 +95,8 @@ public class TutorialActivity extends AppCompatActivity {
         if (skipItem != null)
             skipItem.setTitle(title);
     }
+
+    public int getHeightMode() {
+        return heightMode;
+    }
 }

@@ -21,6 +21,8 @@
         cm</string>
 
     <string name="title_activity_tutorial">Tutorial</string>
+    <string name="tutorial_automatic_height">As you have given your height on the previous activity, stand still during the measurement and locate the device at the height of your chest. \nIt is recommended to give a specific height if known, in order to get more precise results.</string>
+    <string name="tutorial_manual_height">As you have selected \'Of course\' and entered a specific height on the previous slide, you will have to locate the device at the given height from the ground.</string>
 
     <string-array name="area_types_array">
         <item>Triangle</item>

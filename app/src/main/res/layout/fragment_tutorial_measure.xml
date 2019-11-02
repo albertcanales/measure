@@ -13,36 +13,126 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:textSize="16sp"
-        android:text="To mark the points, rotate the device so the camera preview shown is aiming the desired point."/>
+        android:lineSpacingMultiplier="1.5"
+        android:singleLine="false"
+        android:text="To obtain precise values, measure the points following these steps:"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:text="To do so, set the phone vertically, and then rotate the phone around so that the camera points in the direction of the point"/>
+        android:gravity="top"
+        android:orientation="horizontal">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="1."/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:text="Position the phone vertically."/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:text="Once that is done, rotate the device as it was nodding to focus on the desired point"/>
+        android:gravity="top"
+        android:orientation="horizontal">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="2."/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:text="Pan the camera around in order to aim at the same direction of the desired point."/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:text="After correctly positioning the device, wait a second for the sensors to stabilize and mark the point by clicking the bottom center button."/>
+        android:gravity="top"
+        android:orientation="horizontal">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="3."/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:text="Rotate the camera on a nodding movement to aim at the point."/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="16sp"
-        android:text="Once all the desired points have been measured, click the bottom-right button to see the results."/>
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="4."/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:text="Wait a second for the sensors to stabilise and mark the point."/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="20sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:text="Video Guide"
+            android:layout_marginEnd="10dp"/>
+
+        <ImageButton
+            android:id="@+id/guide_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="Example Video"
+            android:src="@drawable/ic_videocam" />
+
+    </LinearLayout>
 
 </LinearLayout>
