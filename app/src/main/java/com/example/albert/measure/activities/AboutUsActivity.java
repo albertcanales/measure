@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.albert.measure.R;
 
@@ -31,7 +29,6 @@ public class AboutUsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        ((TextView) findViewById(R.id.about_us_tv)).setMovementMethod(new ScrollingMovementMethod());
     }
 
     @Override
