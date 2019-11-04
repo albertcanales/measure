@@ -23,7 +23,7 @@ public class AboutUsActivity extends AppCompatActivity {
         findViewById(R.id.code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://canales2002@bitbucket.org/canales2002/measure.git";
+                String url = "https://github.com/canales2002/measure";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
