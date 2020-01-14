@@ -1,5 +1,7 @@
 package com.example.albert.measure.ui.tutorial;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -46,8 +48,10 @@ public class PlaceholderFragment extends Fragment {
             myView.findViewById(R.id.introduction_video).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO Make video
-                    Toast.makeText(getContext(), "Video missing!", Toast.LENGTH_SHORT).show();
+                    String url = "https://www.youtube.com/watch?v=hK7HbC1EGWM";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
                 }
             });
         } else if (tabPosition == 2) {
@@ -64,8 +68,10 @@ public class PlaceholderFragment extends Fragment {
             myView.findViewById(R.id.guide_video).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO Make video
-                    Toast.makeText(getContext(), "Video missing!", Toast.LENGTH_SHORT).show();
+                    String url = "https://www.youtube.com/watch?v=Xj892oAFnD0";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
                 }
             });
         }
