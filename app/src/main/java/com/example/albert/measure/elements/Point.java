@@ -39,7 +39,7 @@ public class Point extends Element {
     public Point(String name, double h, double[] angles) {
         super(name);
         this.y = Math.tan(angles[0]) * h;
-        this.x = this.y * Math.tan(angles[1]);
+        this.x = this.y * Math.tan(angles[0]);
         z = 0;
     }
 

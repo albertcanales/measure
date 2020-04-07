@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class HeightActivity extends AppCompatActivity {
 
-    public static final int MODE_MANUAL = 0;
+    private static final int MODE_MANUAL = 0;
     private static final int MODE_AUTOMATIC = 1;
 
     private boolean activityActive = true;
@@ -59,7 +59,7 @@ public class HeightActivity extends AppCompatActivity {
                     else {
                         if (activityActive) {
                             activityActive = false;
-                            Intent i = new Intent(getApplicationContext(), TutorialActivity.class);
+                            Intent i = new Intent(getApplicationContext(), PointMethodActivity.class);
                             i.putExtra("h", h);
                             i.putExtra("mode", heightMode);
                             startActivity(i);

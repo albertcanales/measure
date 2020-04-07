@@ -35,9 +35,6 @@
             android:name=".activities.HeightActivity"
             android:label="@string/title_activity_height"/>
         <activity
-            android:name=".activities.TutorialActivity"
-            android:label="@string/title_activity_tutorial"/>
-        <activity
             android:name=".activities.PointMethodActivity"
             android:label="@string/title_activity_point_method"/>
         <activity
